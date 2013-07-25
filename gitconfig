@@ -1,0 +1,49 @@
+[user]
+	name = Pedro Rodriguez
+	email = vondiefinsternis@gmail.com
+
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = auto
+
+[alias]
+    st = status -sb
+    ci = commit
+    cl = clone
+    co = checkout
+    br = branch
+    ps = push
+    pl = pull
+    dc = diff --cached
+    logme = log --graph --author="prodriguez"
+    logg = log --graph
+    gn = grep -n
+    todo = grep -n -E "iw.*:.*todo"
+    unadd = reset
+    ready = rebase -i @{u}
+    lg = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\"
+    lgg = log --graph --decorate --all --oneline
+    purr = pull --rebase
+    m = branch -a --merged
+    nm = branch -a --no-merged
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+        rebase = true
+[github]
+	user = pjrt
+
+[branch]
+	autosetuprebase = always
+[color "decorate"]
+	HEAD = cyan
