@@ -29,6 +29,10 @@ Bundle 'elzr/vim-json'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
+"Bundle 'lukerandall/haskellmode-vim'
+Bundle 'dag/vim2hs'
+"Bundle 'Shougo/neocomplete.vim'
+Bundle 'https://github.com/ujihisa/neco-ghc'
 
 
 set encoding=utf8
@@ -60,9 +64,6 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Add ignored files to wildignore
-set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
-
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
@@ -89,10 +90,6 @@ set bs=2     " make backspace behave like normal again
 " Removes highlight of your last search
 nnoremap <silent><C-m> :nohl<CR>
 
-" Increase and decrease the size of the window
-nnoremap + <C-w>+
-nnoremap _ <C-w>-
-
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 " Every unnecessary keystroke that can be saved is good for your health :)
 map <c-j> <c-w>j
@@ -100,12 +97,8 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-
 " easier moving between tabs
 map <Leader>t <esc>:tabnew<CR>
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
-
 
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
@@ -134,18 +127,8 @@ color wombat256mod
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
-filetype off
 filetype plugin indent on
 syntax enable
-
-
-" Showing line numbers and length
-" set number  " show line numbers
-"" set tw=79   " width of document (used by gd)
-"" set nowrap  " don't automatically wrap on load
-"" set fo-=t   " don't automatically wrap text when typing
-"" set colorcolumn=80
-"" highlight ColorColumn ctermbg=233
 
 " Set line numbers
 set nu
@@ -181,7 +164,19 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" ============================================================================
+" Haskell-mode settings
+" ============================================================================
+"au BufEnter *.hs compiler ghc
+"let g:haddock_browser="/usr/bin/google-chrome"
+"nnoremap :g :GHCi 
+"nnoremap :make :w<CR>:make<CR>
 
+" ============================================================================
+" vim2hs settings
+" ============================================================================
+au FileType haskell nnoremap <Leader>m :HLint<CR>
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 
 " ============================================================================
@@ -202,6 +197,7 @@ let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
+set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
 
 
 " Settings for python-mode
