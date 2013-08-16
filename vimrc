@@ -165,6 +165,9 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" Startify and ctrlP don't work well together without this
+let g:ctrlp_reuse_window  = 'startify'
+
 " ============================================================================
 " Haskell-mode settings
 " ============================================================================
