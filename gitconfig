@@ -32,6 +32,7 @@
     continue = rebase --continue
     skip = rebase --skip
     abort = rebase --abort
+    ss = stash
 
 [push]
 	default = current
