@@ -29,7 +29,7 @@ Bundle 'elzr/vim-json'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
-"Bundle 'lukerandall/haskellmode-vim'
+Bundle 'lukerandall/haskellmode-vim'
 Bundle 'dag/vim2hs'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'https://github.com/ujihisa/neco-ghc'
@@ -171,15 +171,14 @@ let g:ctrlp_reuse_window  = 'startify'
 " ============================================================================
 " Haskell-mode settings
 " ============================================================================
-"au BufEnter *.hs compiler ghc
-"let g:haddock_browser="/usr/bin/google-chrome"
-"nnoremap :g :GHCi 
-"nnoremap :make :w<CR>:make<CR>
+au BufEnter *.hs compiler ghc
+let g:haddock_browser="/usr/bin/google-chrome"
+au FileType haskell nnoremap <Leader>gi :GHCi<Space>
+au FileType haskell nnoremap <Leader>m :w<CR>:make<CR>
 
 " ============================================================================
 " vim2hs settings
 " ============================================================================
-au FileType haskell nnoremap <Leader>m :HLint<CR>
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 
