@@ -34,6 +34,8 @@ Bundle 'dag/vim2hs'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'https://github.com/ujihisa/neco-ghc'
 Bundle 'chrisbra/csv.vim'
+Bundle 'othree/html5.vim'
+Bundle 'gre/play2vim'
 
 
 set encoding=utf8
