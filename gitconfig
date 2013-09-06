@@ -24,6 +24,7 @@
     todo = grep -n -E "pr.*:.*todo"
     unadd = reset
     ready = rebase -i @{u}
+    l = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\" --max-count=10
     lg = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\"
     lgg = log --graph --decorate --all --oneline
     purr = pull --rebase
