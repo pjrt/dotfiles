@@ -37,6 +37,9 @@ Bundle 'chrisbra/csv.vim'
 Bundle 'othree/html5.vim'
 Bundle 'gre/play2vim'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 't9md/vim-chef'
+Bundle 'tyok/ack.vim'
+Bundle 'nerdtree-ack'
 
 
 set encoding=utf8
@@ -187,6 +190,11 @@ au FileType haskell nnoremap <Leader>m :w<CR>:make<CR>
 " ============================================================================
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 
+" ============================================================================
+" Chef Vim
+" ============================================================================
+
+au FileType ruby nnoremap <Leader>f :ChefFindAny<CR>
 
 " ============================================================================
 " Python IDE Setup
@@ -248,8 +256,8 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " curl -so ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 set nofoldenable
 
+" ============================================================================
 " NerdTreeTab settings
-" Start it on startup
-"let g:nerdtree_tabs_open_on_console_startup=1
+" ============================================================================
 nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
 
