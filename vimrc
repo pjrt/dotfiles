@@ -40,7 +40,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 't9md/vim-chef'
 Bundle 'tyok/ack.vim'
 Bundle 'nerdtree-ack'
-
+Bundle 'goldfeld/vim-seek'
 
 set encoding=utf8
 " Rebind <Leader> key
