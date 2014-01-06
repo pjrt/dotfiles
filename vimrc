@@ -41,6 +41,7 @@ Bundle 't9md/vim-chef'
 Bundle 'tyok/ack.vim'
 Bundle 'nerdtree-ack'
 Bundle 'goldfeld/vim-seek'
+Bundle 'pbrisbin/html-template-syntax'
 
 set encoding=utf8
 " Rebind <Leader> key
