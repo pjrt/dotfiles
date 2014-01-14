@@ -83,7 +83,7 @@ nnoremap L $
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 set pastetoggle=<F2>
-set clipboard+=unnamed
+"set clipboard+=unnamed
 
 " map operator p to i) (easy inner parameter selecting)
 onoremap p i)
@@ -175,8 +175,17 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" ============================================================================
+" CtrlP
+" ============================================================================
 " Startify and ctrlP don't work well together without this
 let g:ctrlp_reuse_window  = 'startify'
+let g:ctrlp_working_path_mode = "ra"
+let g:ctrlp_max_height = 30
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
+set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
 
 " ============================================================================
 " Haskell-mode settings
@@ -206,17 +215,6 @@ au FileType ruby nnoremap <Leader>f :ChefFindAny<CR>
 " cd ~/.vim/bundle
 " git clone git://github.com/Lokaltog/vim-powerline.git
 set laststatus=2
-
-
-" Settings for ctrlp
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
-let g:ctrlp_max_height = 30
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
-set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
-
 
 " Settings for python-mode
 " cd ~/.vim/bundle
@@ -262,3 +260,12 @@ set nofoldenable
 " ============================================================================
 nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
 
+
+" ===========================================================================
+" Scala IDE
+" ===========================================================================
+set errorformat=%E\ %#[error]\ %#%f:%l:\ %m,%-Z\ %#[error]\ %p^,%-C\ %#[error]\ %m
+set errorformat+=,%W\ %#[warn]\ %#%f:%l:\ %m,%-Z\ %#[warn]\ %p^,%-C\ %#[warn]\ %m
+set errorformat+=,%-G%.%#
+noremap <silent> <Leader>ff :cf /tmp/sbt.quickfix<CR>
+noremap <silent> <Leader>fn :cn<CR>
