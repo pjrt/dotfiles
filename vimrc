@@ -269,3 +269,6 @@ set errorformat+=,%W\ %#[warn]\ %#%f:%l:\ %m,%-Z\ %#[warn]\ %p^,%-C\ %#[warn]\ %
 set errorformat+=,%-G%.%#
 noremap <silent> <Leader>ff :cf /tmp/sbt.quickfix<CR>
 noremap <silent> <Leader>fn :cn<CR>
+
+" Set Autoread
+set autoread
