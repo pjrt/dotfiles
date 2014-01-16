@@ -36,29 +36,28 @@ Bundle 'https://github.com/ujihisa/neco-ghc'
 Bundle 'chrisbra/csv.vim'
 Bundle 'othree/html5.vim'
 Bundle 'gre/play2vim'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 't9md/vim-chef'
 Bundle 'tyok/ack.vim'
 Bundle 'nerdtree-ack'
-Bundle 'goldfeld/vim-seek'
 Bundle 'pbrisbin/html-template-syntax'
+Bundle 'justinmk/vim-sneak'
+Bundle 'scrooloose/syntastic'
 
+" Themes
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tomasr/molokai'
+Bundle 'chriskempson/vim-tomorrow-theme'
+
+" ============================================================================
+" Meta
+" ============================================================================
 set encoding=utf8
 " Rebind <Leader> key
-" I like to have it here becuase it is easier to reach than the default and
-" it is next to ``m`` and ``n`` which I use for navigating between tabs.
 let mapleader = ","
 let maplocalleader = ","
 
 " Add Fugitive info to the status bar
 set statusline+=%{fugitive#statusline()}
-
-" Make kj and jk to be <ESC>
-inoremap kj <Esc>
-inoremap jk <Esc>
-
-" Gundo mapping
-nnoremap <silent><Leader>p :GundoToggle<CR>
 
 " Use ALL the colors!
 set t_Co=256
@@ -66,24 +65,34 @@ set t_Co=256
 " make ctrl+s be ctrl+a since c-a is used in screen
 nnoremap <c-s> <c-a>
 
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Better copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+set pastetoggle=<F2>
+
+"set clipboard+=unnamed
+" ============================================================================
+" Key remapping
+" ============================================================================
+" Make kj and jk to be <ESC>
+inoremap kj <Esc>
+inoremap jk <Esc>
+
+" Gundo mapping
+nnoremap <silent><Leader>p :GundoToggle<CR>
+
 " Edit my vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 " Source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
-
 " Make H and L be ^ and $
 nnoremap H ^
 nnoremap L $
-
-" Better copy & paste
-" When you want to paste large blocks of code into vim, press F2 before you
-" paste. At the bottom you should see ``-- INSERT (paste) --``.
-set pastetoggle=<F2>
-"set clipboard+=unnamed
 
 " map operator p to i) (easy inner parameter selecting)
 onoremap p i)
@@ -126,15 +135,21 @@ nnoremap Y y$
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
-
-" Color scheme
-" mkdir -p ~/.vim/colors && cd ~/.vim/colors
-" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-"set t_Co=256
-"color wombat256mod
+" ============================================================================
+" Aesthetics
+" ============================================================================
 
 set background=dark
 colorscheme solarized
+
+" Crosshairs
+hi CursorLine   cterm=NONE ctermbg=235
+hi CursorColumn cterm=NONE ctermbg=235
+nnoremap <silent> <Leader>vv :set cursorline! cursorcolumn!<CR>
+if has("gui_running")
+    set cursorline
+    set cursorcolumn
+endif
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
@@ -182,6 +197,7 @@ set noswapfile
 let g:ctrlp_reuse_window  = 'startify'
 let g:ctrlp_working_path_mode = "ra"
 let g:ctrlp_max_height = 30
+let g:ctrlp_root_markers = ['project/']
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
