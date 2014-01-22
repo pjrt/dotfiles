@@ -41,7 +41,7 @@ Bundle 'tyok/ack.vim'
 Bundle 'nerdtree-ack'
 Bundle 'pbrisbin/html-template-syntax'
 Bundle 'justinmk/vim-sneak'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -189,6 +189,9 @@ set smartcase
 set nobackup
 set nowritebackup
 set noswapfile
+
+" Tags
+set tags=tags;/
 
 " ============================================================================
 " CtrlP
