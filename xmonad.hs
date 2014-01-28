@@ -294,6 +294,7 @@ myLogHook = return ()
 --
 myStartupHook = do
                    s <- spawn "xset r rate 200 50"
+                   xcope <- spawn "xcape -e 'Control_L=Escape'"
                    keys <- spawn "xmodmap ~/xmonad.keys.xmodmap"
                    vm <- setWMName "LG3D"
                    return ()
