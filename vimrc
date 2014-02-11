@@ -18,7 +18,6 @@ Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'klen/python-mode'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
-"Bundle 'vim-scripts/AutoClose--Alves'
 Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'mhinz/vim-startify'
@@ -43,6 +42,8 @@ Bundle 'nerdtree-ack'
 Bundle 'pbrisbin/html-template-syntax'
 Bundle 'justinmk/vim-sneak'
 "Bundle 'scrooloose/syntastic'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'Shougo/vimproc.vim'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -215,6 +216,9 @@ let g:haddock_browser="/usr/bin/google-chrome"
 au FileType haskell nnoremap <Leader>gi :GHCi<Space>
 au FileType haskell nnoremap <Leader>m :w<CR>:make<CR>
 
+au FileType haskell nnoremap ght :GhcModType<CR>
+au FileType haskell nnoremap ghm :GhcModTypeClear<CR>
+
 " ============================================================================
 " vim2hs settings
 " ============================================================================
@@ -279,6 +283,7 @@ set nofoldenable
 " NerdTreeTab settings
 " ============================================================================
 nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 
 " ===========================================================================
