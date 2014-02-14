@@ -44,6 +44,9 @@ Bundle 'justinmk/vim-sneak'
 "Bundle 'scrooloose/syntastic'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'spiroid/vim-ultisnip-scala'
+Bundle 'vim-scripts/dbext.vim'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -149,8 +152,8 @@ hi CursorLine   cterm=NONE ctermbg=235
 hi CursorColumn cterm=NONE ctermbg=235
 nnoremap <silent> <Leader>vv :set cursorline! cursorcolumn!<CR>
 if has("gui_running")
-    set cursorline
-    set cursorcolumn
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline cursorcolumn
+    au WinLeave * setlocal nocursorline nocursorcolumn
 endif
 
 " Enable syntax highlighting
@@ -196,6 +199,13 @@ set noswapfile
 set tags=tags;/
 
 " ============================================================================
+" Fugitive
+" ============================================================================
+
+nnoremap <silent> gb :Gblame<CR>
+nnoremap <silent> gs :Gstatus<CR>
+
+" ============================================================================
 " CtrlP
 " ============================================================================
 " Startify and ctrlP don't work well together without this
@@ -207,6 +217,14 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
+
+" ===========================================================================
+" UltiSnips
+" ===========================================================================
+
+let g:UltiSnipsExpandTrigger="<C-c>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 " ============================================================================
 " Haskell-mode settings
@@ -270,10 +288,6 @@ function! OmniPopup(action)
     return a:action
 endfunction
 
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " curl -so ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
@@ -295,5 +309,37 @@ set errorformat+=,%-G%.%#
 noremap <silent> <Leader>ff :cf /tmp/sbt.quickfix<CR>
 noremap <silent> <Leader>fn :cn<CR>
 
+" Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
+function! GetPackageForFile(...)
+    let dir = expand('%:p:h')
+    let regexes = [
+                \   [ '/src/main/scala',      '/src/main/scala' ],
+                \   [ '/src/test/scala',      '/src/test/scala' ],
+                \   [ '/src/it/scala',        '/src/it/scala' ],
+                \   [ '/src/multi-jvm/scala', '/src/multi-jvm/scala' ],
+                \   [ '/app/model/scala',     '/app/model/scala' ],
+                \   [ '/app/controllers',     '/app' ],
+                \   [ '/test/scala',          '/test/scala' ]
+                \ ]
+    for e in regexes
+      let idx = match(dir, e[0])
+      if idx != -1
+        let subdir = strpart(dir, idx + strlen(e[1]) + 1)
+        let package = substitute(subdir, '/', '.', 'g')
+        return package
+      endif
+    endfor
+    return ''
+endfunction
+
+function! Classname(...)
+  return expand('%:t:r')
+endfunction
+"
 " Set Autoread
 set autoread
+
+" ===========================================================================
+" DB connections
+" ===========================================================================
+let g:dbext_default_profile_localhost = 'type=MYSQL:user=root:dbname=updtr'
