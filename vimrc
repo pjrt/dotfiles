@@ -46,7 +46,6 @@ Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
-Bundle 'vim-scripts/dbext.vim'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -338,8 +337,3 @@ endfunction
 "
 " Set Autoread
 set autoread
-
-" ===========================================================================
-" DB connections
-" ===========================================================================
-let g:dbext_default_profile_localhost = 'type=MYSQL:user=root:dbname=updtr'
