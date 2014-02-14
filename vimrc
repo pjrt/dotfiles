@@ -46,6 +46,7 @@ Bundle 'eagletmt/ghcmod-vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
+Bundle 'vim-scripts/ZoomWin'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
