@@ -47,6 +47,7 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
 Bundle 'vim-scripts/ZoomWin'
+Bundle 'tpope/vim-unimpaired'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
