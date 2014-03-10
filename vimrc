@@ -48,6 +48,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
 Bundle 'regedarek/ZoomWin'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'zhaocai/GoldenView.Vim'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -114,9 +115,6 @@ set bs=2     " make backspace behave like normal again
 nnoremap <silent><C-m> :nohl<CR>
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-" Every unnecessary keystroke that can be saved is good for your health :)
-map <c-j> <c-w>j
-map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
@@ -140,6 +138,9 @@ nnoremap Y y$
 " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Seems to need to set this here and not in haskell.vim
+let g:haddock_browser="/usr/bin/google-chrome"
 
 " ============================================================================
 " Aesthetics
@@ -200,6 +201,19 @@ set noswapfile
 set tags=tags;/
 
 " ============================================================================
+" Golden Ratio
+" ============================================================================
+
+let g:goldenview__enable_default_mapping = 0
+nmap <silent> <c-L> <Plug>GoldenViewSplit
+
+nmap <silent> <C-J>  <Plug>GoldenViewNext
+nmap <silent> <C-K>  <Plug>GoldenViewPrevious
+
+nmap <silent> <C-w>m  <Plug>GoldenViewSwitchMain
+nmap <silent> <C-w>n  <Plug>GoldenViewSwitchToggle
+
+" ============================================================================
 " Fugitive
 " ============================================================================
 
@@ -227,53 +241,11 @@ let g:UltiSnipsExpandTrigger="<C-c>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
-" ============================================================================
-" Haskell-mode settings
-" ============================================================================
-au BufEnter *.hs compiler ghc
-let g:haddock_browser="/usr/bin/google-chrome"
-au FileType haskell nnoremap <Leader>gi :GHCi<Space>
-au FileType haskell nnoremap <Leader>m :w<CR>:make<CR>
-
-au FileType haskell nnoremap ght :GhcModType<CR>
-au FileType haskell nnoremap ghm :GhcModTypeClear<CR>
-
-" ============================================================================
-" vim2hs settings
-" ============================================================================
-au FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" ============================================================================
-" Chef Vim
-" ============================================================================
-
-au FileType ruby nnoremap <Leader>f :ChefFindAny<CR>
-
-" ============================================================================
-" Python IDE Setup
-" ============================================================================
-
-
 " Settings for vim-powerline
 " cd ~/.vim/bundle
 " git clone git://github.com/Lokaltog/vim-powerline.git
 set laststatus=2
 
-" Settings for python-mode
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-map <Leader>g :call RopeGotoDefinition()<CR>
-map <Leader>d <C-c>d
-map <Leader>f <C-c>f
-let ropevim_enable_shortcuts = 1
-let g:pymode_rope_goto_def_newwin = "vnew"
-let g:pymode_rope_extended_complete = 1
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 1
-let g:pymode_syntax_builtin_funcs = 1
-let g:pymode_lint_ignore = "E501"
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
@@ -289,10 +261,6 @@ function! OmniPopup(action)
     return a:action
 endfunction
 
-" Python folding
-" mkdir -p ~/.vim/ftplugin
-" curl -so ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-set nofoldenable
 
 " ============================================================================
 " NerdTreeTab settings
@@ -301,17 +269,8 @@ nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 
-" ===========================================================================
-" Scala IDE
-" ===========================================================================
-set errorformat=%E\ %#[error]\ %#%f:%l:\ %m,%-Z\ %#[error]\ %p^,%-C\ %#[error]\ %m
-set errorformat+=,%W\ %#[warn]\ %#%f:%l:\ %m,%-Z\ %#[warn]\ %p^,%-C\ %#[warn]\ %m
-set errorformat+=,%-G%.%#
-noremap <silent> <Leader>ff :cf /tmp/sbt.quickfix<CR>
-noremap <silent> <Leader>fn :cn<CR>
-
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
-function! GetPackageForFile(...)
+function! _GetPackageForFile(regexes)
     let dir = expand('%:p:h')
     let regexes = [
                 \   [ '/src/main/scala',      '/src/main/scala' ],
