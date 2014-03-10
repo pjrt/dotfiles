@@ -97,15 +97,6 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Make H and L be ^ and $
-nnoremap H ^
-nnoremap L $
-
-" map operator p to i) (easy inner parameter selecting)
-onoremap p i)
-onoremap } i}
-onoremap ] i]
-
 " Mouse and backspace
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
@@ -246,20 +237,9 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 " git clone git://github.com/Lokaltog/vim-powerline.git
 set laststatus=2
 
-
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
 
 
 " ============================================================================
@@ -268,6 +248,8 @@ endfunction
 nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
+let g:NERDTreeMapJumpNextSibling = "<C-n>"
+let g:NERDTreeMapJumpPrevSibling = "<C-p>"
 
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
 function! _GetPackageForFile(regexes)
