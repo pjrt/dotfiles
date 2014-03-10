@@ -5,6 +5,17 @@ if [ -z $DOTFILES ]; then
     exit 0
 fi
 
-cd ~/.vim/
-ln -s $DOTFILES/vim_template/ftplugin ftplugin
-ln -s $DOTFILES/vim_template/plugin plugin
+# Vim stuff
+cd $HOME
+ln -sf $DOTFILES/vimrc .vimrc
+
+cd $HOME/.vim/
+ln -sf $DOTFILES/vim_template/ftplugin ftplugin
+
+ln -sf $DOTFILES/vim_template/plugin plugin
+
+# Git stuff
+cd $HOME
+
+ln -sf $DOTFILES/git_template .git_template
+ln -sf $DOTFILES/gitconfig .gitconfig
