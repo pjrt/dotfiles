@@ -14,29 +14,31 @@
 --
 -- http://www.haskell.org/haskellwiki/Xmonad/Notable_changes_since_0.8
 --
- 
+
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 import Data.Monoid
 import System.Exit
- 
+import XMonad.Actions.Volume
+import XMonad.Util.Dzen
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
- 
+
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
 myTerminal      = "gnome-terminal"
- 
+
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
- 
+
 -- Width of the window border in pixels.
 --
 myBorderWidth   = 1
- 
+
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
@@ -87,10 +89,10 @@ myFocusedBorderColor = "#ff0000"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
- 
+
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
- 
+
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
  
@@ -150,15 +152,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- See also the statusBar function from Hooks.DynamicLog.
     --
      {-, ((modm              , xK_b     ), sendMessage ToggleStruts)-}
- 
+
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
- 
+
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     ]
     ++
- 
+
     --
     -- mod-[1..9], Switch to workspace N
     --
@@ -177,8 +179,20 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
- 
- 
+    ++
+
+    -- mod-f6 increases the volume. mod-f5 decreases it. mod-f3 mutes it
+     [
+         ((modm, xK_F6), raiseVolume 4 >>= alert),
+         ((modm, xK_F5), lowerVolume 4 >>= alert)
+     ]
+
+alert = dzenConfig centered . show . round
+centered =
+        onCurr (center 150 66)
+    >=> font "-*-helvetica-*-r-*-*-64-*-*-*-*-*-*-*"
+    >=> addArgs ["-fg", "#80c0ff"]
+    >=> addArgs ["-bg", "#000040"]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
