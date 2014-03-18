@@ -50,6 +50,9 @@ Bundle 'regedarek/ZoomWin'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'zhaocai/GoldenView.Vim'
 
+" Interface
+Bundle 'tomtom/quickfixsigns_vim'
+
 " Themes
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tomasr/molokai'
@@ -190,6 +193,9 @@ set noswapfile
 
 " Tags
 set tags=tags;/
+
+" Quickfixsigns
+let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
 
 " ============================================================================
 " Golden Ratio
