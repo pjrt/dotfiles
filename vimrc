@@ -51,7 +51,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'zhaocai/GoldenView.Vim'
 
 " Interface
-Bundle 'tomtom/quickfixsigns_vim'
+Bundle 'tomtom/quickfixsigns_vim' 
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -260,15 +260,6 @@ let g:NERDTreeMapJumpPrevSibling = "<C-p>"
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
 function! _GetPackageForFile(regexes)
     let dir = expand('%:p:h')
-    let regexes = [
-                \   [ '/src/main/scala',      '/src/main/scala' ],
-                \   [ '/src/test/scala',      '/src/test/scala' ],
-                \   [ '/src/it/scala',        '/src/it/scala' ],
-                \   [ '/src/multi-jvm/scala', '/src/multi-jvm/scala' ],
-                \   [ '/app/model/scala',     '/app/model/scala' ],
-                \   [ '/app/controllers',     '/app' ],
-                \   [ '/test/scala',          '/test/scala' ]
-                \ ]
     for e in regexes
       let idx = match(dir, e[0])
       if idx != -1
