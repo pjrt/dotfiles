@@ -29,10 +29,9 @@ Bundle 'elzr/vim-json'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
-Bundle 'lukerandall/haskellmode-vim'
+"Bundle 'lukerandall/haskellmode-vim'
 Bundle 'dag/vim2hs'
 "Bundle 'Shougo/neocomplete.vim'
-Bundle 'https://github.com/ujihisa/neco-ghc'
 Bundle 'chrisbra/csv.vim'
 Bundle 'othree/html5.vim'
 Bundle 'gre/play2vim'
@@ -43,6 +42,7 @@ Bundle 'pbrisbin/html-template-syntax'
 Bundle 'justinmk/vim-sneak'
 "Bundle 'scrooloose/syntastic'
 Bundle 'eagletmt/ghcmod-vim'
+Bundle 'eagletmt/neco-ghc'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
@@ -71,9 +71,6 @@ set statusline+=%{fugitive#statusline()}
 
 " Use ALL the colors!
 set t_Co=256
-
-" make ctrl+s be ctrl+a since c-a is used in screen
-nnoremap <c-s> <c-a>
 
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -128,13 +125,22 @@ vnoremap > >gv  " better indentation
 " Make Y behave correctly
 nnoremap Y y$
 
+" Switch buffer rules
+let g:switchbuf="useopen,split"
+
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
+" Delete whitespace on command
+nnoremap <silent> <F5> :%s/\s\+$//<CR>
+
 " Seems to need to set this here and not in haskell.vim
 let g:haddock_browser="/usr/bin/google-chrome"
+
+let g:haskell_autotags = 1
+let g:haskell_tags_generator = "hasktags"
 
 " ============================================================================
 " Aesthetics
