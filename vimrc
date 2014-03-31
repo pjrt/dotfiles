@@ -283,6 +283,11 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:NERDTreeMapJumpNextSibling = "<C-n>"
 let g:NERDTreeMapJumpPrevSibling = "<C-p>"
 
+" }}}
+
+" Custom Functions {{{
+" ============================================================================
+
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
 function! _GetPackageForFile(regexes)
     let dir = expand('%:p:h')
