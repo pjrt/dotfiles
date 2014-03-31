@@ -1,9 +1,10 @@
-"=============================================================
-" Vundle
-"============================================================
+" vim:fdm=marker
 
 set nocompatible               " be iMproved
 filetype off                   " required!
+
+" Vundle {{{
+"============================================================
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -58,8 +59,9 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'tomasr/molokai'
 Bundle 'chriskempson/vim-tomorrow-theme'
 
-" ============================================================================
-" Meta
+" }}}
+
+" Meta {{{
 " ============================================================================
 set encoding=utf8
 " Rebind <Leader> key
@@ -80,10 +82,15 @@ autocmd! bufwritepost .vimrc source %
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 set pastetoggle=<F2>
 
-"set clipboard+=unnamed
+" Mouse and backspace
+set mouse=a  " on OSX press ALT and click
+set bs=2     " make backspace behave like normal again
+
+" }}}
+
+" Key remapping {{{
 " ============================================================================
-" Key remapping
-" ============================================================================
+
 " Make kj and jk to be <ESC>
 inoremap kj <Esc>
 inoremap jk <Esc>
@@ -96,10 +103,6 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 " Source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" Mouse and backspace
-set mouse=a  " on OSX press ALT and click
-set bs=2     " make backspace behave like normal again
 
 " Bind nohl
 " Removes highlight of your last search
@@ -125,16 +128,38 @@ vnoremap > >gv  " better indentation
 " Make Y behave correctly
 nnoremap Y y$
 
-" Switch buffer rules
-let g:switchbuf="useopen,split"
+" Delete whitespace on command
+nnoremap <silent> <F5> :%s/\s\+$//<CR>
+
+" }}}
+
+" Misc {{{
+" ============================================================================
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
-" Delete whitespace on command
-nnoremap <silent> <F5> :%s/\s\+$//<CR>
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Tags
+set tags=tags;/
+
+" Set Autoread
+set autoread
+
+" }}}
+
+" Variable setting {{{
+" ============================================================================
+
+" Switch buffer rules
+let g:switchbuf="useopen,split"
 
 " Seems to need to set this here and not in haskell.vim
 let g:haddock_browser="/usr/bin/google-chrome"
@@ -142,8 +167,12 @@ let g:haddock_browser="/usr/bin/google-chrome"
 let g:haskell_autotags = 1
 let g:haskell_tags_generator = "hasktags"
 
-" ============================================================================
-" Aesthetics
+" Quickfixsigns
+let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
+
+" }}}
+
+" Aesthetics {{{
 " ============================================================================
 
 set background=dark
@@ -190,21 +219,9 @@ set incsearch
 set ignorecase
 set smartcase
 
+" }}}
 
-" Disable stupid backup and swap files - they trigger too many events
-" for file system watchers
-set nobackup
-set nowritebackup
-set noswapfile
-
-" Tags
-set tags=tags;/
-
-" Quickfixsigns
-let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
-
-" ============================================================================
-" Golden Ratio
+" Golden Ratio {{{
 " ============================================================================
 
 let g:goldenview__enable_default_mapping = 0
@@ -216,15 +233,17 @@ nmap <silent> <C-K>  <Plug>GoldenViewPrevious
 nmap <silent> <C-w>m  <Plug>GoldenViewSwitchMain
 nmap <silent> <C-w>n  <Plug>GoldenViewSwitchToggle
 
-" ============================================================================
-" Fugitive
+" }}}
+
+" Fugitive {{{
 " ============================================================================
 
 nnoremap <silent> gb :Gblame<CR>
 nnoremap <silent> gs :Gstatus<CR>
 
-" ============================================================================
-" CtrlP
+" }}}
+
+" CtrlP {{{
 " ============================================================================
 " Startify and ctrlP don't work well together without this
 let g:ctrlp_reuse_window  = 'startify'
@@ -236,8 +255,9 @@ set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
 
-" ===========================================================================
-" UltiSnips
+" }}}
+
+" UltiSnips {{{
 " ===========================================================================
 
 let g:UltiSnipsExpandTrigger="<C-c>"
@@ -253,9 +273,9 @@ set laststatus=2
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
 
+" }}}
 
-" ============================================================================
-" NerdTreeTab settings
+" NerdTreeTab settings {{{
 " ============================================================================
 nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
@@ -280,6 +300,5 @@ endfunction
 function! Classname(...)
   return expand('%:t:r')
 endfunction
-"
-" Set Autoread
-set autoread
+
+" }}}
