@@ -250,6 +250,7 @@ let g:ctrlp_reuse_window  = 'startify'
 let g:ctrlp_working_path_mode = "ra"
 let g:ctrlp_max_height = 30
 let g:ctrlp_root_markers = ['project/']
+set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
