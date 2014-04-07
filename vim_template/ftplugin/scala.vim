@@ -4,7 +4,7 @@ set errorformat+=%-G%.%#
 noremap <silent> <Leader>ff :cf /tmp/sbt.quickfix<CR>
 noremap <silent> <Leader>fn :cn<CR>
 
-function! GetPackageForFile(...)
+function! GetPackageForFile()
     let regexes = [
                 \   [ '/src/main/scala',      '/src/main/scala' ],
                 \   [ '/src/test/scala',      '/src/test/scala' ],

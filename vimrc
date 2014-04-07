@@ -292,7 +292,7 @@ let g:NERDTreeMapJumpPrevSibling = "<C-p>"
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
 function! _GetPackageForFile(regexes)
     let dir = expand('%:p:h')
-    for e in regexes
+    for e in a:regexes
       let idx = match(dir, e[0])
       if idx != -1
         let subdir = strpart(dir, idx + strlen(e[1]) + 1)
