@@ -14,9 +14,7 @@ Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-surround'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'klen/python-mode'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
 Bundle 'Raimondi/delimitMate'
@@ -34,12 +32,8 @@ Bundle 'sjl/gundo.vim'
 Bundle 'dag/vim2hs'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'chrisbra/csv.vim'
-Bundle 'othree/html5.vim'
-Bundle 'gre/play2vim'
 Bundle 't9md/vim-chef'
-Bundle 'tyok/ack.vim'
 Bundle 'nerdtree-ack'
-Bundle 'pbrisbin/html-template-syntax'
 Bundle 'justinmk/vim-sneak'
 "Bundle 'scrooloose/syntastic'
 Bundle 'eagletmt/ghcmod-vim'
@@ -51,13 +45,31 @@ Bundle 'regedarek/ZoomWin'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'zhaocai/GoldenView.Vim'
 
-" Interface
-Bundle 'tomtom/quickfixsigns_vim' 
+" Syntax {{{
 
-" Themes
+Bundle 'derekwyatt/vim-scala'
+Bundle 'klen/python-mode'
+Bundle 'tpope/vim-markdown'
+Bundle 'pbrisbin/html-template-syntax'
+Bundle 'tyok/ack.vim'
+Bundle 'othree/html5.vim'
+Bundle 'gre/play2vim'
+
+" }}}
+
+" Interface {{{
+
+Bundle 'tomtom/quickfixsigns_vim'
+
+" }}}
+
+" Themes {{{
+
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tomasr/molokai'
 Bundle 'chriskempson/vim-tomorrow-theme'
+
+" }}}
 
 " }}}
 
