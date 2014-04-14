@@ -71,6 +71,12 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 
 " }}}
 
+" Other {{{
+
+Bundle 'aaronbieber/vim-vault'
+
+" }}}
+
 " }}}
 
 " Meta {{{

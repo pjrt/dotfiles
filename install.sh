@@ -8,11 +8,12 @@ fi
 export vimrc="vimrc, .vimrc, $HOME"
 export ftplugin="vim_template/ftplugin, ftplugin, $HOME/.vim/"
 export plugin="vim_template/plugin, plugin, $HOME/.vim/"
+export ultisnip="vim_template/UltiSnip, plugin, $HOME/.vim/"
 export git_template="git_template, .git_template, $HOME"
 export gitconfig="gitconfig, .gitconfig, $HOME"
 
 IFS=","
-for i in vimrc ftplugin plugin git_template gitconfig;
+for i in vimrc ftplugin plugin ultisnip git_template gitconfig;
 do
     set $i
     cd $3
