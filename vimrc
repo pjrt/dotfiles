@@ -22,10 +22,9 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'mhinz/vim-startify'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'RelOps'
-Bundle 'scrooloose/nerdtree'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'elzr/vim-json'
-Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'tpope/vim-vinegar'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
 "Bundle 'lukerandall/haskellmode-vim'
@@ -33,7 +32,6 @@ Bundle 'dag/vim2hs'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'chrisbra/csv.vim'
 Bundle 't9md/vim-chef'
-Bundle 'nerdtree-ack'
 Bundle 'justinmk/vim-sneak'
 "Bundle 'scrooloose/syntastic'
 Bundle 'eagletmt/ghcmod-vim'
@@ -291,16 +289,6 @@ set laststatus=2
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
-
-" }}}
-
-" NerdTreeTab settings {{{
-" ============================================================================
-nnoremap <silent><Leader>, :NERDTreeTabsToggle <CR>
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-let g:NERDTreeMapJumpNextSibling = "<C-n>"
-let g:NERDTreeMapJumpPrevSibling = "<C-p>"
 
 " }}}
 
