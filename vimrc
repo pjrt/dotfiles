@@ -71,7 +71,7 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 
 " Other {{{
 
-Bundle 'aaronbieber/vim-vault'
+Bundle 'pjrt/vim-vault'
 
 " }}}
 
