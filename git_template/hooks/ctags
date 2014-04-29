@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
+
+if [ -e .git/tags-executable ]; then
+    CT=`head -n 1 .git/tags-executable`
+else
+    CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql"
+fi
+
 PATH="/usr/local/bin:$PATH"
 trap "rm -f .git/tags.$$" EXIT
-ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql
+eval "$CT"
 mv .git/tags.$$ .git/tags
