@@ -191,7 +191,7 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No mark
 " ============================================================================
 
 set background=dark
-colorscheme solarized
+colorscheme desert
 
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235

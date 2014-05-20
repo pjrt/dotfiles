@@ -5,6 +5,9 @@ if [ -z $DOTFILES ]; then
     exit 0
 fi
 
+cd $HOME
+mkdir .vim
+
 export vimrc="vimrc, .vimrc, $HOME"
 export ftplugin="vim_template/ftplugin, ftplugin, $HOME/.vim/"
 export plugin="vim_template/plugin, plugin, $HOME/.vim/"
