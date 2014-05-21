@@ -71,6 +71,7 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 " Other {{{
 
 Bundle 'pjrt/vim-vault'
+Bundle 'pjrt/custom-vim'
 
 " }}}
 

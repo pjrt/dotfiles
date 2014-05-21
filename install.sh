@@ -1,25 +1,29 @@
 # Make links from DOTFILES to the correct locations
 
-if [ -z $DOTFILES ]; then
-    echo "DOTFILES is not set"
-    exit 0
-fi
+export DOTFILES=$PWD
 
 cd $HOME
-mkdir .vim
+if [ ! -d .vim ]; then
+    mkdir .vim
+fi
+export VIMHOME="$HOME/.vim"
 
-export vimrc="vimrc, .vimrc, $HOME"
-export ftplugin="vim_template/ftplugin, ftplugin, $HOME/.vim/"
-export plugin="vim_template/plugin, plugin, $HOME/.vim/"
-export ultisnip="vim_template/UltiSnip, plugin, $HOME/.vim/"
-export git_template="git_template, .git_template, $HOME"
-export gitconfig="gitconfig, .gitconfig, $HOME"
+# Symlinks
 
-IFS=","
-for i in vimrc ftplugin plugin ultisnip git_template gitconfig;
-do
-    set $i
-    cd $3
-    echo "Setting up $1"
-    ln -s $DOTFILES/$1 $2
-done
+echo "Setting home symlinks"
+cd $HOME
+
+echo "Vimrc"
+ln -s $DOTFILES/vimrc .vimrc
+
+echo "Git"
+ln -s $DOTFILES/git_template .git_template
+ln -s $DOTFILES/gitconfig .gitconfig
+
+echo "Installing vundle"
+cd $VIMHOME
+mkdir bundle
+git clone https://github.com/gmarik/Vundle.vim.git $VIMHOME/bundle/Vundle.vim
+
+echo "Running vundle"
+vim +BundleInstall +qall
