@@ -11,7 +11,6 @@ call vundle#rc()
 
 Bundle 'gmarik/Vundle.vim'
 
-Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-surround'
 Bundle 'nelstrom/vim-visual-star-search'
@@ -45,6 +44,7 @@ Bundle 'zhaocai/GoldenView.Vim'
 
 Bundle 'amiorin/vim-project'
 Bundle 'Shougo/vimshell.vim'
+Bundle 'Shougo/unite.vim'
 
 " Syntax {{{
 
@@ -263,13 +263,10 @@ nnoremap <silent> gs :Gstatus<CR>
 
 " }}}
 
-" CtrlP {{{
+" Unite {{{
 " ============================================================================
-" Startify and ctrlP don't work well together without this
-let g:ctrlp_reuse_window  = 'startify'
-let g:ctrlp_working_path_mode = "ra"
-let g:ctrlp_max_height = 30
-let g:ctrlp_root_markers = ['project/']
+nnoremap <C-p> :Unite -auto-preview file_rec/async<cr>
+nnoremap <space>s :Unite -quick-match buffer<cr>
 set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
