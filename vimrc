@@ -19,7 +19,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
 Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'mhinz/vim-startify'
+"Bundle 'mhinz/vim-startify'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplete.vim'
 "Bundle 'Valloric/YouCompleteMe'
@@ -44,6 +44,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'zhaocai/GoldenView.Vim'
 
 Bundle 'amiorin/vim-project'
+Bundle 'Shougo/vimshell.vim'
 
 " Syntax {{{
 
@@ -336,7 +337,7 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
