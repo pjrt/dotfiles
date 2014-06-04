@@ -43,6 +43,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'zhaocai/GoldenView.Vim'
 
 Bundle 'amiorin/vim-project'
+
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/unite.vim'
 
@@ -265,13 +266,21 @@ nnoremap <silent> gs :Gstatus<CR>
 
 " Unite {{{
 " ============================================================================
-nnoremap <C-p> :Unite -auto-preview file_rec/async<cr>
-nnoremap <space>s :Unite -quick-match buffer<cr>
+let g:unite_source_grep_command = 'ack'
+let g:unite_source_rec_async_command = 'ack -f --nofilter'
+
+nnoremap <C-p> :Unite -buffer-name=files file_rec/async<cr>
+nnoremap <space>s :Unite -buffer-name=buffer -quick-match buffer<cr>
+
 set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
+
+let g:unite_source_rec_max_cache_files = 0
+call unite#custom#source('file_rec,file_rec/async',
+            \ 'max_candidates', 0)
 
 " }}}
 
