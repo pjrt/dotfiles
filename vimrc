@@ -278,9 +278,9 @@ set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
 
-let g:unite_source_rec_max_cache_files = 0
+let g:unite_source_rec_max_cache_files = 10000
 call unite#custom#source('file_rec,file_rec/async',
-            \ 'max_candidates', 0)
+            \ 'max_candidates', 10000)
 
 " }}}
 
