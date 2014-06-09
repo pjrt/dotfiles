@@ -266,21 +266,23 @@ nnoremap <silent> gs :Gstatus<CR>
 
 " Unite {{{
 " ============================================================================
-let g:unite_source_grep_command = 'ack'
-let g:unite_source_rec_async_command = 'ack -f --nofilter'
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 
-nnoremap <C-p> :Unite -buffer-name=files file_rec/async<cr>
-nnoremap <space>s :Unite -buffer-name=buffer -quick-match buffer<cr>
+let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+nnoremap <C-p> :Unite -buffer-name=files -start-insert -sync file_rec/async<cr>
+nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
+nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
 
 set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 set wildignore+=*.class,*.jar,*.iml,*.classpath,*/target/*
-
-let g:unite_source_rec_max_cache_files = 10000
-call unite#custom#source('file_rec,file_rec/async',
-            \ 'max_candidates', 10000)
 
 " }}}
 
