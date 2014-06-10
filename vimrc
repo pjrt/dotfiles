@@ -278,6 +278,8 @@ nnoremap <C-p> :Unite -buffer-name=files -start-insert -sync file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
 nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
 
+nnoremap <space>gs :<C-u>execute 'Unite grep:.::' . expand("<cword>")<cr>
+
 set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
