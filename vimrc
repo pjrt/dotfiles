@@ -46,6 +46,7 @@ Bundle 'amiorin/vim-project'
 
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler.vim'
 
 " Syntax {{{
 
@@ -274,7 +275,7 @@ let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
-nnoremap <C-p> :Unite -buffer-name=files -start-insert -sync file_rec/async<cr>
+nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
 nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
 
@@ -345,6 +346,7 @@ function! s:my_cr_function()
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
