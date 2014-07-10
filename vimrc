@@ -24,7 +24,7 @@ Bundle 'Shougo/neocomplete.vim'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-vinegar'
-Bundle 'terryma/vim-multiple-cursors'
+Bundle 'kris89/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
 "Bundle 'lukerandall/haskellmode-vim'
 Bundle 'dag/vim2hs'
@@ -57,6 +57,7 @@ Bundle 'pbrisbin/html-template-syntax'
 Bundle 'tyok/ack.vim'
 Bundle 'othree/html5.vim'
 Bundle 'gre/play2vim'
+Bundle 'itchyny/landscape.vim'
 
 " }}}
 
@@ -192,6 +193,11 @@ let g:haskell_tags_generator = "hasktags"
 " Quickfixsigns
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
 
+" Multiple cursors
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
+
+
 " }}}
 
 " Aesthetics {{{
@@ -281,8 +287,12 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
 nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
+nnoremap <space>r :UniteResume<cr>
 
+" Search <cword>
 nnoremap <space>gs :<C-u>execute 'Unite grep:.::' . expand("<cword>")<cr>
+" Global search <cword>
+nnoremap <space>Gs :<C-u>execute 'Unite grep:..::' . expand("<cword>")<cr>
 
 nnoremap <space>y :Unite history/yank<cr>
 
