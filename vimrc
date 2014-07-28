@@ -18,23 +18,15 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
 Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/nerdcommenter'
-"Bundle 'mhinz/vim-startify'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplete.vim'
-"Bundle 'Valloric/YouCompleteMe'
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-vinegar'
 Bundle 'kris89/vim-multiple-cursors'
 Bundle 'sjl/gundo.vim'
-"Bundle 'lukerandall/haskellmode-vim'
-Bundle 'dag/vim2hs'
-"Bundle 'Shougo/neocomplete.vim'
 Bundle 'chrisbra/csv.vim'
 Bundle 't9md/vim-chef'
 Bundle 'justinmk/vim-sneak'
-"Bundle 'scrooloose/syntastic'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'eagletmt/neco-ghc'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'spiroid/vim-ultisnip-scala'
@@ -50,6 +42,7 @@ Bundle 'Shougo/vimfiler.vim'
 
 " Syntax {{{
 
+"Bundle 'dag/vim2hs'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'klen/python-mode'
 Bundle 'tpope/vim-markdown'
@@ -63,7 +56,7 @@ Bundle 'itchyny/landscape.vim'
 
 " Interface {{{
 
-Bundle 'tomtom/quickfixsigns_vim'
+"Bundle 'tomtom/quickfixsigns_vim'
 
 " }}}
 
@@ -176,6 +169,9 @@ set tags=tags;/
 " Set Autoread
 set autoread
 
+" No useless toolbar when on gvim
+set guioptions-=T
+
 " }}}
 
 " Variable setting {{{
@@ -183,12 +179,6 @@ set autoread
 
 " Switch buffer rules
 let g:switchbuf="useopen,split"
-
-" Seems to need to set this here and not in haskell.vim
-let g:haddock_browser="/usr/bin/google-chrome"
-
-let g:haskell_autotags = 1
-let g:haskell_tags_generator = "hasktags"
 
 " Quickfixsigns
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls

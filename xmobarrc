@@ -10,7 +10,7 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
-                    , Run Date "%a %Y-%m-%d %H:%M:%S" "date" 10
+                    , Run Date "%H:%M %Y-%m-%d" "date" 10
                     , Run BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
                     ]
        , sepChar = "%"
