@@ -274,15 +274,17 @@ let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
+call unite#custom#source('grep', 'matchers', 'matcher_fuzzy')
+
 nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
 nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
 nnoremap <space>r :UniteResume<cr>
 
 " Search <cword>
-nnoremap <space>gs :<C-u>execute 'Unite grep:.::' . expand("<cword>")<cr>
+nnoremap <space>gs :<C-u>execute 'Unite grep:.::\\b' . expand("<cword>") . '\\b'<cr>
 " Global search <cword>
-nnoremap <space>Gs :<C-u>execute 'Unite grep:..::' . expand("<cword>")<cr>
+nnoremap <space>Gs :<C-u>execute 'Unite grep:..::\\b' . expand("<cword>") . '\\b'<cr>
 
 nnoremap <space>y :Unite history/yank<cr>
 
@@ -375,6 +377,7 @@ function! _GetPackageForFile(regexes)
         return package
       endif
     endfor
+    echom "Could not extract package for " . dir
     return ''
 endfunction
 
