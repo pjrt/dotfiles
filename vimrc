@@ -3,77 +3,77 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-" Vundle {{{
+" Vim-Plug {{{
 "============================================================
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-Bundle 'gmarik/Vundle.vim'
+Plug 'Lokaltog/vim-powerline'
+Plug 'tpope/vim-surround'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/nerdcommenter'
+Plug 'kchmck/vim-coffee-script'
+Plug 'Shougo/neocomplete.vim'
+Plug 'elzr/vim-json', { 'for': 'json'}
+Plug 'tpope/vim-vinegar'
+Plug 'kris89/vim-multiple-cursors'
+Plug 'sjl/gundo.vim'
+Plug 'chrisbra/csv.vim'
+Plug 't9md/vim-chef'
+Plug 'justinmk/vim-sneak'
+Plug 'Shougo/vimproc.vim', { 'do': 'make'}
+Plug 'SirVer/ultisnips'
+Plug 'spiroid/vim-ultisnip-scala'
+Plug 'regedarek/ZoomWin'
+Plug 'tpope/vim-unimpaired'
+Plug 'zhaocai/GoldenView.Vim'
 
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'tpope/vim-surround'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-abolish'
-Bundle 'Raimondi/delimitMate'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'elzr/vim-json'
-Bundle 'tpope/vim-vinegar'
-Bundle 'kris89/vim-multiple-cursors'
-Bundle 'sjl/gundo.vim'
-Bundle 'chrisbra/csv.vim'
-Bundle 't9md/vim-chef'
-Bundle 'justinmk/vim-sneak'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'spiroid/vim-ultisnip-scala'
-Bundle 'regedarek/ZoomWin'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'zhaocai/GoldenView.Vim'
+Plug 'amiorin/vim-project'
 
-Bundle 'amiorin/vim-project'
+Plug 'Shougo/vimshell.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
 
-Bundle 'Shougo/vimshell.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler.vim'
 
 " Syntax {{{
 
-"Bundle 'dag/vim2hs'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'klen/python-mode'
-Bundle 'tpope/vim-markdown'
-Bundle 'pbrisbin/html-template-syntax'
-Bundle 'tyok/ack.vim'
-Bundle 'othree/html5.vim'
-Bundle 'gre/play2vim'
-Bundle 'itchyny/landscape.vim'
+"Plug 'dag/vim2hs'
+Plug 'derekwyatt/vim-scala'
+Plug 'klen/python-mode'
+Plug 'tpope/vim-markdown'
+Plug 'pbrisbin/html-template-syntax'
+Plug 'tyok/ack.vim'
+Plug 'othree/html5.vim'
+Plug 'gre/play2vim'
+Plug 'itchyny/landscape.vim'
 
 " }}}
 
 " Interface {{{
 
-"Bundle 'tomtom/quickfixsigns_vim'
+"Plug 'tomtom/quickfixsigns_vim'
 
 " }}}
 
 " Themes {{{
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tomasr/molokai'
-Bundle 'chriskempson/vim-tomorrow-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'chriskempson/vim-tomorrow-theme'
 
 " }}}
 
 " Other {{{
 
-Bundle 'pjrt/vim-vault'
-Bundle 'pjrt/custom-vim'
+Plug 'pjrt/vim-vault'
+Plug 'pjrt/custom-vim'
 
 " }}}
+
+call plug#end()
 
 " }}}
 
