@@ -8,7 +8,7 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Lokaltog/vim-powerline'
+Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'tpope/vim-fugitive'
@@ -83,9 +83,6 @@ set encoding=utf8
 " Rebind <Leader> key
 let mapleader = ","
 let maplocalleader = ","
-
-" Add Fugitive info to the status bar
-set statusline+=%{fugitive#statusline()}
 
 " Use ALL the colors!
 set t_Co=256
