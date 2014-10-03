@@ -4,7 +4,6 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , position = Top
        , lowerOnStart = False
        , commands = [ Run StdinReader
-                    , Run Weather "KLGA" ["-t","<station>: <tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                     , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
@@ -15,5 +14,5 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | %eth0% | %StdinReader%}{ %battery% | %KLGA% | <fc=#ee9a00>%date%</fc>"
+       , template = "%cpu% | %memory% * %swap% | %eth0% | %StdinReader%}{ %battery% | <fc=#ee9a00>%date%</fc>"
        }

@@ -25,5 +25,5 @@ cd $VIMHOME
 mkdir bundle
 git clone https://github.com/gmarik/Vundle.vim.git $VIMHOME/bundle/Vundle.vim
 
-echo "Running vundle"
-vim +BundleInstall +qall
+echo "Running Vim-Plug"
+vim +PlugInstall +qall
