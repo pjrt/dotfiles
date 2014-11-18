@@ -21,7 +21,7 @@
     logme = log --graph --author="prodriguez"
     logg = log --graph
     gn = grep -n
-    todo = grep -n -E "pr.*:.*todo"
+    todo = grep -n -E "(todo|TODO):(pr|pjrt|pedro)"
     unadd = reset
     ready = rebase -i @{u}
     l = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\" --max-count=10

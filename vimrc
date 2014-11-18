@@ -36,6 +36,7 @@ Plug 'amiorin/vim-project'
 Plug 'Shougo/vimshell.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
+Plug 'Peeja/vim-cdo'
 
 
 " Syntax {{{
@@ -55,6 +56,7 @@ Plug 'itchyny/landscape.vim'
 " Interface {{{
 
 "Plug 'tomtom/quickfixsigns_vim'
+Plug 'kana/vim-filetype-haskell'
 
 " }}}
 
@@ -121,16 +123,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Removes highlight of your last search
 nnoremap <silent><C-m> :nohl<CR>
 
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
-" easier moving between tabs
-map <Leader>t <esc>:tabnew<CR>
-
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
-
 
 " easier moving of code blocks
 " Try to go into visual mode (v), thenselect several lines of code here and
@@ -196,7 +190,6 @@ colorscheme desert
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235
 hi CursorColumn cterm=NONE ctermbg=235
-nnoremap <silent> <Leader>vv :set cursorline! cursorcolumn!<CR>
 if has("gui_running")
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline cursorcolumn
     au WinLeave * setlocal nocursorline nocursorcolumn
@@ -276,6 +269,7 @@ call unite#custom#source('grep', 'matchers', 'matcher_fuzzy')
 nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
 nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
+nnoremap <space>t :<C-u>execute 'Unite -buffer-name=ack grep:.::' . '(todo\|TODO)\:(pr\|pjrt\|pedro)'<cr>
 nnoremap <space>r :UniteResume<cr>
 
 " Search <cword>
