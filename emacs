@@ -12,7 +12,8 @@
          nil
        (if (y-or-n-p (format "Package %s is missing. Install it? " package))
            (package-install package)
-         package)))
+         package))
+   )
    packages))
 
 
@@ -20,7 +21,8 @@
       package-archives)
 (push '("melpa" . "http://melpa.milkbox.net/packages/")
       package-archives)
-(push '("~/.emacs.d/themes") load-path)
+(add-to-list 'load-path "~/.emacs.d/themes/")
+(add-to-list 'load-path "~/.emacs.d/manuals/evil-rebellion/")
 
 (defun load-init-after-save ()
   "After saving this file, load it"
@@ -32,16 +34,18 @@
 
 (ensure-package-installed
   'evil 'evil-surround 'key-chord 'projectile 'zenburn 'color-theme 'haskell-mode
-  'evil-jumper 'evil-visualstar 'magit)
+  'evil-jumper 'evil-visualstar 'magit 'evil-numbers)
 
-(setq evil-want-C-u-scroll t)
-
-; Stop making dumb backups all over the place
-(setq make-backup-files nil)
+(setq 
+ evil-want-C-u-scroll t ; Not sure why this isn't on by default...
+ make-backup-files nil ; Stop making dumb backups all over the place
+)
 
 ; Couple of nice things
 (linum-mode 1)
 (show-paren-mode 1)
+
+(require 'dired)
 
 ; PURE EVIL!!!!
 (require 'evil)
@@ -49,13 +53,18 @@
 (require 'evil-surround)
 (require 'evil-jumper)
 (require 'evil-visualstar)
+(require 'evil-numbers)
+(require 'evil-magit-rebellion)
+(require 'evil-buffer-menu-rebellion)
 (evil-mode 1)
 
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "SPC b") 'buffer-menu)
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
-(define-key dired-mode-map (kbd "-") 'dired-up-directory)
+(evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 
 (key-chord-mode 1)
 
@@ -72,6 +81,8 @@
 (require 'haskell-mode)
 (evil-define-key 'normal haskell-mode-map (kbd "M-t") 'haskell-process-do-type)
 (evil-define-key 'normal haskell-mode-map (kbd "M-i") 'haskell-process-do-info)
+
+(require 'magit)
 
 ;; Customs!
 
