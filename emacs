@@ -16,6 +16,13 @@
    )
    packages))
 
+(defun my-load-user-init-file-after-save ()
+  (when (string= (file-truename user-init-file)
+                 (file-truename (buffer-file-name)))
+    (let ((debug-on-error t))
+      (load (buffer-file-name)))))
+
+(add-hook 'after-save-hook #'my-load-user-init-file-after-save)
 
 (push '("marmalade" . "http://marmalade-repo.org/packages/")
       package-archives)
@@ -24,26 +31,26 @@
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'load-path "~/.emacs.d/manuals/evil-rebellion/")
 
-(defun load-init-after-save ()
-  "After saving this file, load it"
-  (if (eq 'current-buffer "~/.emacs") ('eval-buffer) (nil))
-)
-;; (add-hook 'after-save-hook 'load-init-after-save)
-
 (package-initialize)
 
+;; Packages needed
 (ensure-package-installed
   'evil 'evil-surround 'key-chord 'projectile 'zenburn 'color-theme 'haskell-mode
-  'evil-jumper 'evil-visualstar 'magit 'evil-numbers)
+  'evil-jumper 'evil-visualstar 'magit 'evil-numbers 'sbt-mode 'scala-mode2)
 
 (setq 
  evil-want-C-u-scroll t ; Not sure why this isn't on by default...
  make-backup-files nil ; Stop making dumb backups all over the place
+ magit-rigid-key-bindings t ; REBEL!!!
+ show-paren-delay 0 ; Stop the delay when painting opposing paren
+ interprogram-cut-function nil
+ interprogram-paste-function nil
 )
 
 ; Couple of nice things
 (linum-mode 1)
 (show-paren-mode 1)
+(tool-bar-mode 0) ; Useless toolbars
 
 (require 'dired)
 
@@ -60,11 +67,17 @@
 
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
+
 (define-key evil-normal-state-map (kbd "SPC b") 'buffer-menu)
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
-(evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+(define-key evil-normal-state-map (kbd "C-j") 'next-multiframe-window)
+(define-key evil-normal-state-map (kbd "C-k") 'previous-multiframe-window)
+
+(evil-define-key 'normal dired-mode-map
+  "n" 'evil-search-next
+  "-" 'dired-up-directory)
 
 (key-chord-mode 1)
 
@@ -75,12 +88,19 @@
 
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 
-(require 'zenburn)
-(zenburn)
+(require 'color-theme-desert)
+(color-theme-desert)
 
 (require 'haskell-mode)
 (evil-define-key 'normal haskell-mode-map (kbd "M-t") 'haskell-process-do-type)
 (evil-define-key 'normal haskell-mode-map (kbd "M-i") 'haskell-process-do-info)
+
+(require 'scala-mode2)
+(evil-define-key 'normal scala-mode-map
+  ",ff" 'first-error
+  ",n" 'next-error
+  ",b" 'previous-error
+)
 
 (require 'magit)
 
@@ -91,6 +111,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-intercept-maps nil)
+ '(evil-jumper-ignored-file-patterns (quote ("tags" "COMMIT_EDITMSG")))
+ '(evil-overriding-maps nil)
  '(haskell-process-type (quote cabal-repl))
  '(initial-buffer-choice "~/"))
 (custom-set-faces
