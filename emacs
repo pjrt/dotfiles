@@ -1,44 +1,31 @@
 (require 'package)
 
-; Checks if `packages` are installed. If not, it will go get them
-; http://stackoverflow.com/a/10095853
-(defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
-  Return a list of installed packages or nil for every skipped package."
-  (mapcar
-   (lambda (package)
-     ;; (package-installed-p 'evil)
-     (if (package-installed-p package)
-         nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package))
-   )
-   packages))
-
-(defun my-load-user-init-file-after-save ()
-  (when (string= (file-truename user-init-file)
-                 (file-truename (buffer-file-name)))
-    (let ((debug-on-error t))
-      (load (buffer-file-name)))))
-
-(add-hook 'after-save-hook #'my-load-user-init-file-after-save)
-
+;; Respositories
 (push '("marmalade" . "http://marmalade-repo.org/packages/")
       package-archives)
 (push '("melpa" . "http://melpa.milkbox.net/packages/")
       package-archives)
+
+;; Path loading
+(add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'load-path "~/.emacs.d/manuals/evil-rebellion/")
 
+;; Load this one file first
+(load "util.el")
+
 (package-initialize)
 
-;; Packages needed
+(add-hook 'after-save-hook #'my-load-user-init-file-after-save)
+
+;; Packages needed. If one of these packages is not installed, ask for it to be installed
 (ensure-package-installed
   'evil 'evil-surround 'key-chord 'projectile 'zenburn 'color-theme 'haskell-mode
   'evil-jumper 'evil-visualstar 'magit 'evil-numbers 'sbt-mode 'scala-mode2)
 
-(setq 
+
+;; Random thing that need to be set before the `require` party starts
+(setq
  evil-want-C-u-scroll t ; Not sure why this isn't on by default...
  make-backup-files nil ; Stop making dumb backups all over the place
  magit-rigid-key-bindings t ; REBEL!!!
@@ -47,12 +34,13 @@
  interprogram-paste-function nil
 )
 
+(load "scala.el")
+(load "dired-conf.el")
+
 ; Couple of nice things
 (linum-mode 1)
 (show-paren-mode 1)
 (tool-bar-mode 0) ; Useless toolbars
-
-(require 'dired)
 
 ; PURE EVIL!!!!
 (require 'evil)
@@ -69,15 +57,11 @@
 (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
 
 (define-key evil-normal-state-map (kbd "SPC b") 'buffer-menu)
-(define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 (define-key evil-normal-state-map (kbd "C-j") 'next-multiframe-window)
 (define-key evil-normal-state-map (kbd "C-k") 'previous-multiframe-window)
 
-(evil-define-key 'normal dired-mode-map
-  "n" 'evil-search-next
-  "-" 'dired-up-directory)
 
 (key-chord-mode 1)
 
@@ -94,13 +78,6 @@
 (require 'haskell-mode)
 (evil-define-key 'normal haskell-mode-map (kbd "M-t") 'haskell-process-do-type)
 (evil-define-key 'normal haskell-mode-map (kbd "M-i") 'haskell-process-do-info)
-
-(require 'scala-mode2)
-(evil-define-key 'normal scala-mode-map
-  ",ff" 'first-error
-  ",n" 'next-error
-  ",b" 'previous-error
-)
 
 (require 'magit)
 
