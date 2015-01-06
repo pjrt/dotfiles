@@ -19,7 +19,6 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'Shougo/neocomplete.vim'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'tpope/vim-vinegar'
-Plug 'kris89/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
 Plug 'chrisbra/csv.vim'
 Plug 't9md/vim-chef'
@@ -173,11 +172,6 @@ let g:switchbuf="useopen,split"
 
 " Quickfixsigns
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
-
-" Multiple cursors
-let g:multi_cursor_exit_from_visual_mode = 0
-let g:multi_cursor_exit_from_insert_mode = 0
-
 
 " }}}
 

@@ -28,6 +28,7 @@
     lg = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\"
     lgg = log --graph --decorate --all --oneline
     purr = pull --rebase
+    pr = pull --rebase
     m = branch -a --merged
     nm = branch -a --no-merged
     continue = rebase --continue
