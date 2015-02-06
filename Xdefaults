@@ -44,7 +44,9 @@ URxvt.scrollBar:            false
 ! Perl extensions
 URxvt.perl-ext-common:      default,matcher,url-select,keyboard-select,clipboard
 URxvt.matcher.button:       1
-URxvt.urlLauncher:          firefox
+URxvt.urlLauncher:          chromium
+
+URxvt.url-select.launcher:  chromium
 
 ! Meta (M) is Alt
 URxvt.clipboard.autocopy:   false
@@ -52,9 +54,9 @@ URxvt.clipboard.copycmd:    xsel -ib
 URxvt.clipboard.pastecmd:   xsel -ob
 
 
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-u:           perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
-URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-l:           perl:url-select:select_next
 
 URxvt.keysym.M-c:           perl:clipboard:copy
 URxvt.keysym.M-p:           perl:clipboard:paste

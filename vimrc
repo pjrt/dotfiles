@@ -29,6 +29,7 @@ Plug 'spiroid/vim-ultisnip-scala'
 Plug 'regedarek/ZoomWin'
 Plug 'tpope/vim-unimpaired'
 Plug 'zhaocai/GoldenView.Vim'
+Plug 'tpope/vim-dispatch'
 
 Plug 'amiorin/vim-project'
 
@@ -187,6 +188,7 @@ hi CursorColumn cterm=NONE ctermbg=235
 if has("gui_running")
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline cursorcolumn
     au WinLeave * setlocal nocursorline nocursorcolumn
+    set go-=m " Useless toolbars
 endif
 
 " Enable syntax highlighting

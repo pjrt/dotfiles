@@ -72,8 +72,8 @@
 
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 
-(require 'color-theme-desert)
-(color-theme-desert)
+(require 'desert-theme)
+(load-theme 'desert t)
 
 (require 'haskell-mode)
 (evil-define-key 'normal haskell-mode-map (kbd "M-t") 'haskell-process-do-type)
@@ -88,6 +88,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("a4e6940f5c63f3c6759d35e6534eaa26ff14512aa61616a0584bda9f858c60b9" default)))
  '(evil-intercept-maps nil)
  '(evil-jumper-ignored-file-patterns (quote ("tags" "COMMIT_EDITMSG")))
  '(evil-overriding-maps nil)
