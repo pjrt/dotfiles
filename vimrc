@@ -86,6 +86,9 @@ set encoding=utf8
 let mapleader = ","
 let maplocalleader = ","
 
+" For Cdo
+set hidden
+
 " Use ALL the colors!
 set t_Co=256
 
@@ -173,6 +176,9 @@ let g:switchbuf="useopen,split"
 
 " Quickfixsigns
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
+
+" Return me to the last file, not newtr
+let g:netrw_altfile=1
 
 " }}}
 
