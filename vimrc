@@ -25,7 +25,6 @@ Plug 't9md/vim-chef'
 Plug 'justinmk/vim-sneak'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'SirVer/ultisnips'
-Plug 'spiroid/vim-ultisnip-scala'
 Plug 'regedarek/ZoomWin'
 Plug 'tpope/vim-unimpaired'
 Plug 'zhaocai/GoldenView.Vim'
