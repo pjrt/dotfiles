@@ -30,7 +30,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'tpope/vim-dispatch'
 
-Plug 'amiorin/vim-project'
+Plug 'dbakker/vim-projectroot'
 
 Plug 'Shougo/vimshell.vim'
 Plug 'Shougo/unite.vim'
@@ -150,6 +150,8 @@ nnoremap <silent> <F5> :%s/\s\+$//<CR>
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
+autocmd BufEnter * call <SID>AutoProjectRootCD() " Replicate vim-project
+
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
 set nobackup
@@ -242,6 +244,11 @@ nmap <silent> <C-K>  <Plug>GoldenViewPrevious
 nmap <silent> <C-w>m  <Plug>GoldenViewSwitchMain
 nmap <silent> <C-w>n  <Plug>GoldenViewSwitchToggle
 
+" }}}
+
+" Vinegar {{{
+" ============================================================================
+nnoremap <silent> _ -:execute 'edit' . getcwd() <CR>
 " }}}
 
 " Fugitive {{{
@@ -375,6 +382,16 @@ endfunction
 
 function! Classname(...)
   return expand('%:t:r')
+endfunction
+
+function! <SID>AutoProjectRootCD()
+  try
+    if &ft != 'help'
+      ProjectRootCD
+    endif
+  catch
+    " Silently ignore invalid buffers
+  endtry
 endfunction
 
 " }}}
