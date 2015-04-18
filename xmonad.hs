@@ -147,12 +147,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
-    -- Toggle the status bar gap
-    -- Use this binding with avoidStruts from Hooks.ManageDocks.
-    -- See also the statusBar function from Hooks.DynamicLog.
-    --
-     {-, ((modm              , xK_b     ), sendMessage ToggleStruts)-}
-
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
@@ -165,7 +159,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Random bash scripts
     [
       -- Move stuff from the primary selection to the X selection
-      ((modm .|. shiftMask, xK_b), spawn "xsel -op | xsel -ib")
+      ((modm, xK_b), spawn "xsel -op | xsel -ib")
     ]
 
     ++
@@ -317,14 +311,14 @@ myLogHook = return ()
 --
 myStartupHook = do
                    keys <- spawn "xmodmap ~/.xmodmaprc"
-                   s <- spawn "xset r rate 200 30"
+                   key_speed <- spawn "xset r rate 200 30"
                    vm <- setWMName "LG3D"
                    xcape <- spawn "xcape -e 'Control_L=Escape'"
                    return ()
 
 myBar = "xmobar"
 
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask .|. shiftMark, xK_b)
 
 myPP = xmobarPP
 ------------------------------------------------------------------------
