@@ -318,7 +318,7 @@ myStartupHook = do
 
 myBar = "xmobar"
 
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask .|. shiftMark, xK_b)
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask .|. shiftMask, xK_b)
 
 myPP = xmobarPP
 ------------------------------------------------------------------------
