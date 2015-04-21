@@ -323,6 +323,7 @@ myStartupHook = do
                    key_speed <- spawn "xset r rate 200 30"
                    vm <- setWMName "LG3D"
                    xcape <- spawn "xcape -e 'Control_L=Escape'"
+                   xrandr <- spawn "xrandr --output DP1 --right-of eDP1 --output eDP1 --scale 0.6x0.6"
                    return ()
 
 myBar = "xmobar"
