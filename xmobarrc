@@ -1,10 +1,9 @@
-Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Top
        , lowerOnStart = False
        , commands = [ Run StdinReader
-                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10

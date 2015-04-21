@@ -153,10 +153,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
+    -- Brightness control
+    , ((noModMask         , xK_F1    ), spawn "xbacklight - 10")
+    , ((noModMask         , xK_F2    ), spawn "xbacklight + 10")
+
     -- Volume Control
-    , ((noModMask              , xK_F10   ), spawn "pulseaudio-ctl mute")
-    , ((noModMask              , xK_F11   ), spawn "pulseaudio-ctl down")
-    , ((noModMask              , xK_F12   ), spawn "pulseaudio-ctl up")
+    , ((noModMask         , xK_F10   ), spawn "pulseaudio-ctl mute")
+    , ((noModMask         , xK_F11   ), spawn "pulseaudio-ctl down")
+    , ((noModMask         , xK_F12   ), spawn "pulseaudio-ctl up")
     ]
 
     ++
