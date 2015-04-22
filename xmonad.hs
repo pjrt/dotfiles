@@ -161,6 +161,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((noModMask         , xK_F10   ), spawn "pulseaudio-ctl mute")
     , ((noModMask         , xK_F11   ), spawn "pulseaudio-ctl down")
     , ((noModMask         , xK_F12   ), spawn "pulseaudio-ctl up")
+
+    -- Screenshots
+    , ((modm .|. controlMask, xK_2   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
+    , ((modm .|. controlMask, xK_3   ), spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
+    , ((modm .|. controlMask, xK_4   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
     ]
 
     ++
@@ -319,7 +324,7 @@ myLogHook = return ()
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = do
-                   keys <- spawn "xmodmap ~/.xmodmaprc"
+                   {-keys <- spawn "xmodmap ~/.xmodmaprc"-}
                    key_speed <- spawn "xset r rate 200 30"
                    vm <- setWMName "LG3D"
                    xcape <- spawn "xcape -e 'Control_L=Escape'"

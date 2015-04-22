@@ -3,6 +3,7 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , fgColor = "grey"
        , position = Top
        , lowerOnStart = False
+       , pickBroadest = True
        , commands = [ Run StdinReader
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
@@ -12,5 +13,5 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | %eth0% | %StdinReader%}{ %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%cpu% | %memory% * %swap% | %StdinReader%}{ %battery% | <fc=#ee9a00>%date%</fc>"
        }
