@@ -7,7 +7,6 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%H:%M %Y-%m-%d" "date" 10
                     , Run BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
                     ]
