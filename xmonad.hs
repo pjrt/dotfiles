@@ -16,8 +16,10 @@
 --
 
 import XMonad
+import XMonad.Util.EZConfig
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
+import XMonad.Layout.NoBorders
 import Data.Monoid
 import System.Exit
 -- import XMonad.Actions.Volume
@@ -153,15 +155,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
-    -- Brightness control
-    , ((noModMask         , xK_F1    ), spawn "xbacklight - 10")
-    , ((noModMask         , xK_F2    ), spawn "xbacklight + 10")
-
-    -- Volume Control
-    , ((noModMask         , xK_F10   ), spawn "pulseaudio-ctl mute")
-    , ((noModMask         , xK_F11   ), spawn "pulseaudio-ctl down")
-    , ((noModMask         , xK_F12   ), spawn "pulseaudio-ctl up")
-
     -- Screenshots
     , ((modm .|. controlMask, xK_2   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
     , ((modm .|. controlMask, xK_3   ), spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
@@ -203,6 +196,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       --   ((modm, xK_F6), raiseVolume 4 >>= alert),
       --   ((modm, xK_F5), lowerVolume 4 >>= alert)
      --]
+
+extraKeys =
+  [
+      -- Volume Control
+      ("<XF86AudioMute>", spawn "pulseaudio-ctl mute")
+    , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl down")
+    , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl up")
+
+    -- Brightness control
+    , ("<XF86MonBrightnessDown>", spawn "xbacklight - 10")
+    , ("<XF86MonBrightnessUp>", spawn "xbacklight + 10")
+
+  ]
 
 alert = dzenConfig centered . show . round
 centered =
@@ -246,7 +252,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = tiled ||| Mirror tiled ||| noBorders Full
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -349,7 +355,7 @@ main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
 --
 -- No need to modify this.
 --
-defaults = defaultConfig {
+defaults =  defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -371,4 +377,4 @@ defaults = defaultConfig {
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
-    }
+    } `additionalKeysP` extraKeys
