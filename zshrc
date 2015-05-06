@@ -67,6 +67,7 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 export EDITOR='vim'
 export BROWSER='chromium'
+source aws_zsh_completer.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
