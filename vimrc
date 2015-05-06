@@ -152,6 +152,10 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 
 autocmd BufEnter * call <SID>AutoProjectRootCD() " Replicate vim-project
 
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
 set nobackup

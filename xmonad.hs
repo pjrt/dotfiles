@@ -281,9 +281,11 @@ myLayout = tiled ||| Mirror tiled ||| noBorders Full
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+hangoutsAppId = "crx_nckgahadagoaajjgafhacjanaoiihapd"
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , resource  =? hangoutsAppId    --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -330,7 +332,6 @@ myLogHook = return ()
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = do
-                   {-keys <- spawn "xmodmap ~/.xmodmaprc"-}
                    key_speed <- spawn "xset r rate 200 30"
                    vm <- setWMName "LG3D"
                    xcape <- spawn "xcape -e 'Control_L=Escape'"
