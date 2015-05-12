@@ -332,10 +332,10 @@ myLogHook = return ()
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = do
+                   xrandr <- spawn "xrandr --output DP1 --right-of eDP1 --output eDP1 --scale 0.6x0.6"
                    key_speed <- spawn "xset r rate 200 30"
                    vm <- setWMName "LG3D"
                    xcape <- spawn "xcape -e 'Control_L=Escape'"
-                   xrandr <- spawn "xrandr --output DP1 --right-of eDP1 --output eDP1 --scale 0.6x0.6"
                    return ()
 
 myBar = "xmobar"
@@ -356,14 +356,12 @@ main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
 --
 -- No need to modify this.
 --
-defaults =  defaultConfig {
+myConfigs = defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        -- numlockMask deprecated in 0.9.1
-        -- numlockMask        = myNumlockMask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
@@ -378,4 +376,6 @@ defaults =  defaultConfig {
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
-    } `additionalKeysP` extraKeys
+    }
+
+defaults = myConfigs `additionalKeysP` extraKeys
