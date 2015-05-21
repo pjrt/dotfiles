@@ -56,3 +56,5 @@
 	HEAD = cyan
 [init]
 	templatedir = ~/.git_template
+[web]
+	browser = chromium

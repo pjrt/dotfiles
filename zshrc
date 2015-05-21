@@ -58,7 +58,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl"
-export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$HOME/.cabal/bin:$PATH"
+export RPATH=$(ruby -rubygems -e "puts Gem.user_dir")/bin
+
+export PATH="$HOME/.cabal/bin:$RPATH:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
