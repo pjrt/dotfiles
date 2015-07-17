@@ -13,6 +13,7 @@ ZSH_THEME="cloud"
 
 alias st="git st"
 alias sc="systemctl"
+alias open="xdg-open"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -71,6 +72,9 @@ export EDITOR='vim'
 export BROWSER='chromium'
 source aws_zsh_completer.sh
 export TERM=rxvt-unicode
+
+# Makes it so java apps can run in xmonad
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

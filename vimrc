@@ -49,6 +49,7 @@ Plug 'tyok/ack.vim'
 Plug 'othree/html5.vim'
 Plug 'gre/play2vim'
 Plug 'itchyny/landscape.vim'
+Plug 'duganchen/vim-soy'
 
 " }}}
 
