@@ -70,7 +70,7 @@ export PATH="$HOME/.cabal/bin:$RPATH:$PATH"
 
 export EDITOR='vim'
 export BROWSER='chromium'
-source aws_zsh_completer.sh
+#source aws_zsh_completer.sh
 export TERM=rxvt-unicode
 
 # Makes it so java apps can run in xmonad

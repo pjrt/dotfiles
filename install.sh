@@ -14,16 +14,15 @@ echo "Setting home symlinks"
 cd $HOME
 
 echo "Vimrc"
-ln -s $DOTFILES/vimrc .vimrc
+ln -s $DOTFILES/vimrc $HOME/.vimrc
 
 echo "Git"
-ln -s $DOTFILES/git_template .git_template
-ln -s $DOTFILES/gitconfig .gitconfig
+ln -s $DOTFILES/git_template $HOME/.git_template
+ln -s $DOTFILES/gitconfig $HOME/.gitconfig
 
-echo "Installing vundle"
-cd $VIMHOME
-mkdir bundle
-git clone https://github.com/gmarik/Vundle.vim.git $VIMHOME/bundle/Vundle.vim
+echo "Installing Vim-plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "Running Vim-Plug"
 vim +PlugInstall +qall
