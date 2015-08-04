@@ -1,9 +1,11 @@
 #!/bin/sh
 set -e
 
-if [ -e .git/tags-executable ]; then
-    CT=`head -n 1 .git/tags-executable`
+if [ -e *.cabal ]; then
+    # Hasktags for Haskell
+    CT="hasktags -c -o .git/tags.$$ -R ."
 else
+    # For everything else, ctags
     CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql"
 fi
 

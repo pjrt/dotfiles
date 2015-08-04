@@ -50,6 +50,7 @@ Plug 'othree/html5.vim'
 Plug 'gre/play2vim'
 Plug 'itchyny/landscape.vim'
 Plug 'duganchen/vim-soy'
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " }}}
 
@@ -169,8 +170,10 @@ set tags=tags;/
 " Set Autoread
 set autoread
 
-" No useless toolbar when on gvim
+" No useless toolbar or scrollbars when on gvim
 set guioptions-=T
+set guioptions-=r
+set guioptions-=L
 
 " }}}
 
