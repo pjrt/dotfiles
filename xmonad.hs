@@ -331,10 +331,7 @@ myLogHook = return ()
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook = do
-                   key_speed <- spawn "xset r rate 200 30"
-                   vm <- setWMName "LG3D"
-                   xcape <- spawn "xcape -e 'Control_L=Escape'"
+myStartupHook = do vm <- setWMName "LG3D"
                    return ()
 
 myBar = "xmobar"

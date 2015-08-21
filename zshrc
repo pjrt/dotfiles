@@ -14,6 +14,8 @@ ZSH_THEME="cloud"
 alias st="git st"
 alias sc="systemctl"
 alias open="xdg-open"
+alias qghc="ghcid -o .git/cabal.quickfix"
+alias sandbox="cabal sandbox"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -77,9 +79,14 @@ export TERM=rxvt-unicode
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export ARCHFLAGS="-arch x86_64"
+
+# FZF def command
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

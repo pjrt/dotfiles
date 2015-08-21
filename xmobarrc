@@ -9,7 +9,7 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%H:%M %Y-%m-%d" "date" 10
-                    , Run BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
+                    , Run BatteryP ["BAT1"] ["-t", "<acstatus><watts> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
                     ]
        , sepChar = "%"
        , alignSep = "}{"
