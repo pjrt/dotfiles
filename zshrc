@@ -16,6 +16,9 @@ alias sc="systemctl"
 alias open="xdg-open"
 alias qghc="ghcid -o .git/cabal.quickfix"
 alias sandbox="cabal sandbox"
+alias sandbox-reset="sandbox delete && sandbox init"
+alias reload="source ~/.zshrc"
+alias hoo="hoogle --count=10"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -57,6 +60,7 @@ alias sandbox="cabal sandbox"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/sources/aws_zsh_completer.sh
 
 # User configuration
 
@@ -72,7 +76,6 @@ export PATH="$HOME/.cabal/bin:$RPATH:$PATH"
 
 export EDITOR='vim'
 export BROWSER='chromium'
-#source aws_zsh_completer.sh
 export TERM=rxvt-unicode
 
 # Makes it so java apps can run in xmonad
