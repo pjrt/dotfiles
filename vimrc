@@ -1,12 +1,11 @@
 " vim:fdm=marker
 
-set nocompatible               " be iMproved
 filetype off                   " required!
 
 " Vim-Plug {{{
 "============================================================
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-surround'
@@ -16,7 +15,6 @@ Plug 'tpope/vim-abolish'
 Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'kchmck/vim-coffee-script'
-Plug 'Shougo/neocomplete.vim'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'tpope/vim-vinegar'
 Plug 'sjl/gundo.vim'
@@ -38,6 +36,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Peeja/vim-cdo'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'ervandew/supertab'
 
 " Syntax {{{
 
@@ -52,6 +51,9 @@ Plug 'gre/play2vim'
 Plug 'itchyny/landscape.vim'
 Plug 'duganchen/vim-soy'
 Plug 'junegunn/rainbow_parentheses.vim'
+
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
 
 " }}}
 
@@ -176,6 +178,14 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 
+" Set Notes dir for vim-notes
+let g:notes_directories = ['~/Documents/Notes']
+
+" }}}
+
+" <c-p> {{{
+" ============================================================================
+nnoremap <silent><c-p> :FZF<cr>
 " }}}
 
 " Variable setting {{{
@@ -196,7 +206,7 @@ let g:netrw_altfile=1
 " ============================================================================
 
 set background=dark
-colorscheme desert
+colorscheme solarized
 
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235
@@ -271,9 +281,7 @@ nnoremap <silent> gs :Gstatus<CR>
 " Unite {{{
 " ============================================================================
 let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-
-let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+let g:unite_source_grep_default_opts = '-i --vimgrep --hidden'
 
 " Allow history of yank command
 let g:unite_source_history_yank_enable = 1
@@ -283,16 +291,15 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 
 call unite#custom#source('grep', 'matchers', 'matcher_fuzzy')
 
-nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec/async<cr>
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
-nnoremap <space>s :Unite -buffer-name=ack grep:.<cr>
-nnoremap <space>t :<C-u>execute 'Unite -buffer-name=ack grep:.::' . '(todo\|TODO)\:(pr\|pjrt\|pedro)'<cr>
+nnoremap <space>s :Unite -buffer-name=ack grep:./:<cr>
+nnoremap <space>t :<C-u>execute 'Unite -buffer-name=ack grep:./::' . '(todo\|TODO)\:(pr\|pjrt\|pedro)'<cr>
 nnoremap <space>r :UniteResume<cr>
 
 " Search <cword>
-nnoremap <space>gs :<C-u>execute 'Unite grep:.::\\b' . expand("<cword>") . '\\b'<cr>
+nnoremap <space>gs :<C-u>execute 'Unite grep:./::\\b' . expand("<cword>") . '\\b'<cr>
 " Global search <cword>
-nnoremap <space>Gs :<C-u>execute 'Unite grep:..::\\b' . expand("<cword>") . '\\b'<cr>
+nnoremap <space>Gs :<C-u>execute 'Unite grep:../::\\b' . expand("<cword>") . '\\b'<cr>
 
 nnoremap <space>y :Unite history/yank<cr>
 
@@ -324,49 +331,6 @@ set completeopt=longest,menuone
 
 " NeoComplete {{{
 " ===========================================================================
-
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 "  }}}
 

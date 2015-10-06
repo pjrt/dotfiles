@@ -81,6 +81,9 @@ export TERM=rxvt-unicode
 # Makes it so java apps can run in xmonad
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# Understand X modifiers (compose)
+export XMODIFIERS="@im=none"
+
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
