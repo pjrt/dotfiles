@@ -1,3 +1,5 @@
+keycode 66 = Control_L
 clear Lock
-keycode 9 = Control_L
-keycode 37 = Multi_key
+add Control = Control_L
+
+keycode 107 = Multi_key
