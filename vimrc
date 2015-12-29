@@ -38,6 +38,8 @@ Plug 'Peeja/vim-cdo'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'ervandew/supertab'
 
+Plug 'benekastah/neomake'
+
 " Syntax {{{
 
 "Plug 'dag/vim2hs'
@@ -107,6 +109,9 @@ set pastetoggle=<F2>
 " Mouse and backspace
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
+
+" Soft line limit
+set colorcolumn=78
 
 " }}}
 

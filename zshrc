@@ -15,6 +15,7 @@ alias st="git st"
 alias sc="systemctl"
 alias open="xdg-open"
 alias qghc="ghcid -o .git/cabal.quickfix"
+alias install-deps="cabal install -j --dependencies-only"
 alias sandbox="cabal sandbox"
 alias sandbox-reset="sandbox delete && sandbox init"
 alias reload="source ~/.zshrc"
@@ -89,6 +90,9 @@ export ARCHFLAGS="-arch x86_64"
 
 # FZF def command
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
+
+# Source a local, non-commited zshrc
+source ~/.zshrc-local
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
