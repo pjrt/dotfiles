@@ -36,7 +36,8 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Peeja/vim-cdo'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim'
 
 Plug 'benekastah/neomake'
 
@@ -98,9 +99,6 @@ set hidden
 " Use ALL the colors!
 set t_Co=256
 
-" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
-
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
@@ -157,8 +155,8 @@ nnoremap <silent> <F5> :%s/\s\+$//<CR>
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"au InsertLeave * match ExtraWhitespace /\s\+$/
 
 autocmd BufEnter * call <SID>AutoProjectRootCD() " Replicate vim-project
 
@@ -209,6 +207,8 @@ let g:netrw_altfile=1
 
 " Aesthetics {{{
 " ============================================================================
+
+set list
 
 set background=dark
 colorscheme solarized
@@ -280,6 +280,9 @@ nnoremap <silent> _ -:execute 'edit' . getcwd() <CR>
 
 nnoremap <silent> gb :Gblame<CR>
 nnoremap <silent> gs :Gstatus<CR>
+nnoremap <silent> gp :Gpush<CR>
+nnoremap <silent> gPP :Gpush -f<CR>
+nnoremap <silent> gr :Gpull --rebase<CR>
 
 " }}}
 
@@ -334,8 +337,27 @@ set completeopt=longest,menuone
 
 " }}}
 
-" NeoComplete {{{
+" Deoplete {{{
 " ===========================================================================
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+" Use smartcase.
+let g:deoplete#enable_smart_case = 1
+
+" Close the popup on delete.
+inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+
+" map tab, in insert mode, to C-n
+inoremap <silent><expr> <Tab>
+  \ pumvisible() ? "\<C-n>" :
+  \ "<Tab>"
+
+inoremap <silent><expr> <S-Tab>
+  \ pumvisible() ? "\<C-p>" :
+  \ "\<S-Tab>"
+
 
 "  }}}
 

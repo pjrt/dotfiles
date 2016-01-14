@@ -16,14 +16,16 @@
 --
 
 import XMonad
-import XMonad.Util.EZConfig
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.SetWMName
-import XMonad.Layout.NoBorders
 import Data.Monoid
-import System.Exit
--- import XMonad.Actions.Volume
-import XMonad.Util.Dzen
+
+import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.WindowProperties (Property(Resource))
+import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
+import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook)
+import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Layout.NoBorders (noBorders)
+import XMonad.Layout.ThreeColumns (ThreeCol(..))
+import System.Exit (exitWith, ExitCode(ExitSuccess))
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -98,10 +100,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
 
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
-
-    -- close focused window
+        -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
      -- Rotate through the available layout algorithms
@@ -133,6 +132,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+    , ((modm .|. shiftMask, xK_o     ), windows only    )
 
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
@@ -158,7 +158,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Screenshots
     , ((modm .|. controlMask, xK_2   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
     , ((modm .|. controlMask, xK_3   ), spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
-    , ((modm .|. controlMask, xK_4   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
+    , ((modm .|. controlMask, xK_4   ), spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
     ]
 
     ++
@@ -189,20 +189,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_a, xK_s] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-    -- ++
-
-    -- mod-f6 increases the volume. mod-f5 decreases it. mod-f3 mutes it
-     --[
-      --   ((modm, xK_F6), raiseVolume 4 >>= alert),
-      --   ((modm, xK_F5), lowerVolume 4 >>= alert)
-     --]
 
 extraKeys =
   [
       -- Volume Control
-      ("<XF86AudioMute>", spawn "pulseaudio-ctl mute")
-    , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl down")
-    , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl up")
+      ("<XF86AudioMute>", spawn "pulseaudio-ctl-p mute")
+    , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl-p down")
+    , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl-p up")
 
     -- Brightness control
     , ("<XF86MonBrightnessDown>", spawn "xbacklight - 10")
@@ -210,31 +203,39 @@ extraKeys =
 
   ]
 
-alert = dzenConfig centered . show . round
-centered =
-        onCurr (center 150 66)
-    >=> font "-*-helvetica-*-r-*-*-64-*-*-*-*-*-*-*"
-    >=> addArgs ["-fg", "#80c0ff"]
-    >=> addArgs ["-bg", "#000040"]
+mouseLeft = button1
+mouseRight = button3
+mouseWheelButton = button2
+mouseWheelUp = button4
+mouseWheelDown = button5
+
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster))
+    [ ((modm, mouseLeft), (\w -> focus w >> mouseMoveWindow w
+                                         >> windows W.shiftMaster))
 
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    , ((modm, mouseRight), (\w -> focus w >> mouseResizeWindow w
+                                          >> windows W.shiftMaster))
 
     -- mod-button3, Set the window to master
-    , ((modm, button3), windows W.focusMaster)
+    , ((modm, mouseWheelButton), \w -> focus w >> windows W.focusMaster)
 
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    , ((modm, button4), windows W.focusUp)
-    , ((modm, button5), windows W.focusDown)
+    , ((modm, mouseWheelUp), const $ windows W.focusUp)
+    , ((modm, mouseWheelDown), const $ windows W.focusDown)
     ]
+
+------------------------------------------------------------------------
+-- Extras
+-- | Remove all windows except the focused one.
+only :: W.StackSet i l a s sd -> W.StackSet i l a s sd
+only = W.modify' $ \c -> case c of
+          W.Stack f _ _ -> W.Stack f [] []
 
 ------------------------------------------------------------------------
 -- Layouts:
@@ -253,18 +254,23 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| noBorders Full
-  where
-    -- default tiling algorithm partitions the screen into two panes
-    tiled   = Tall nmaster delta ratio
+myLayout = tiled ||| Mirror tiled ||| full
 
+-- | Multiple layouts
+full = noBorders Full
+tiled = Tall nmaster delta ratio
+  where
     -- The default number of windows in the master pane
     nmaster = 1
-
     -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
-
+    ratio   = 2/3
     -- Percent of screen to increment by when resizing panes
+    delta   = 3/100
+
+threeCol = avoidStruts $ ThreeColMid nmaster delta ratio ||| full
+  where
+    nmaster = 1
+    ratio   = 1/2
     delta   = 3/100
 
 ------------------------------------------------------------------------
@@ -302,7 +308,7 @@ myManageHook = composeAll
 -- It will add EWMH event handling to your custom event hooks by
 -- combining them with ewmhDesktopsEventHook.
 --
-myEventHook = mempty
+myEventHook = docksEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -316,7 +322,7 @@ myEventHook = mempty
 -- It will add EWMH logHook actions to your custom log hook by
 -- combining it with ewmhDesktopsLogHook.
 --
-myLogHook = return ()
+myLogHook = dynamicLog
 
 ------------------------------------------------------------------------
 -- Startup hook

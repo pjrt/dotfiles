@@ -5,13 +5,14 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , lowerOnStart = False
        , pickBroadest = True
        , commands = [ Run StdinReader
+                    , Run PipeReader "/home/pjrt/.vol" "vol"
                     , Run MultiCpu ["-L","10","-H","70","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%H:%M %Y-%m-%d" "date" 10
-                    , Run BatteryP ["BAT1"] ["-t", "<acstatus><watts> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
+                    , Run BatteryP ["BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ Volume: %vol% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
