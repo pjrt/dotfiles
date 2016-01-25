@@ -36,8 +36,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Peeja/vim-cdo'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-"Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim'
+Plug 'ervandew/supertab'
 
 Plug 'benekastah/neomake'
 
@@ -96,8 +95,15 @@ let maplocalleader = ","
 " For Cdo
 set hidden
 
+" As a general rule, turn off spelling
+set nospell
+
 " Use ALL the colors!
+syntax enable
 set t_Co=256
+set background=dark
+colorscheme solarized
+
 
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -210,9 +216,6 @@ let g:netrw_altfile=1
 
 set list
 
-set background=dark
-colorscheme solarized
-
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235
 hi CursorColumn cterm=NONE ctermbg=235
@@ -225,7 +228,6 @@ endif
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
 filetype plugin indent on
-syntax enable
 
 " Set line numbers
 set nu
@@ -336,31 +338,6 @@ set laststatus=2
 set completeopt=longest,menuone
 
 " }}}
-
-" Deoplete {{{
-" ===========================================================================
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-" Use smartcase.
-let g:deoplete#enable_smart_case = 1
-
-" Close the popup on delete.
-inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-
-" map tab, in insert mode, to C-n
-inoremap <silent><expr> <Tab>
-  \ pumvisible() ? "\<C-n>" :
-  \ "<Tab>"
-
-inoremap <silent><expr> <S-Tab>
-  \ pumvisible() ? "\<C-p>" :
-  \ "\<S-Tab>"
-
-
-"  }}}
-
 
 " Custom Functions {{{
 " ============================================================================

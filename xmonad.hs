@@ -292,7 +292,7 @@ hangoutsAppId = "crx_nckgahadagoaajjgafhacjanaoiihapd"
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , resource  =? hangoutsAppId    --> doFloat
+    , resource  =? hangoutsAppId    --> doShift "3"
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
