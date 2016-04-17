@@ -14,7 +14,8 @@ ZSH_THEME="cloud"
 alias st="git st"
 alias sc="systemctl"
 alias open="xdg-open"
-alias qghc="ghcid -o .git/cabal.quickfix"
+alias qghc="ghcid -o .git/cabal.quickfix -c cabal repl"
+alias sghc="ghcid -o .git/cabal.quickfix -c stack repl"
 alias install-deps="cabal install -j --dependencies-only"
 alias sandbox="cabal sandbox"
 alias sandbox-reset="sandbox delete && sandbox init"
@@ -61,14 +62,17 @@ alias hoo="hoogle --count=10"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+
+# Completers
 source $HOME/sources/aws_zsh_completer.sh
+eval "$(stack --bash-completion-script stack)"
 
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl"
 export RPATH=$(ruby -rubygems -e "puts Gem.user_dir")/bin
 
-export PATH="$HOME/.cabal/bin:$RPATH:$PATH"
+export PATH="$HOME/.cabal/bin:$HOME/.local/bin:$RPATH:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
