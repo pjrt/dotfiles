@@ -1,13 +1,13 @@
 [user]
-	name = Pedro Rodriguez
-	email = pedro@pjrt.co
+    name = Pedro Rodriguez
+    email = pedro@pjrt.co
 
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
-	ui = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+    ui = auto
 
 [alias]
     st = status -sb
@@ -35,26 +35,26 @@
     skip = rebase --skip
     abort = rebase --abort
     ss = stash
-	ctags = !.git/hooks/ctags
+    ctags = !.git/hooks/ctags
 
 [push]
-	default = current
+    default = current
 
 [core]
-	editor = vim
+    editor = vim
 
 [branch "master"]
-        remote = origin
-        merge = refs/heads/master
-        rebase = true
+    remote = origin
+    merge = refs/heads/master
+    rebase = true
 [github]
-	user = pjrt
+    user = pjrt
 
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
 [color "decorate"]
-	HEAD = cyan
+    HEAD = cyan
 [init]
-	templatedir = ~/.git_template
+    templatedir = ~/.git_template
 [web]
-	browser = chromium
+    browser = chromium
