@@ -44,6 +44,7 @@ Plug 'benekastah/neomake'
 
 "Plug 'dag/vim2hs'
 Plug 'derekwyatt/vim-scala'
+Plug 'udalov/kotlin-vim'
 Plug 'klen/python-mode'
 Plug 'tpope/vim-markdown'
 Plug 'pbrisbin/html-template-syntax'
@@ -115,7 +116,7 @@ set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
 " Soft line limit
-set colorcolumn=78
+set colorcolumn=80
 
 " }}}
 
