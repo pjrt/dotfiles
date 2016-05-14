@@ -21,6 +21,7 @@ alias sandbox="cabal sandbox"
 alias sandbox-reset="sandbox delete && sandbox init"
 alias reload="source ~/.zshrc"
 alias hoo="hoogle --count=10"
+alias vim="nvim"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
