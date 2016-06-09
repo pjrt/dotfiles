@@ -42,7 +42,7 @@ URxvt.scrollStyle:          rxvt
 URxvt.scrollBar:            false
 
 ! Perl extensions
-URxvt.perl-ext-common:      default,matcher,url-select,keyboard-select,clipboard
+URxvt.perl-ext-common:      default,matcher,url-select,keyboard-select,clipboard,font-size
 URxvt.matcher.button:       1
 URxvt.urlLauncher:          chromium
 
@@ -61,6 +61,10 @@ URxvt.keysym.M-l:           perl:url-select:select_next
 URxvt.keysym.M-c:           perl:clipboard:copy
 URxvt.keysym.M-p:           perl:clipboard:paste
 URxvt.keysym.M-C-v:         perl:clipboard:paste_escaped
+
+URxvt.keysym.C-equal:       font-size:increase
+URxvt.keysym.C-0x2d:        font-size:decrease
+URxvt.keysym.C-0:           font-size:reset
 
 ! Cursor
 URxvt.cursorBlink:          true
