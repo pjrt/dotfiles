@@ -159,6 +159,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_2   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
     , ((modm .|. controlMask, xK_3   ), spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
     , ((modm .|. controlMask, xK_4   ), spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
+
+    -- Lock screen
+    , ((modm .|. controlMask, xK_w   ), spawn "xlock -mode blank")
     ]
 
     ++
