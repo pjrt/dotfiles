@@ -4,6 +4,6 @@ git_template: /home/pjrt/.git_template
 vimrc:        /home/pjrt/.vimrc, /home/pjrt/.config/nvim/init.vim
 Xdefault:     /home/pjrt/.Xdefault
 xmobarrc:     /home/pjrt/.xmobarrc
-xmodmaprc:    /home/pjrt/.xmodmaprc
+xmodmaprc:    /home/pjrt/.xmodmap
 zshrc:        /home/pjrt/.zshrc
 xmonad.hs:    /home/pjrt/.xmonad/xmonad.hs
