@@ -1,9 +1,9 @@
-ctags:        /home/pjrt/.ctags
-gitconfig:    /home/pjrt/.gitconfig
-git_template: /home/pjrt/.git_template
-vimrc:        /home/pjrt/.vimrc, /home/pjrt/.config/nvim/init.vim
-Xdefault:     /home/pjrt/.Xdefault
-xmobarrc:     /home/pjrt/.xmobarrc
-xmodmaprc:    /home/pjrt/.Xmodmap
-zshrc:        /home/pjrt/.zshrc
-xmonad.hs:    /home/pjrt/.xmonad/xmonad.hs
+ctags:        $HOME/.ctags
+gitconfig:    $HOME/.gitconfig
+git_template: $HOME/.git_template
+vimrc:        $HOME/.vimrc, /home/pjrt/.config/nvim/init.vim
+Xdefault:     $HOME/.Xdefault
+xmobarrc:     $HOME/.xmobarrc
+xmodmaprc:    $HOME/.Xmodmap
+zshrc:        $HOME/.zshrc
+xmonad.hs:    $HOME/.xmonad/xmonad.hs
