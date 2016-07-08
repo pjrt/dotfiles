@@ -40,6 +40,8 @@ Plug 'ervandew/supertab'
 
 Plug 'benekastah/neomake'
 
+Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
+
 " Syntax {{{
 
 "Plug 'dag/vim2hs'
@@ -170,11 +172,10 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-" Disable stupid backup and swap files - they trigger too many events
-" for file system watchers
+" Disable backup files, point swap files elsewhere
 set nobackup
 set nowritebackup
-set noswapfile
+set dir=~/.vim/tmp
 
 " Tags
 set tags=tags;/
