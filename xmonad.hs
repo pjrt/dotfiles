@@ -18,6 +18,7 @@
 import XMonad
 import Data.Monoid
 
+import XMonad.Actions.Submap (submap)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
@@ -155,13 +156,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
-    -- Screenshots
-    , ((modm .|. controlMask, xK_2   ), spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
-    , ((modm .|. controlMask, xK_3   ), spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
-    , ((modm .|. controlMask, xK_4   ), spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
-
     -- Lock screen
     , ((modm .|. controlMask, xK_w   ), spawn "xlock -mode blank")
+
+    -- Take a screen shot (different modes) based on a chord.
+    -- modm ; i {s,w,a}
+    , ((modm              , xK_semicolon), chord [xK_i]
+        [ (xK_s, spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
+        , (xK_w, spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
+        , (xK_a, spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
+        ])
     ]
 
     ++
@@ -204,6 +208,22 @@ extraKeys =
     , ("<XF86MonBrightnessUp>", spawn "xbacklight + 10")
 
   ]
+
+-- | Map a set of keys-actions to a chord that is represented by the @cKeys@
+-- list.
+--
+-- IE: /chord [xK_i, xK_o] [(xK_1, doTheThing), (xK_2, doTheOtherThing)]/
+--
+-- means that after calling this chord (note, you map *some* key combo to call
+-- this function), if you press `i` and then `o` and finally either `1` or `2`,
+-- then either `doTheThing` or `doTheOtherThing` will be called (depending
+-- on which one was pressed).
+chord :: [KeySym] -> [(KeySym, X ())] -> X ()
+chord cKeys actions =
+    submap . M.fromList $ expand cKeys
+  where
+    expand [] = map (\(k, a) -> ((0, k), a)) actions
+    expand (k:t) = [((0, k), submap . M.fromList $ expand t)]
 
 mouseLeft = button1
 mouseRight = button3
