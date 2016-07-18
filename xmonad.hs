@@ -19,7 +19,6 @@ import XMonad
 import Data.Monoid
 import Data.List (foldl')
 
-import XMonad.Actions.KeyChord (keychords)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
@@ -158,14 +157,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Lock screen
     , ((modm .|. controlMask, xK_w   ), spawn "xlock -mode blank")
-    -- Take a screen shot (different modes) based on a chord.
-    -- modm ; i {s,w,a}
-    , ((modm              , xK_semicolon), keychords
-        [ [(0, xK_i), (0, xK_s)] ==> spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
-        , [(0, xK_i), (0, xK_w)] ==> spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
-        , [(0, xK_i), (0, xK_a)] ==> spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
-        , [(0, xK_o), (0, xK_n)] ==> windows only
-        ])
     ]
 
     ++
@@ -206,6 +197,13 @@ extraKeys =
     -- Brightness control
     , ("<XF86MonBrightnessDown>", spawn "xbacklight - 10")
     , ("<XF86MonBrightnessUp>", spawn "xbacklight + 10")
+
+    -- Take a screen shot (different modes) based on a chord.
+    -- modm ; i {s,w,a}
+    , "M-; i s" ==> spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; i w" ==> spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; i S-a" ==> spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; o n" ==> windows only
 
   ]
 
