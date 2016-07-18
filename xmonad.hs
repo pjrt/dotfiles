@@ -19,7 +19,7 @@ import XMonad
 import Data.Monoid
 import Data.List (foldl')
 
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook)
@@ -93,123 +93,115 @@ myFocusedBorderColor = "#ff0000"
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@(XConfig {XMonad.modMask = modm}) =
+  let genKeys = M.fromList $
+        -- mod-[1..9], Switch to workspace N
+        -- mod-shift-[1..9], Move client to workspace N
+        --
+        [ ((m .|. modm, k), windows $ f i)
+            | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+            , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        ++
+        -- mod-{a,s,d}, Switch to physical/Xinerama screens 1, 2, or 3
+        -- mod-shift-{a,s,d}, Move client to screen 1, 2, or 3
+        --
+        [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+            | (key, sc) <- zip [xK_a, xK_s, xK_d] [0..]
+            , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+  in M.union genKeys $ keyMappings conf
 
+keyMappings conf = mkKeymap conf
+  [
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+      "M-S <Return>" → spawn $ XMonad.terminal conf
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
+    , "M-p" → spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\""
 
         -- close focused window
-    , ((modm .|. shiftMask, xK_c     ), kill)
+    , "M-S-c" → kill
 
      -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
+    , "M-<Space>" → sendMessage NextLayout
 
     --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    , "M-S-<Space>" → setLayout $ XMonad.layoutHook conf
 
     -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
+    , "M-n" → refresh
 
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
+    , "M-<Tab>" → windows W.focusDown
 
     -- Move focus to the next window
-    , ((modm,               xK_j     ), windows W.focusDown)
+    , "M-j" → windows W.focusDown
 
     -- Move focus to the previous window
-    , ((modm,               xK_k     ), windows W.focusUp  )
+    , "M-k" → windows W.focusUp  
 
     -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster)
+    , "M-m" → windows W.focusMaster
 
     -- Swap the focused window and the master window
-    , ((modm,               xK_Return), windows W.swapMaster)
+    , "M-<Return>" → windows W.swapMaster
 
     -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
+    , "M-S-j" → windows W.swapDown
 
     -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+    , "M-S-k" → windows W.swapUp
 
     -- Shrink the master area
-    , ((modm,               xK_h     ), sendMessage Shrink)
+    , "M-h" → sendMessage Shrink
 
     -- Expand the master area
-    , ((modm,               xK_l     ), sendMessage Expand)
+    , "M-l" → sendMessage Expand
 
     -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
+    , "M-t" → withFocused $ windows . W.sink
 
     -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+    , "M-," → sendMessage (IncMasterN 1)
 
     -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+    , "M-." → sendMessage (IncMasterN (-1))
 
     -- Quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
+    , "M-S-q" → io (exitWith ExitSuccess)
 
     -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+    , "M-q" → spawn "xmonad --recompile; xmonad --restart"
 
     -- Lock screen
-    , ((modm .|. controlMask, xK_w   ), spawn "xlock -mode blank")
-    ]
-
-    ++
+    , "M-C-w" → spawn "xlock -mode blank"
 
     -- Random bash scripts
-    [
       -- Move stuff from the primary selection to the X selection
-      ((modm, xK_b), spawn "xsel -op | xsel -ib")
-    ]
+    , "M-b" → spawn "xsel -op | xsel -ib"
 
-    ++
-
-    --
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-
-    ++
-
-    --
-    -- mod-{a,s,d}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{a,s,d}, Move client to screen 1, 2, or 3
-    --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_a, xK_s, xK_d] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
-extraKeys =
-  [
       -- Volume Control
-      ("<XF86AudioMute>", spawn "pulseaudio-ctl-p mute")
-    , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl-p down")
-    , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl-p up")
+    , "<XF86AudioMute>" → spawn "pulseaudio-ctl-p mute"
+    , "<XF86AudioLowerVolume>" → spawn "pulseaudio-ctl-p down"
+    , "<XF86AudioRaiseVolume>" → spawn "pulseaudio-ctl-p up"
 
     -- Brightness control
-    , ("<XF86MonBrightnessDown>", spawn "xbacklight - 10")
-    , ("<XF86MonBrightnessUp>", spawn "xbacklight + 10")
+    , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
+    , "<XF86MonBrightnessUp>" → spawn "xbacklight + 10"
 
-    -- Take a screen shot (different modes) based on a chord.
-    -- modm ; i {s,w,a}
-    , "M-; i s" ==> spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
-    , "M-; i w" ==> spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
-    , "M-; i S-a" ==> spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
-    , "M-; o n" ==> windows only
+    -- Take a screen shot (different modes) based on a sequence.
+    , "M-; i s" → spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; i w" → spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; i a" → spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
+
+    -- remove all other windows from view
+    , "M-; o n" → windows only
 
   ]
 
 -- | Alias for (,) for easier key mapping
-(==>) :: a -> b -> (a, b)
-(==>) = (,)
+infixr 0 →
+(→) :: a -> b -> (a, b)
+(→) = (,)
 
 mouseLeft = button1
 mouseRight = button3
@@ -389,4 +381,4 @@ defaults =  def {
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
-    } `additionalKeysP` extraKeys
+    }
