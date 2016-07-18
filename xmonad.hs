@@ -19,7 +19,7 @@ import XMonad
 import Data.Monoid
 import Data.List (foldl')
 
-import XMonad.Actions.Submap (submap)
+import XMonad.Actions.KeyChord (keychords)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
@@ -134,7 +134,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
-    , ((modm .|. shiftMask, xK_o     ), windows only    )
 
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
@@ -161,10 +160,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_w   ), spawn "xlock -mode blank")
     -- Take a screen shot (different modes) based on a chord.
     -- modm ; i {s,w,a}
-    , ((modm              , xK_semicolon), multiChord
-        [ ([(0, xK_i), (0, xK_s)], spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'")
-        , ([(0, xK_i), (0, xK_w)], spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'")
-        , ([(0, xK_i), (0, xK_a)], spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'")
+    , ((modm              , xK_semicolon), keychords
+        [ [(0, xK_i), (0, xK_s)] ==> spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
+        , [(0, xK_i), (0, xK_w)] ==> spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
+        , [(0, xK_i), (0, xK_a)] ==> spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
+        , [(0, xK_o), (0, xK_n)] ==> windows only
         ])
     ]
 
@@ -209,69 +209,9 @@ extraKeys =
 
   ]
 
-type KeyCombo = (KeyMask, KeySym)
--- | Map a set of keys-actions to a chord that is represented by the @cKeys@
--- list.
---
--- IE: /chord [xK_i, xK_o] [(xK_1, doTheThing), (xK_2, doTheOtherThing)]/
---
--- means that after calling this chord (note, you map *some* key combo to call
--- this function), if you press `i` and then `o` and finally either `1` or `2`,
--- then either `doTheThing` or `doTheOtherThing` will be called (depending
--- on which one was pressed).
-chord :: [KeySym] -> [(KeySym, X ())] -> X ()
-chord cKeys actions =
-    submap . M.fromList $ expand cKeys
-  where
-    expand [] = map (\(k, a) -> ((0, k), a)) actions
-    expand (k:t) = [((0, k), submap . M.fromList $ expand t)]
-
-singleChord :: ([KeyCombo], X ()) -> X ()
-singleChord (combo, act) =
-  submap . M.fromList $ expand combo
-  where
-    expand [] = []
-    expand [k] = [(k, act)]
-    expand (k:t) = [(k, submap . M.fromList $ expand t)]
-
-multiChord :: [([KeyCombo], X ())] -> X ()
-multiChord kCombos =
-  let tree = foldl' (flip insert) Empty kCombos
-  in buildChord tree
-  where
-    buildChord Empty = return ()
-    buildChord (Leaf a) = a
-    buildChord (Node n c _) = submap . M.fromList $ (n, buildChord c) : expandSiblings c
-      where
-        expandSiblings  Empty = []
-        expandSiblings (Leaf a) = [(n, a)]
-        expandSiblings node@(Node n' _ s') = (n, buildChord node) : expandSiblings s'
-
-data LCRSTree n a = Empty | Leaf a | Node n (LCRSTree n a) (LCRSTree n a)
-  deriving (Eq, Ord, Show)
-
-fromEmpty :: ([n], a) -> LCRSTree n a
-fromEmpty ([], a) = Leaf a
-fromEmpty ((h:t), a) = Node h (fromEmpty (t, a)) Empty
-
-insert :: Eq n => ([n], a) -> LCRSTree n a -> LCRSTree n a
-insert ([], a) t = t
-insert t Empty = fromEmpty t
-insert (h:t, a) l@(Leaf _) = Node h (fromEmpty (t, a)) l
-insert (h:t, a) e@(Node n c s)
-  | h == n = Node n (insert (t, a) c) s
-  | otherwise = Node h (fromEmpty (t, a)) e
-
--- [([a,s,d,g], A),
---  ([a,s,a  ], B),
---  ([k,r,e,q], C)
--- ]
---
---[(a, (s, [([d, g], A), ([a], B)]))
---
--- a -> s -> d -> g -> A
---      ||-> a      -> B
--- k -> r -> e -> q -> C
+-- | Alias for (,) for easier key mapping
+(==>) :: a -> b -> (a, b)
+(==>) = (,)
 
 mouseLeft = button1
 mouseRight = button3
