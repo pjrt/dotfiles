@@ -113,7 +113,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
 keyMappings conf = mkKeymap conf
   [
     -- launch a terminal
-      "M-S <Return>" → spawn $ XMonad.terminal conf
+      "M-S-<Return>" → spawn $ XMonad.terminal conf
 
     -- launch dmenu
     , "M-p" → spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\""
