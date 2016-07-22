@@ -7,3 +7,4 @@ xmobarrc:     $HOME/.xmobarrc
 xmodmaprc:    $HOME/.Xmodmap
 zshrc:        $HOME/.zshrc
 xmonad.hs:    $HOME/.xmonad/xmonad.hs
+qsbt.sh:      $HOME/.local/bin/qsbt
