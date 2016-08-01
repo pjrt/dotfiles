@@ -7,7 +7,8 @@
 # Launch SBT with support for generating /tmp/sbt.quickfix file for Vim
 # http://github.com/aloiscochard / https://gist.github.com/4698501
  
-quickfix=.git/sbt.quickfix;\
+gitroot=$(git rev-parse --show-toplevel);\
+quickfix=${gitroot}/.git/sbt.quickfix;\
 sbt $@ | tee \
 >(while read line;\
 do \
