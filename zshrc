@@ -83,6 +83,7 @@ export PATH="$HOME/.cabal/bin:$HOME/.local/bin:$RPATH:$PATH"
 export EDITOR='vim'
 export BROWSER='chromium'
 export TERM=rxvt-unicode
+export MANPAGER="nvim -u NORC -c 'set ft=man' -"
 
 # Makes it so java apps can run in xmonad
 export _JAVA_AWT_WM_NONREPARENTING=1

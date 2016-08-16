@@ -44,27 +44,23 @@ Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
 
 " Syntax {{{
 
-"Plug 'dag/vim2hs'
-Plug 'derekwyatt/vim-scala'
-Plug 'udalov/kotlin-vim'
 Plug 'gabrielelana/vim-markdown'
 Plug 'pbrisbin/html-template-syntax'
 Plug 'tyok/ack.vim'
-Plug 'othree/html5.vim'
-Plug 'gre/play2vim'
 Plug 'itchyny/landscape.vim'
 Plug 'duganchen/vim-soy'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'dag/vim-fish'
+
+Plug 'derekwyatt/vim-scala'
+Plug 'udalov/kotlin-vim'
+Plug 'gre/play2vim'
+Plug 'othree/html5.vim'
+Plug 'jparise/vim-graphql'
+Plug 'kana/vim-filetype-haskell'
 
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
-
-" }}}
-
-" Interface {{{
-
-"Plug 'tomtom/quickfixsigns_vim'
-Plug 'kana/vim-filetype-haskell'
 
 " }}}
 
