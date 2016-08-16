@@ -9,4 +9,4 @@ zshrc:        $HOME/.zshrc
 xmonad.hs:    $HOME/.xmonad/xmonad.hs
 qsbt.sh:      $HOME/.local/bin/qsbt
 ldsteam:      $HOME/.local/bin/ldsteam
-config.fish   $HOME/.config/fish/config.fish
+config.fish:  $HOME/.config/fish/config.fish
