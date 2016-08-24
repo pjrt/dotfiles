@@ -28,8 +28,10 @@ import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import qualified XMonad.Prompt        as P
+import qualified XMonad.Prompt.Window as P
+import qualified XMonad.StackSet      as W
+import qualified Data.Map             as M
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -186,19 +188,22 @@ keyMappings conf = mkKeymap conf
 
     -- Brightness control
     , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
-    , "<XF86MonBrightnessUp>" → spawn "xbacklight + 10"
+    , "<XF86MonBrightnessUp>"   → spawn "xbacklight + 10"
 
     -- Take a screen shot (different modes) based on a sequence.
     , "M-; i s" → spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
     , "M-; i w" → spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
     , "M-; i a" → spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
 
-    -- remove all other windows from view
+    -- Remove all other windows from view
     , "M-; o n" → windows only
+
+    -- Search for window and move to it
+    , "M-/" → P.windowPromptGoto P.defaultXPConfig
 
   ]
 
--- | Alias for (,) for easier key mapping
+-- | Alias for (,) for easier/prettier key mapping
 infixr 0 →
 (→) :: a -> b -> (a, b)
 (→) = (,)
