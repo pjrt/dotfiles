@@ -22,11 +22,12 @@ alias sandbox-reset="sandbox delete; sandbox init"
 alias reload="source ~/.config/fish/config.fish"
 alias hoo="hoogle --count=10"
 alias vim="nvim"
+alias time="time -p"
 
 set -x EDITOR 'vim'
 set -x BROWSER 'chromium'
 set -x TERM rxvt-unicode
-set -x MANPAGER "nvim -u NORC -c 'set ft=man' -"
+set -x MANPAGER "nvim -c 'set ft=man' -"
 
 set -x XMODIFIERS "@im=none"
 

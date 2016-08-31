@@ -11,8 +11,9 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Swap [] 10
                     , Run Date "%H:%M %Y-%m-%d" "date" 10
                     , Run BatteryP ["BAT0", "BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
+                    , Run PipeReader "/home/pjrt/.dropbox-status" "dropboxStatus"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ Volume: %vol% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ Volume: %vol% | %dropboxStatus% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
