@@ -16,6 +16,5 @@ Xdefaults:    $HOME/.Xdefaults
 
 zshrc:        $HOME/.zshrc
 config.fish:  $HOME/.config/fish/config.fish
-.taskrc:      $HOME/.taskrc
 
 ldsteam:      $HOME/.local/bin/ldsteam
