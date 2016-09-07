@@ -1,13 +1,21 @@
 ctags:        $HOME/.ctags
+
 gitconfig:    $HOME/.gitconfig
 git_template: $HOME/.git_template
-vimrc:        $HOME/.vimrc, /home/pjrt/.config/nvim/init.vim
-Xdefault:     $HOME/.Xdefault
-xmobarrc:     $HOME/.xmobarrc
-xmodmaprc:    $HOME/.Xmodmap
-zshrc:        $HOME/.zshrc
-xmonad.hs:    $HOME/.xmonad/xmonad.hs
+
 qsbt.sh:      $HOME/.local/bin/qsbt
-ldsteam:      $HOME/.local/bin/ldsteam
+
+vimrc:        $HOME/.vimrc
+vimrc:        $HOME/.config/nvim/init.vim
+
+xmobarrc:     $HOME/.xmobarrc
+xmonad.hs:    $HOME/.xmonad/xmonad.hs
+
+xmodmaprc:    $HOME/.Xmodmap
+Xdefaults:    $HOME/.Xdefaults
+
+zshrc:        $HOME/.zshrc
 config.fish:  $HOME/.config/fish/config.fish
 .taskrc:      $HOME/.taskrc
+
+ldsteam:      $HOME/.local/bin/ldsteam
