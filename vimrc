@@ -241,9 +241,9 @@ set undolevels=700
 
 
 " Real programmers don't use TABs but spaces
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set shiftround
 set expandtab
 
@@ -367,6 +367,14 @@ function! <SID>AutoProjectRootCD()
   catch
     " Silently ignore invalid buffers
   endtry
+endfunction
+
+function! TagJumpDot()
+  let l:orig_keyword = &iskeyword
+  set iskeyword+=\.
+  let l:word = expand("<cword>")
+  let &iskeyword = l:orig_keyword
+  execute "ta " . l:word
 endfunction
 
 " }}}
