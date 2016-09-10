@@ -3,7 +3,7 @@ set -e
 
 if [ -e *.cabal ]; then
     # Hasktags for Haskell
-    CT="hasktags -c -o .git/tags.$$ -R ."
+    CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
 else
     # For everything else, ctags
     CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql"
