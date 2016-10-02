@@ -5,51 +5,49 @@ filetype off                   " required!
 " Vim-Plug {{{
 "============================================================
 
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-surround'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-abolish'
 Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdcommenter'
-Plug 'kchmck/vim-coffee-script'
-Plug 'elzr/vim-json', { 'for': 'json'}
-Plug 'tpope/vim-vinegar'
-Plug 'sjl/gundo.vim'
-Plug 'chrisbra/csv.vim'
-Plug 't9md/vim-chef'
-Plug 'justinmk/vim-sneak'
-Plug 'Shougo/vimproc.vim', { 'do': 'make'}
-Plug 'SirVer/ultisnips'
-Plug 'regedarek/ZoomWin'
-Plug 'tpope/vim-unimpaired'
-Plug 'zhaocai/GoldenView.Vim'
-Plug 'tpope/vim-dispatch'
 
-Plug 'dbakker/vim-projectroot'
-
-Plug 'Shougo/vimshell.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
-Plug 'Peeja/vim-cdo'
+Plug 'Shougo/vimproc.vim', { 'do': 'make'}
+Plug 'Shougo/vimshell.vim'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'ervandew/supertab'
-
+Plug 'SirVer/ultisnips'
 Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
+Plug 'chrisbra/csv.vim'
+Plug 'dbakker/vim-projectroot'
+Plug 'elzr/vim-json', { 'for': 'json'}
+Plug 'ervandew/supertab'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'justinmk/vim-sneak'
+Plug 'kchmck/vim-coffee-script'
 
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+
+Plug 'nelstrom/vim-visual-star-search'
 Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'sjl/gundo.vim'
+
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+
+Plug 'zhaocai/GoldenView.Vim'
 
 " Syntax {{{
 
 Plug 'gabrielelana/vim-markdown'
 Plug 'pbrisbin/html-template-syntax'
 Plug 'tyok/ack.vim'
-Plug 'itchyny/landscape.vim'
 Plug 'duganchen/vim-soy'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'dag/vim-fish'
 
 Plug 'derekwyatt/vim-scala'
@@ -68,7 +66,6 @@ Plug 'xolox/vim-misc'
 
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
-Plug 'chriskempson/vim-tomorrow-theme'
 
 " }}}
 
