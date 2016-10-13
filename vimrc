@@ -21,7 +21,10 @@ Plug 'chrisbra/csv.vim'
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'ervandew/supertab'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'justinmk/vim-sneak'
 Plug 'kchmck/vim-coffee-script'
 
@@ -29,6 +32,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'pgilad/vim-skeletons'
 Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'sjl/gundo.vim'
@@ -185,11 +189,15 @@ set guioptions-=L
 " Set Notes dir for vim-notes
 let g:notes_directories = ['~/Documents/Notes']
 
+" Skeleton settings
+let skeletons#autoRegister = 1
+
 " }}}
 
-" <c-p> {{{
+" FZF {{{
 " ============================================================================
 nnoremap <silent><c-p> :FZF<cr>
+nnoremap <silent><c-c> :Tag<cr>
 " }}}
 
 " Variable setting {{{
