@@ -34,12 +34,12 @@ Plug 'mattn/webapi-vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
 Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
-Plug 'scrooloose/nerdcommenter'
 Plug 'sjl/gundo.vim'
 
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
@@ -143,16 +143,21 @@ nnoremap <silent><C-m> :nohl<CR>
 vnoremap <Leader>s :sort<CR>
 
 " easier moving of code blocks
-" Try to go into visual mode (v), thenselect several lines of code here and
+" Try to go into visual mode (v), then select several lines of code here and
 " then press ``>`` several times.
-vnoremap < <gv  " better indentation
-vnoremap > >gv  " better indentation
+vnoremap < <gv
+vnoremap > >gv
 
 " Make Y behave correctly
 nnoremap Y y$
 
 " Delete whitespace on command
 nnoremap <silent> <F5> :%s/\s\+$//<CR>
+
+" Neovim things
+if exists(":terminal")
+  tnoremap <c-\><c-\> <c-\><c-n>
+endif
 
 " }}}
 
@@ -198,6 +203,7 @@ let skeletons#autoRegister = 1
 " ============================================================================
 nnoremap <silent><c-p> :FZF<cr>
 nnoremap <silent><c-c> :Tag<cr>
+nnoremap <silent><c-b> :Buffers<cr>
 " }}}
 
 " Variable setting {{{
