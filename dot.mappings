@@ -1,20 +1,23 @@
-ctags:        $HOME/.ctags
+ctags:                  $HOME/.ctags
 
-gitconfig:    $HOME/.gitconfig
-git_template: $HOME/.git_template
+git-commands/git-ctags: $HOME/.local/bin/git-ctags
+git-commands/git-task:  $HOME/.local/bin/git-task
 
-qsbt.sh:      $HOME/.local/bin/qsbt
+gitconfig:              $HOME/.gitconfig
+git_template:           $HOME/.git_template
 
-vimrc:        $HOME/.vimrc
-vimrc:        $HOME/.config/nvim/init.vim
+qsbt.sh:                $HOME/.local/bin/qsbt
 
-xmobarrc:     $HOME/.xmobarrc
-xmonad.hs:    $HOME/.xmonad/xmonad.hs
+vimrc:                  $HOME/.vimrc
+vimrc:                  $HOME/.config/nvim/init.vim
 
-xmodmaprc:    $HOME/.Xmodmap
-Xdefaults:    $HOME/.Xdefaults
+xmobarrc:               $HOME/.xmobarrc
+xmonad.hs:              $HOME/.xmonad/xmonad.hs
 
-zshrc:        $HOME/.zshrc
-config.fish:  $HOME/.config/fish/config.fish
+xmodmaprc:              $HOME/.Xmodmap
+Xdefaults:              $HOME/.Xdefaults
 
-ldsteam:      $HOME/.local/bin/ldsteam
+zshrc:                  $HOME/.zshrc
+config.fish:            $HOME/.config/fish/config.fish
+
+ldsteam:                $HOME/.local/bin/ldsteam

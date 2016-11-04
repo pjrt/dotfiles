@@ -35,7 +35,6 @@
     skip = rebase --skip
     abort = rebase --abort
     ss = stash
-    ctags = !.git/hooks/ctags
     ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 
 [push]

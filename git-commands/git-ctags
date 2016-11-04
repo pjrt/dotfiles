@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+cd $(git rev-parse --show-toplevel)
+
+if [ -e *.cabal ]; then
+    # Hasktags for Haskell
+    CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
+else
+    # For everything else, ctags
+    CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff"
+fi
+
+trap "rm -f .git/tags.$$" EXIT
+eval "$CT"
+mv .git/tags.$$ .git/tags

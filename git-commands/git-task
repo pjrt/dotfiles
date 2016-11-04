@@ -1,0 +1,15 @@
+#!/usr/local/bin/fish
+
+# Run task warrior while passing the branch's name as the project name.
+if git rev-parse --git-dir > /dev/null 2>&1
+  set current_branch (git rev-parse --abbrev-ref HEAD)
+  switch $current_branch
+    case "master" "dev" "stage" # these aren't task-worthy
+      task $argv
+    case "*"
+      set attrs "project:$current_branch"
+      task $attrs $argv
+  end
+else
+  echo "Not in a git repo"
+end
