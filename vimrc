@@ -21,6 +21,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'ervandew/supertab'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
@@ -204,6 +205,11 @@ let skeletons#autoRegister = 1
 nnoremap <silent><c-p> :FZF<cr>
 nnoremap <silent><c-c> :Tag<cr>
 nnoremap <silent><c-b> :Buffers<cr>
+
+" Search for <cword>
+nnoremap <silent><space>gs :<C-u>execute 'Ag ' . expand("<cword>")<cr>
+
+nnoremap <space>s :Ag 
 " }}}
 
 " Variable setting {{{
@@ -311,14 +317,8 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('grep', 'matchers', 'matcher_fuzzy')
 
 nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
-nnoremap <space>s :Unite -buffer-name=ack grep:./:<cr>
 nnoremap <space>t :<C-u>execute 'Unite -buffer-name=ack grep:./::' . '(todo\|TODO)\:(pr\|pjrt\|pedro)'<cr>
 nnoremap <space>r :UniteResume<cr>
-
-" Search <cword>
-nnoremap <space>gs :<C-u>execute 'Unite grep:./::\\b' . expand("<cword>") . '\\b'<cr>
-" Global search <cword>
-nnoremap <space>Gs :<C-u>execute 'Unite grep:../::\\b' . expand("<cword>") . '\\b'<cr>
 
 nnoremap <space>y :Unite history/yank<cr>
 
