@@ -24,7 +24,7 @@ alias hoo="hoogle --count=10"
 alias vim="nvim"
 alias time="time -p"
 
-set -x EDITOR 'vim'
+set -x EDITOR 'nvim'
 set -x BROWSER 'chromium'
 set -x TERM rxvt-unicode
 set -x MANPAGER "nvim -c 'set ft=man' -"
