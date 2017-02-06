@@ -15,6 +15,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
 
 Plug 'SirVer/ultisnips'
+Plug 'Chiel92/vim-autoformat'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/csv.vim'
@@ -50,6 +51,7 @@ Plug 'zhaocai/GoldenView.Vim'
 " Syntax {{{
 
 Plug 'gabrielelana/vim-markdown'
+Plug 'GEverding/vim-hocon'
 Plug 'pbrisbin/html-template-syntax'
 Plug 'tyok/ack.vim'
 Plug 'duganchen/vim-soy'
@@ -207,7 +209,7 @@ nnoremap <silent><c-c> :Tag<cr>
 nnoremap <silent><c-b> :Buffers<cr>
 
 " Search for <cword>
-nnoremap <silent><space>gs :<C-u>execute 'Ag ' . expand("<cword>")<cr>
+nnoremap <silent><space>gs :<C-u>execute 'Ag \b' . expand("<cword>") . '\b'<cr>
 
 nnoremap <space>s :Ag 
 " }}}
@@ -223,6 +225,14 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No mark
 
 " Return me to the last file, not newtr
 let g:netrw_altfile=1
+
+" }}}
+
+" Formatting {{{
+
+noremap <F5> :Autoformat<CR>
+let g:formatdef_scalafmt = "'scalafmt --stdin'"
+let g:formatters_scala = ['scalafmt']
 
 " }}}
 
