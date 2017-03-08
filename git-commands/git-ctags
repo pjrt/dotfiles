@@ -7,8 +7,8 @@ if [ -e *.cabal ]; then
     # Hasktags for Haskell
     CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
 else
-    # For everything else, ctags
-    CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff"
+    # For everything else, ctags. Make sure to generate absolute tag paths.
+    CT="ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
 fi
 
 trap "rm -f .git/tags.$$" EXIT
