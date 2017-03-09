@@ -14,8 +14,8 @@ if [ $? -eq 0 ]; then
   sbt $@ | tee \
     >(while read line;\
   do \
-    if echo "$line" | gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | grep '\[error\]' >> ${quickfix}.raw;\
-    then gsed -n '/\^/{x;d;};1h;1!{x;p;};${x;p;}' ${quickfix}.raw > $quickfix; fi;\
+    if echo "$line" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | grep '\[error\]' >> ${quickfix}.raw;\
+    then sed -n '/\^/{x;d;};1h;1!{x;p;};${x;p;}' ${quickfix}.raw > $quickfix; fi;\
     done > /dev/null\
     ) \
     >(clean=false; while read line; \
