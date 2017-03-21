@@ -89,7 +89,7 @@ call plug#end()
 
 " Meta {{{
 " ============================================================================
-set encoding=utf8
+set encoding=utf-8
 " Rebind <Leader> key
 let mapleader = ","
 let maplocalleader = ","

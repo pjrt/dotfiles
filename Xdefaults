@@ -31,8 +31,9 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           true
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-URxvt*font:                 xft:bitstream vera sans mono:pixelsize=13
-URxvt*boldFont:             xft:bitstream vera sans mono:pixelsize=13
+URxvt*font:                 xft:DejaVu Sans Mono:style=Book:pixelsize=13, xft:WenQuanYi Bitmap Song:size=8, xft:FreeSerif:style=Regular, xft:unifont:style=Medium:antialias=false
+
+URxvt*boldFont:             xft:DejaVu Sans Mono:pixelsize=13:style=Bold, xft:WenQuanYi Bitmap Song:size=8, xft:FreeSerif:style=Regular, xft:unifont:style=Medium:antialias=false
 
 ! Fix font space
 URxvt*letterSpace: -1
