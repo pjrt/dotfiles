@@ -7,37 +7,30 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
-
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
-
 Plug 'SirVer/ultisnips'
-Plug 'Chiel92/vim-autoformat'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/csv.vim'
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'ervandew/supertab'
-Plug 'powerman/vim-plugin-AnsiEsc'
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
-
 Plug 'justinmk/vim-sneak'
 Plug 'kchmck/vim-coffee-script'
-
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
-Plug 'rhysd/vim-grammarous', { 'for': 'markdown' }
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'rhysd/vim-grammarous', { 'for': 'markdown', 'commit': '74a88d233056ac63ef65b3dd6766494ec33e6f2e' }
 Plug 'sjl/gundo.vim'
-
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -45,7 +38,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-
 Plug 'zhaocai/GoldenView.Vim'
 
 " Syntax {{{
@@ -178,6 +170,8 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
+nnoremap <silent> Q :w<CR>
+
 " Disable backup files, point swap files elsewhere
 set nobackup
 set nowritebackup
@@ -230,7 +224,7 @@ let g:netrw_altfile=1
 
 " Formatting {{{
 
-noremap <F5> :Autoformat<CR>
+noremap <silent><F5> :Autoformat<CR>
 let g:formatdef_scalafmt = "'scalafmt --stdin'"
 let g:formatters_scala = ['scalafmt']
 
@@ -257,17 +251,12 @@ filetype plugin indent on
 " Set line numbers
 set nu
 
-" easier formatting of paragraphs
-vmap Q gq
-nmap Q gqap
-
-
 " Useful settings
 set history=700
 set undolevels=700
 
 
-" Real programmers don't use TABs but spaces
+" No tabs, only spaces
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -390,6 +379,7 @@ function! <SID>AutoProjectRootCD()
   endtry
 endfunction
 
+" Allow to catch tags that extend over a `.` (ie: qualified tags)
 function! TagJumpDot()
   let l:orig_keyword = &iskeyword
   set iskeyword+=\.
