@@ -380,12 +380,17 @@ function! <SID>AutoProjectRootCD()
 endfunction
 
 " Allow to catch tags that extend over a `.` (ie: qualified tags)
-function! TagJumpDot()
+function! TagJumpDot() abort
+  let l:plain_tag = expand("<cword>")
   let l:orig_keyword = &iskeyword
   set iskeyword+=\.
   let l:word = expand("<cword>")
   let &iskeyword = l:orig_keyword
-  execute "ta " . l:word
+  try
+    execute "ta " . l:word
+  catch /.*E426.*/ " Tag not found
+    execute "ta " . l:plain_tag
+  endtry
 endfunction
 
 " }}}

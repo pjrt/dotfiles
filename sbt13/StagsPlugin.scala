@@ -10,7 +10,7 @@ object StagsPlugin extends CtagsPlugin {
    * @return the directory to store library sources.
    *         this local to the project base directory
    */
-  override def ExternalSourcesDir: String = "target/lib-src"
+  override def ExternalSourcesDir: String = ".git/external-lib-src"
 
   /**
    * [Optional] - Allows you to override the function called after lib

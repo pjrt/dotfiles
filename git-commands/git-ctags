@@ -8,7 +8,7 @@ if [ -e *.cabal ]; then
     CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
 elif [ -e *.sbt ]; then
     # stags for Scala
-    CT="stags -o .git/tags.$$ ."
+    CT="stags -d 2 -o .git/tags.$$ ."
 else
     # For everything else, ctags. Make sure to generate absolute tag paths.
     CT="ctags --tag-relative --sort=foldcase -Rf.git/tags.$$ --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
