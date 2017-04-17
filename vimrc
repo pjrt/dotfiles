@@ -386,8 +386,20 @@ function! TagJumpDot() abort
   set iskeyword+=\.
   let l:word = expand("<cword>")
   let &iskeyword = l:orig_keyword
+
+  let l:splitted = split(l:word, '\.')
+  let l:acc = []
+  for wo in l:splitted
+    let l:acc = add(l:acc, wo)
+    if wo ==# l:plain_tag
+      break
+    endif
+  endfor
+
+  let l:combined = join(l:acc, ".")
+  echom l:combined
   try
-    execute "ta " . l:word
+    execute "ta " . l:combined
   catch /.*E426.*/ " Tag not found
     execute "ta " . l:plain_tag
   endtry
