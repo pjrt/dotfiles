@@ -19,6 +19,8 @@ import XMonad
 import Data.Monoid
 import Data.List (foldl')
 
+import XMonad.Actions.SpawnOn (spawnOn)
+import XMonad.Actions.GridSelect (goToSelected, defaultGSConfig)
 import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
@@ -27,6 +29,7 @@ import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 import System.Exit (exitWith, ExitCode(ExitSuccess))
+import System.Environment (getArgs)
 
 import qualified XMonad.Prompt        as P
 import qualified XMonad.Prompt.Window as P
@@ -167,6 +170,8 @@ keyMappings conf = mkKeymap conf
 
     -- Deincrement the number of windows in the master area
     , "M-." → sendMessage (IncMasterN (-1))
+
+    , "M-g" → goToSelected defaultGSConfig
 
     -- Quit xmonad
     , "M-S-q" → io (exitWith ExitSuccess)
@@ -343,8 +348,12 @@ myLogHook = dynamicLog
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook = do vm <- setWMName "LG3D"
-                   return ()
+myStartupHook isInit =
+  do vm <- setWMName "LG3D"
+     if not isInit
+     then do spawnOn "1" "urxvtc"
+             spawnOn "2" "chromium"
+     else return ()
 
 myBar = "xmobar"
 
@@ -356,7 +365,9 @@ myPP = xmobarPP
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
+main = do
+  isInit <- null <$> getArgs
+  xmonad =<< statusBar myBar myPP toggleStrutsKey (defaults isInit)
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -364,7 +375,7 @@ main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
 --
 -- No need to modify this.
 --
-defaults =  def {
+defaults isInit = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -385,5 +396,5 @@ defaults =  def {
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
-        startupHook        = myStartupHook
+        startupHook        = myStartupHook isInit
     }
