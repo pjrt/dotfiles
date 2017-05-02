@@ -1,4 +1,4 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env fish
 
 # Run task warrior while passing the branch's name as the project name.
 if git rev-parse --git-dir > /dev/null 2>&1

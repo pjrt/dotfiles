@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-#  Copyright Pedro Rodriguez Tavarez (c) 2016
+#  Copyright Pedro Rodriguez Tavarez (c) 2017
 #
 #  All rights reserved.
 #
