@@ -16,21 +16,20 @@ Plug 'Shougo/vimshell.vim'
 Plug 'SirVer/ultisnips'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'ervandew/supertab'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
 Plug 'kchmck/vim-coffee-script'
-Plug 'mattn/gist-vim'
-Plug 'mattn/webapi-vim'
+Plug 'matze/vim-move'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rhysd/vim-grammarous', { 'for': 'markdown', 'commit': '74a88d233056ac63ef65b3dd6766494ec33e6f2e' }
-Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -70,7 +69,6 @@ Plug 'tomasr/molokai'
 
 " Other {{{
 
-Plug 'pjrt/vim-vault'
 Plug 'pjrt/custom-vim'
 
 " }}}
@@ -170,7 +168,7 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-nnoremap <silent> Q :w<CR>
+nnoremap <silent> <C-s> :w<CR>
 
 " Disable backup files, point swap files elsewhere
 set nobackup
@@ -347,8 +345,33 @@ set completeopt=longest,menuone
 
 " }}}
 
+" Easy Align
+" {{{
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
 " Custom Functions {{{
 " ============================================================================
+
+" Create dirs if they don't exist when making a new file
+" http://stackoverflow.com/a/4294176
+function! s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
 
 " Copied from https://github.com/derekwyatt/vim-config/blob/master/xpt-personal/ftplugin/scala/scala.xpt.vim
 function! _GetPackageForFile(regexes)
