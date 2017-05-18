@@ -29,7 +29,6 @@ Plug 'matze/vim-move'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
 Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'rhysd/vim-grammarous', { 'for': 'markdown', 'commit': '74a88d233056ac63ef65b3dd6766494ec33e6f2e' }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -54,9 +53,6 @@ Plug 'gre/play2vim'
 Plug 'othree/html5.vim'
 Plug 'jparise/vim-graphql'
 Plug 'kana/vim-filetype-haskell'
-
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
 
 " }}}
 

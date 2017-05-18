@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -e
 
 cd $(git rev-parse --show-toplevel)
@@ -11,7 +11,7 @@ elif [ -e *.sbt ]; then
     CT="stags -d 2 -o .git/tags.$$ ."
 else
     # For everything else, ctags. Make sure to generate absolute tag paths.
-    CT="ctags --tag-relative --sort=foldcase -Rf.git/tags.$$ --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
+    CT="ctags --tag-relative=always --sort=foldcase -Rf.git/tags.$$ --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
 fi
 
 trap "rm -f .git/tags.$$" EXIT
