@@ -376,6 +376,11 @@ xnoremap <silent> <A-j> :move'>+<CR>gv=gv
 " =============================================================================
 nmap <SPACE>ga <Plug>GitGutterStageHunk
 nmap <SPACE>gu <Plug>GitGutterUndoHunk
+
+omap ih <Plug>GitGutterTextObjectInnerPending
+omap ah <Plug>GitGutterTextObjectOuterPending
+xmap ih <Plug>GitGutterTextObjectInnerVisual
+xmap ah <Plug>GitGutterTextObjectOuterVisual
 " }}}
 
 " Custom Functions {{{
