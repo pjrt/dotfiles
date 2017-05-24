@@ -25,7 +25,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
 Plug 'kchmck/vim-coffee-script'
-Plug 'matze/vim-move'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -37,6 +36,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'zhaocai/GoldenView.Vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'wellle/targets.vim'
 
 " Syntax {{{
 
@@ -187,6 +188,11 @@ let g:notes_directories = ['~/Documents/Notes']
 
 " Skeleton settings
 let skeletons#autoRegister = 1
+
+" Jenkinsfile is just a groovy file
+au BufReadPost Jenkinsfile set syntax=groovy
+au BufReadPost Jenkinsfile set filetype=groovy
+
 
 " }}}
 
@@ -341,14 +347,28 @@ set completeopt=longest,menuone
 
 " }}}
 
-" Easy Align
-" {{{
+" IncSearch{{{
+" ===========================================================================
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+" }}}
+
+" Easy Align {{{
+" ===========================================================================
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+" }}}
+
+" Vim-Move {{{
+" =============================================================================
+nnoremap <silent> <A-k> :<C-u>move-2<CR>==
+nnoremap <silent> <A-j> :<C-u>move+<CR>==
+xnoremap <silent> <A-k> :move-2<CR>gv=gv
+xnoremap <silent> <A-j> :move'>+<CR>gv=gv
 " }}}
 
 " Custom Functions {{{

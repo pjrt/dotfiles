@@ -183,7 +183,7 @@ keyMappings conf = mkKeymap conf
     , "M-C-w" → spawn "xlock -mode blank"
 
     -- Random bash scripts
-      -- Move stuff from the primary selection to the X selection
+    -- Move stuff from the primary selection to the X selection
     , "M-b" → spawn "xsel -op | xsel -ib"
 
       -- Volume Control
@@ -361,10 +361,7 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask .|. shiftMask, xK_
 
 myPP = xmobarPP
 ------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
-
 -- Run xmonad with the settings you specify. No need to modify this.
---
 main = do
   isInit <- null <$> getArgs
   xmonad =<< statusBar myBar myPP toggleStrutsKey (defaults isInit)
@@ -372,17 +369,12 @@ main = do
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
 defaults isInit = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        -- numlockMask deprecated in 0.9.1
-        -- numlockMask        = myNumlockMask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
