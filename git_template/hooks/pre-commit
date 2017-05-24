@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+scalafmt --diff-branch HEAD
+
+git diff --name-only | not xargs grep -E "TODO (\(?NOW\)?|\(?XXX\)?)"

@@ -7,6 +7,7 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'airblade/vim-gitgutter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/unite.vim'
@@ -369,6 +370,12 @@ nnoremap <silent> <A-k> :<C-u>move-2<CR>==
 nnoremap <silent> <A-j> :<C-u>move+<CR>==
 xnoremap <silent> <A-k> :move-2<CR>gv=gv
 xnoremap <silent> <A-j> :move'>+<CR>gv=gv
+" }}}
+
+" Gitgutter {{{
+" =============================================================================
+nmap <SPACE>ga <Plug>GitGutterStageHunk
+nmap <SPACE>gu <Plug>GitGutterUndoHunk
 " }}}
 
 " Custom Functions {{{
