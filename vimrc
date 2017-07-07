@@ -167,6 +167,10 @@ if executable('ag')
 endif
 
 nnoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> <ESC>:w<CR>
+
+" Retrigger tag generation
+nnoremap <silent> <SPACE>] :NeomakeSh git ctags<CR>
 
 " Disable backup files, point swap files elsewhere
 set nobackup
