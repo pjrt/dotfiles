@@ -2,18 +2,19 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Top
-       , lowerOnStart = False
+       , lowerOnStart = True
        , pickBroadest = True
        , commands = [ Run StdinReader
-                    , Run PipeReader "/home/pjrt/.vol" "vol"
+                    , Run Wireless "wlp3s0" ["-t", "<essid> <qualityvbar>"] 10
                     , Run MultiCpu ["-L","10","-H","70","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%H:%M %Y-%m-%d" "date" 10
                     , Run BatteryP ["BAT0", "BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery:"] 100
                     , Run PipeReader "/home/pjrt/.dropbox-status" "dropboxStatus"
+                    , Run PipeReader "/home/pjrt/.vol" "vol"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ Volume: %vol% | %dropboxStatus% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %wlp3s0wi% | Volume: %vol% | %dropboxStatus% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
