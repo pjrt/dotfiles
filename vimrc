@@ -42,7 +42,8 @@ Plug 'wellle/targets.vim'
 
 " Syntax {{{
 
-Plug 'gabrielelana/vim-markdown'
+Plug 'tpope/vim-markdown'
+Plug 'nelstrom/vim-markdown-folding'
 Plug 'GEverding/vim-hocon'
 Plug 'pbrisbin/html-template-syntax'
 Plug 'tyok/ack.vim'
