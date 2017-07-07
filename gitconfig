@@ -1,6 +1,7 @@
 [user]
     name = Pedro Rodriguez
     email = pedro@pjrt.co
+    alias = pjrt
 
 [color]
     branch = auto

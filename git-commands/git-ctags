@@ -1,18 +1,28 @@
 #!/usr/bin/env bash
+
 set -e
 
 cd $(git rev-parse --show-toplevel)
 
-if [ -e *.cabal ]; then
+lang=$(git config --local project.language)
+
+case $lang in
+  "haskell")
     # Hasktags for Haskell
     CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
-elif [ -e *.sbt ]; then
+    ;;
+  "scala")
     # stags for Scala
     CT="stags -d 2 -o .git/tags.$$ ."
-else
-    # For everything else, ctags. Make sure to generate absolute tag paths.
+    ;;
+  "")
+    echo "No project.language set for project. Set one with git config --local project.language <language>"
+    ;;
+  *)
+    echo "No tags generator for $lang. Falling back to ctags."
     CT="ctags --tag-relative=always --sort=foldcase -Rf.git/tags.$$ --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
-fi
+    ;;
+esac
 
 trap "rm -f .git/tags.$$" EXIT
 eval "$CT"

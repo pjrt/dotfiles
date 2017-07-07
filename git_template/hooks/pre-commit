@@ -1,5 +1,14 @@
 #!/usr/bin/env fish
 
-scalafmt --diff-branch HEAD
+set lang (git config --local project.language)
 
-git diff --name-only | not xargs grep -E "TODO (\(?NOW\)?|\(?XXX\)?)"
+switch (echo $lang)
+  case scala
+    scalafmt --diff-branch HEAD --test --quiet
+  case ''
+    echo "No project.language set for project. Set one with git config --local project.language <language>"
+  case '*'
+    echo "No formatter for $lang"
+end
+
+git diff --cached --name-only | not xargs grep -E "TODO (\(?NOW\)?|\(?XXX\)?)"
