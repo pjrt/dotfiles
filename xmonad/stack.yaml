@@ -1,0 +1,16 @@
+# https://github.com/commercialhaskell/stack/issues/710#issuecomment-289150630
+
+resolver: lts-8.5
+flags:
+  xmonad-contrib:
+    testing: false
+    use_xft: false
+  xmonad:
+    testing: false
+packages:
+- location:
+    git: git@github.com:xmonad/xmonad.git
+    commit: v0.13
+- location:
+    git: git@github.com:xmonad/xmonad-contrib.git
+    commit: v0.13

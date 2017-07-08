@@ -12,7 +12,8 @@ vimrc:                   $HOME/.vimrc
 vimrc:                   $HOME/.config/nvim/init.vim
 
 xmobarrc:                $HOME/.xmobarrc
-xmonad.hs:               $HOME/.xmonad/xmonad.hs
+
+xmonad/xmonad.hs:        $HOME/.xmonad/xmonad.hs
 
 xmodmaprc:               $HOME/.Xmodmap
 Xdefaults:               $HOME/.Xdefaults
