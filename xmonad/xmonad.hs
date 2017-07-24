@@ -18,9 +18,10 @@
 import XMonad
 import Data.Monoid
 import Data.List (foldl')
+import Data.Default (def)
 
 import XMonad.Actions.SpawnOn (spawnOn)
-import XMonad.Actions.GridSelect (goToSelected, defaultGSConfig)
+import XMonad.Actions.GridSelect (goToSelected)
 import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
@@ -138,11 +139,14 @@ keyMappings conf = mkKeymap conf
     -- Move focus to the next window
     , "M-<Tab>" → windows W.focusDown
 
+    -- Move focus to the previous window
+    , "M-S-<Tab>" → windows W.focusUp
+
     -- Move focus to the next window
     , "M-j" → windows W.focusDown
 
     -- Move focus to the previous window
-    , "M-k" → windows W.focusUp  
+    , "M-k" → windows W.focusUp
 
     -- Move focus to the master window
     , "M-m" → windows W.focusMaster
@@ -171,7 +175,7 @@ keyMappings conf = mkKeymap conf
     -- Deincrement the number of windows in the master area
     , "M-." → sendMessage (IncMasterN (-1))
 
-    , "M-g" → goToSelected defaultGSConfig
+    , "M-g" → goToSelected def
 
     -- Quit xmonad
     , "M-S-q" → io (exitWith ExitSuccess)
@@ -180,7 +184,7 @@ keyMappings conf = mkKeymap conf
     , "M-q" → spawn "xmonad --recompile; xmonad --restart"
 
     -- Lock screen
-    , "M-C-w" → spawn "xlock -mode blank"
+    , "M-C-l" → spawn "xlock -mode blank"
 
     -- Random bash scripts
     -- Move stuff from the primary selection to the X selection
@@ -204,7 +208,7 @@ keyMappings conf = mkKeymap conf
     , "M-; o n" → windows only
 
     -- Search for window and move to it
-    , "M-/" → P.windowPromptGoto P.defaultXPConfig
+    , "M-/" → P.windowPromptGoto def
 
   ]
 
@@ -348,12 +352,7 @@ myLogHook = dynamicLog
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook isInit =
-  do vm <- setWMName "LG3D"
-     if not isInit
-     then do spawnOn "1" "urxvtc"
-             spawnOn "2" "chromium"
-     else return ()
+myStartupHook = setWMName "LG3D"
 
 myBar = "xmobar"
 
@@ -363,13 +362,12 @@ myPP = xmobarPP
 ------------------------------------------------------------------------
 -- Run xmonad with the settings you specify. No need to modify this.
 main = do
-  isInit <- null <$> getArgs
-  xmonad =<< statusBar myBar myPP toggleStrutsKey (defaults isInit)
+  xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
-defaults isInit = def {
+defaults = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -388,5 +386,5 @@ defaults isInit = def {
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
-        startupHook        = myStartupHook isInit
+        startupHook        = myStartupHook
     }
