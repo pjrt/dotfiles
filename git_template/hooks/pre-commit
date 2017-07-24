@@ -5,6 +5,7 @@ set lang (git config --local project.language)
 switch (echo $lang)
   case scala
     scalafmt --diff-branch HEAD --test --quiet
+    or exit
   case ''
     echo "No project.language set for project. Set one with git config --local project.language <language>"
   case '*'
