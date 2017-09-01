@@ -461,3 +461,9 @@ function! TagJumpDot() abort
 endfunction
 
 " }}}
+
+" Allow project-specific vimrc
+set exrc
+
+" ...and be secure!
+set secure
