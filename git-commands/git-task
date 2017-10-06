@@ -2,13 +2,21 @@
 
 # Run task warrior while passing the branch's name as the project name.
 if git rev-parse --git-dir > /dev/null 2>&1
+
+  set project_name (git config --local project.name)
+  set project_company (git config --local project.company)
+
   set current_branch (git rev-parse --abbrev-ref HEAD)
   switch $current_branch
     case "master" "dev" "stage" # these aren't task-worthy
       task $argv
     case "*"
-      set attrs "project:$current_branch"
-      task $attrs $argv
+      set current_ticket (echo $current_branch | grep -ioE "($project_name-)[0-9]+" | cut -d"-" -f2)
+      set comp "+$project_company"
+      set ticket "j$current_ticket"
+      set proj "project:$ticket"
+      set projName "+$project_name"
+      task $proj $comp $projName $argv
   end
 else
   echo "Not in a git repo"

@@ -2,14 +2,23 @@
 
 set lang (git config --local project.language)
 
-switch (echo $lang)
-  case scala
-    scalafmt --diff-branch HEAD --test --quiet
-    or exit
-  case ''
-    echo "No project.language set for project. Set one with git config --local project.language <language>"
-  case '*'
-    echo "No formatter for $lang"
-end
+set br (git rev-parse --abbrev-ref HEAD)
 
-git diff --cached --name-only | not xargs grep -E "TODO (\(?NOW\)?|\(?XXX\)?)"
+set changed (git diff --cached --name-only --diff-filter=d | grep -E "*\.(scala|sbt)")
+
+if [ $status = 0 ]
+
+  if [ $br != "HEAD" ]
+    switch (echo $lang)
+      case scala
+        echo $changed | xargs scalafmt --test --quiet
+        or exit
+      case ''
+        echo "No project.language set for project. Set one with git config --local project.language <language>"
+      case '*'
+        echo "No formatter for $lang"
+    end
+  end
+
+  echo $changed | not xargs grep -E "TODO (\(?NOW\)?|\(?XXX\)?)"
+end

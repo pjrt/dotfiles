@@ -38,7 +38,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'wellle/targets.vim'
 
 " Syntax {{{
 
