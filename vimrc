@@ -8,7 +8,6 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
-Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
@@ -224,14 +223,6 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No mark
 
 " Return me to the last file, not newtr
 let g:netrw_altfile=1
-
-" }}}
-
-" Formatting {{{
-
-noremap <silent><F5> :Autoformat<CR>
-let g:formatdef_scalafmt = "'scalafmt --stdin'"
-let g:formatters_scala = ['scalafmt']
 
 " }}}
 
