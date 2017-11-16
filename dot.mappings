@@ -23,6 +23,3 @@ zshrc:                   $HOME/.zshrc
 config.fish:             $HOME/.config/fish/config.fish
 
 ldsteam:                 $HOME/.local/bin/ldsteam
-
-sbt13/plugins.sbt:       $HOME/.sbt/0.13/plugins/plugins.sbt
-sbt13/StagsPlugin.scala: $HOME/.sbt/0.13/plugins/StagsPlugin.scala
