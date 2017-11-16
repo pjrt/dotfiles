@@ -17,7 +17,7 @@
 
 import XMonad
 import Data.Monoid
-import Data.List (foldl')
+import Data.List (foldl', isInfixOf)
 import Data.Default (def)
 
 import XMonad.Actions.SpawnOn (spawnOn)
@@ -304,11 +304,16 @@ threeCol = avoidStruts $ ThreeColMid nmaster delta ratio ||| full
 --
 hangoutsAppId = "crx_nckgahadagoaajjgafhacjanaoiihapd"
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , resource  =? hangoutsAppId    --> doFloat
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    [ className =? "MPlayer"         --> doFloat
+    , className =? "Gimp"            --> doFloat
+    , title     ~? "Zoom Meeting ID" --> doFloat
+    , resource  =? hangoutsAppId     --> doFloat
+    , resource  =? "desktop_window"  --> doIgnore
+    , resource  =? "kdesktop"        --> doIgnore ]
+
+-- | Checks if the query contains `x`
+(~?) :: Query String -> String -> Query Bool
+q ~? x = fmap (x `isInfixOf`) q
 
 ------------------------------------------------------------------------
 -- Event handling
