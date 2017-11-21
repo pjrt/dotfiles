@@ -1,0 +1,92 @@
+#package
+snippet package "Package" b
+package `!v GetPackageForFile()`
+endsnippet
+
+#test class
+snippet testclass "A Test class" b
+package$1
+
+import org.joda.time.{ DateTime, LocalDate }
+import org.mockito.Matchers.{ eq ⇒ meq, _ }
+import org.mockito.Mockito._
+import org.mockito.invocation.InvocationOnMock
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{ Matchers, BeforeAndAfter, FlatSpec }
+
+class `!v Classname()` extends FlatSpec with BeforeAndAfter with MockitoSugar with Matchers {
+	before {}
+	after {}
+}
+endsnippet
+
+snippet clazz "A class" b
+${1:class} `!v Classname()` ${2:{}}
+endsnippet
+
+snippet def "A private final def" b
+${1:private} def $2
+endsnippet
+
+snippet typeclass "A scala typeclass" b
+sealed trait $1[$2] {
+	def $3
+}
+
+object $1 {
+	def apply[$2](implicit ev: $1[$2]): $1[$2] = ev
+}
+endsnippet
+
+snippet newtype "A newtype" b
+final case class $1($2) extends AnyVal
+endsnippet
+
+snippet data "data" b
+final case class $1($2)
+endsnippet
+
+snippet doc "scaladoc" b
+/**
+ * $1
+ */
+endsnippet
+
+snippet doci "@inheritdoc" b
+/** @inheritdoc */
+endsnippet
+
+snippet """ "Multi line string" b
+$1"""
+|$2
+""".stripMargin
+endsnippet
+
+snippet pl "Println debug"
+println("$1 ->\n\t" + $1.toString)
+endsnippet
+
+snippet trace "traceShow" b
+def traceShow[A0](a: A0): A0 = {
+  println("=========\n\t" + a.toString)
+  a
+}
+endsnippet
+
+snippet dt "data type" b
+sealed trait $1$2
+
+final case class $3 extends $1$2
+endsnippet
+
+snippet des "Desnote" b
+// DESNOTE(`!v strftime("%Y-%m-%d")`, `git config user.alias`): $1
+endsnippet
+
+snippet todo "TODO" b
+// TODO: `git config --local project.name`-XXX: $1
+endsnippet
+
+snippet ws "Wart remover suppression" b
+@SuppressWarnings(Array("org.wartremover.warts.$1"))
+endsnippet

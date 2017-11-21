@@ -1,0 +1,1 @@
+nnoremap KK vi}"+y

@@ -1,0 +1,18 @@
+#package
+snippet package "Package" b
+package `!v GetPackageForFile()`;
+endsnippet
+
+snippet clazz "A class" b
+public ${1:class} `!v Classname()` ${2:{}}
+endsnippet
+
+snippet psfv "public static final val" b
+public static final ${1:type} ${2:ident} = ${3:value}
+endsnippet
+
+
+snippet psfd "public static final def" b
+public static final ${1:type} ${2:ident}() {
+}
+endsnippet

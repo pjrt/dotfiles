@@ -23,3 +23,6 @@ zshrc:                   $HOME/.zshrc
 config.fish:             $HOME/.config/fish/config.fish
 
 ldsteam:                 $HOME/.local/bin/ldsteam
+
+custom-vim/ftplugin:     $HOME/.vim/ftplugin
+custom-vim/UltiSnips:    $HOME/.vim/UltiSnips

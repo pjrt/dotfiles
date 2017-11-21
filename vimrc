@@ -64,12 +64,6 @@ Plug 'tomasr/molokai'
 
 " }}}
 
-" Other {{{
-
-Plug 'pjrt/custom-vim'
-
-" }}}
-
 call plug#end()
 
 " }}}
