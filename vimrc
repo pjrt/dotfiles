@@ -24,6 +24,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
+Plug 'kassio/neoterm'
 Plug 'kchmck/vim-coffee-script'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
@@ -35,7 +36,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'zhaocai/GoldenView.Vim'
 Plug 'haya14busa/incsearch.vim'
 
 " Syntax {{{
@@ -83,7 +83,7 @@ set nospell
 
 " Use ALL the colors!
 syntax enable
-set t_Co=256
+let g:solarized_termcolors=16
 set background=dark
 colorscheme solarized
 set nomodeline " Wasn't using this, and it is annoying when it fails
@@ -262,17 +262,19 @@ set smartcase
 
 " }}}
 
-" Golden Ratio {{{
+" Neoterm {{{
 " ============================================================================
 
-let g:goldenview__enable_default_mapping = 0
-nmap <silent> <c-L> <Plug>GoldenViewSplit
+let g:neoterm_size = 20
 
-nmap <silent> <C-J>  <Plug>GoldenViewNext
-nmap <silent> <C-K>  <Plug>GoldenViewPrevious
+" }}}
 
-nmap <silent> <C-w>m  <Plug>GoldenViewSwitchMain
-nmap <silent> <C-w>n  <Plug>GoldenViewSwitchToggle
+
+" Window Movement {{{
+" ============================================================================
+
+nmap <silent> <C-J>  <C-W>w
+nmap <silent> <C-K>  <C-W>W
 
 " }}}
 

@@ -40,7 +40,7 @@ import qualified Data.Map             as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "urxvtc"
+myTerminal      = "termite"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -306,7 +306,6 @@ hangoutsAppId = "crx_nckgahadagoaajjgafhacjanaoiihapd"
 myManageHook = composeAll
     [ className =? "MPlayer"         --> doFloat
     , className =? "Gimp"            --> doFloat
-    , title     ~? "Zoom Meeting ID" --> doFloat
     , resource  =? hangoutsAppId     --> doFloat
     , resource  =? "desktop_window"  --> doIgnore
     , resource  =? "kdesktop"        --> doIgnore ]
