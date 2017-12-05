@@ -26,3 +26,6 @@ ldsteam:                 $HOME/.local/bin/ldsteam
 
 custom-vim/ftplugin:     $HOME/.vim/ftplugin
 custom-vim/UltiSnips:    $HOME/.vim/UltiSnips
+
+bin/file-inotify:        $HOME/.local/bin/file-inotify
+bin/keyboard-udev:       $HOME/.local/bin/keyboard-udev

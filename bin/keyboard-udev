@@ -1,0 +1,20 @@
+#!/bin/bash
+# Background process to allow udev to continue
+# https://bbs.archlinux.org/viewtopic.php?pid=1440918#p1440918
+
+# Path to lock file
+lock="/tmp/keyboard.lock"
+
+logger -t KEYBOARD_UDEV "Running keyboard-udev"
+
+# Lock the file (other atomic alternatives would be "ln" or "mkdir")
+exec 9>"$lock"
+if ! flock -n 9; then
+  logger -t KEYBOARD_UDEV "Keyboard script is already running."
+  exit 1
+fi
+
+#/usr/local/bin/keyboard &  # If Xorg would not reset settings after udev finished
+echo '' > /tmp/keyboard.lock &
+
+# The lock file will be unlocked when the script ends
