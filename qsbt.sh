@@ -21,10 +21,10 @@ if [ $? -eq 0 ]; then
     >(clean=false; while read line; \
   do \
     if echo "$line" | grep '^> .*$'; then clean=true; fi;\
-      if $clean; then rm ${quickfix}.raw 2> /dev/null; rm $quickfix 2> /dev/null; clean=false; fi;\
-        if echo "$line" | grep 'Waiting for source changes'; then clean=true; fi \
-        done > /dev/null\
-        )
+    if $clean; then rm ${quickfix}.raw 2> /dev/null; rm $quickfix 2> /dev/null; clean=false; fi;\
+    if echo "$line" | grep 'Waiting for source changes'; then clean=true; fi \
+      done > /dev/null\
+     )
 else
   echo "Not in a git repo. Running plain SBT..."
   sbt $@

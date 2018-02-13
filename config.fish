@@ -39,7 +39,7 @@ set -x FZF_DEFAULT_COMMAND 'ag -l -g ""'
 
 #set RPATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
-set -gx PATH ~/.local/bin $PATH /usr/bin /usr/local/bin /usr/bin/core_perl
+set -gx PATH ~/.local/bin /usr/bin /usr/local/bin /usr/bin/core_perl $PATH
 
 function lacmd
     la (which $argv)

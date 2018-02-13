@@ -14,6 +14,9 @@ nnoremap <silent><space>i :SortScalaImports<CR>
 
 nnoremap <silent><F5> :!scalafmt -i -f %<CR>
 
+nnoremap <silent>,tq :T qsbt<CR>
+nnoremap <silent>,ts :Tmap testQuick<CR>
+
 " class User
 " class UserName
 

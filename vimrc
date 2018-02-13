@@ -37,6 +37,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'haya14busa/incsearch.vim'
+Plug 'tyok/ack.vim'
+Plug 'aehlke/vim-rename3'
 
 " Syntax {{{
 
@@ -44,7 +46,6 @@ Plug 'tpope/vim-markdown'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'GEverding/vim-hocon'
 Plug 'pbrisbin/html-template-syntax'
-Plug 'tyok/ack.vim'
 Plug 'duganchen/vim-soy'
 Plug 'dag/vim-fish'
 
@@ -70,6 +71,11 @@ call plug#end()
 
 " Meta {{{
 " ============================================================================
+
+if !has('nvim')
+  set viminfo+=~/.vim/viminfo
+endif
+
 set encoding=utf-8
 " Rebind <Leader> key
 let mapleader = ","
@@ -106,10 +112,6 @@ set colorcolumn=80
 " Key remapping {{{
 " ============================================================================
 
-" Make kj and jk to be <ESC>
-inoremap kj <Esc>
-inoremap jk <Esc>
-
 " Gundo mapping
 nnoremap <silent><Leader>p :GundoToggle<CR>
 
@@ -134,9 +136,6 @@ vnoremap > >gv
 
 " Make Y behave correctly
 nnoremap Y y$
-
-" Delete whitespace on command
-nnoremap <silent> <F5> :%s/\s\+$//<CR>
 
 " Neovim things
 if exists(":terminal")
