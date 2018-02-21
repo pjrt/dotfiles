@@ -38,6 +38,8 @@
     ss = stash
     ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
     amend = commit --amend -C HEAD
+    resync = reset --hard @{u}
+    redo = reset --soft HEAD~
 
 [push]
     default = current
