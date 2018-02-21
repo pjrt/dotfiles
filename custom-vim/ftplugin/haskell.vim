@@ -11,7 +11,6 @@ set wildignore+=*/cabal-dev/*,*/dist/*,*.hi,.stack-work/*
 
 " Search local or project for the class, trait, val or def under the cursor
 nnoremap <silent><space>f /\(data\\|type\\|class) \<<C-r><C-w>\>/I<cr>
-nnoremap <silent><space>gf :Unite -buffer-name=ack grep:.::(data\|type\|class)\ <C-r><C-w>\\b<cr>
 
 " We use hasktags, which support qualified tags
 nnoremap <silent> <C-]> :<C-u>call TagJumpDot()<CR>

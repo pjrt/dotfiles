@@ -8,8 +8,8 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'AndrewRadev/sideways.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
@@ -209,7 +209,7 @@ nnoremap <space>s :Ag
 " ============================================================================
 
 " Switch buffer rules
-let g:switchbuf="useopen,split"
+" let g:switchbuf="useopen,split"
 
 " Quickfixsigns
 let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No marks pls
@@ -293,25 +293,6 @@ nnoremap <silent> gr :Gpull --rebase<CR>
 
 " }}}
 
-" Unite {{{
-" ============================================================================
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '-i --vimgrep --hidden'
-
-" Allow history of yank command
-let g:unite_source_history_yank_enable = 1
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-
-call unite#custom#source('grep', 'matchers', 'matcher_fuzzy')
-
-nnoremap <space>b :Unite -buffer-name=buffers -quick-match buffer<cr>
-nnoremap <space>t :<C-u>execute 'Unite -buffer-name=ack grep:./::' . '(todo\|TODO)\:(pr\|pjrt\|pedro)'<cr>
-nnoremap <space>r :UniteResume<cr>
-
-nnoremap <space>y :Unite history/yank<cr>
-
 set wildignore+=tags
 set wildignore+=*.pyc
 set wildignore+=*_build/*
@@ -361,6 +342,12 @@ nnoremap <silent> <A-j> :<C-u>move+<CR>==
 xnoremap <silent> <A-k> :move-2<CR>gv=gv
 xnoremap <silent> <A-j> :move'>+<CR>gv=gv
 " }}}
+
+" Sideways {{{
+" =============================================================================
+nnoremap <C-h> :SidewaysLeft<CR>
+nnoremap <C-l> :SidewaysRight<CR>
+"
 
 " Gitgutter {{{
 " =============================================================================
