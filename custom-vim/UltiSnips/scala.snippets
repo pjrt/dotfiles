@@ -3,29 +3,16 @@ snippet package "Package" b
 package `!v GetPackageForFile()`
 endsnippet
 
-#test class
-snippet testclass "A Test class" b
-package$1
-
-import org.joda.time.{ DateTime, LocalDate }
-import org.mockito.Matchers.{ eq ⇒ meq, _ }
-import org.mockito.Mockito._
-import org.mockito.invocation.InvocationOnMock
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{ Matchers, BeforeAndAfter, FlatSpec }
-
-class `!v Classname()` extends FlatSpec with BeforeAndAfter with MockitoSugar with Matchers {
-	before {}
-	after {}
-}
-endsnippet
-
 snippet clazz "A class" b
 ${1:class} `!v Classname()` ${2:{}}
 endsnippet
 
-snippet def "A private final def" b
-${1:private} def $2
+snippet def "A private def" b
+${2:private} def $1
+endsnippet
+
+snippet val "A private val" b
+${2:private} val $1
 endsnippet
 
 snippet typeclass "A scala typeclass" b
