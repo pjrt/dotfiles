@@ -112,6 +112,9 @@ set colorcolumn=80
 " Key remapping {{{
 " ============================================================================
 
+inoremap <silent>jk <ESC>
+inoremap <silent>kj <ESC>
+
 " Gundo mapping
 nnoremap <silent><Leader>p :GundoToggle<CR>
 
