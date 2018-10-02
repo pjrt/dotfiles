@@ -26,7 +26,8 @@
     unadd = reset
     ready = rebase -i @{u}
     l = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\" --max-count=10
-    lg = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset\"
+    lg = log --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset %d\"
+    lgd = log --date=short --pretty=format:\"%Cred%h%Creset -%Creset %s %Cgreen(%cd) %C(bold yellow)<%an>%Creset\"
     lgg = log --graph --decorate --all --oneline
     purr = pull --rebase
     pr = pull --rebase
@@ -40,6 +41,7 @@
     amend = commit --amend -C HEAD
     resync = reset --hard @{u}
     redo = reset --soft HEAD~
+    set-upstream = "!su() { git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD); }; su"
 
 [push]
     default = current
@@ -64,6 +66,8 @@
     browser = chromium
 [diff]
     compactionHeuristic = true
+[tag]
+	sort = -version:refname
 
 [includeIf "gitdir:~/code/work/"]
   path = .gitconfig-work
