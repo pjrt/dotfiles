@@ -195,6 +195,17 @@ let skeletons#autoRegister = 1
 au BufReadPost Jenkinsfile set syntax=groovy
 au BufReadPost Jenkinsfile set filetype=groovy
 
+" Re-enable :file
+set shortmess-=F
+
+" Make escape faster. Also fixes an performance issue in airline
+" https://gist.github.com/brendonrapp/5944296
+set ttimeoutlen=10
+augroup FastEscape
+  autocmd!
+  au InsertEnter * set timeoutlen=0
+  au InsertLeave * set timeoutlen=1000
+augroup END
 
 " }}}
 
