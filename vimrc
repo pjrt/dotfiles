@@ -32,6 +32,7 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -221,12 +222,14 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No mark
 " Return me to the last file, not newtr
 let g:netrw_altfile=1
 
+let g:netrw_browsex_viewer=$BROWSER
+
 " }}}
 
 " Aesthetics {{{
 " ============================================================================
 
-set list
+set nolist
 
 " Crosshairs
 hi CursorLine   cterm=NONE ctermbg=235
@@ -294,6 +297,10 @@ nnoremap <silent> gs :Gstatus<CR>
 nnoremap <silent> gp :Gpush<CR>
 nnoremap <silent> gPP :Gpush -f<CR>
 nnoremap <silent> gr :Gpull --rebase<CR>
+
+" Same key combo as Gblame, but only on visual
+vnoremap <silent> gb :Gbrowse!<CR>
+
 
 " }}}
 
@@ -442,6 +449,10 @@ function! TagJumpDot() abort
 endfunction
 
 " }}}
+
+if !empty(glob("~/.vimrc-local"))
+  source ~/.vimrc-local
+endif
 
 " Allow project-specific vimrc
 set exrc
