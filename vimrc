@@ -74,10 +74,6 @@ call plug#end()
 " Meta {{{
 " ============================================================================
 
-if !has('nvim')
-  set viminfo+=~/.vim/viminfo
-endif
-
 set encoding=utf-8
 " Rebind <Leader> key
 let mapleader = ","
