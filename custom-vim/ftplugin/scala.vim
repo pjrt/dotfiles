@@ -10,8 +10,6 @@ nnoremap <silent><space>f /\(def\\|val\\|class\\|trait\\|object\) \<<C-r><C-w>\>
 nnoremap <silent><space>gf :<C-u>execute 'Ag (def\|class\|trait\|object) ' . expand("<cword>") . '\b'<cr>
 nnoremap <silent><space>ge :<C-u>execute 'Ag (extends\|with) ' . expand("<cword>") . '\b'<cr>
 
-nnoremap <silent><space>i :SortScalaImports<CR>
-
 nnoremap <silent><F5> :!scalafmt -i -f %<CR>
 
 nnoremap <silent>,tq :T qsbt<CR>

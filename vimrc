@@ -39,6 +39,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tyok/ack.vim'
 Plug 'aehlke/vim-rename3'
+Plug 'Jacoby6000/vimport-sort'
 
 " Syntax {{{
 
@@ -361,6 +362,11 @@ omap ih <Plug>GitGutterTextObjectInnerPending
 omap ah <Plug>GitGutterTextObjectOuterPending
 xmap ih <Plug>GitGutterTextObjectInnerVisual
 xmap ah <Plug>GitGutterTextObjectOuterVisual
+" }}}
+
+""" Vimsort {{{
+" =============================================================================
+nnoremap <silent><space>i :SortImports<CR>
 " }}}
 
 " Custom Functions {{{
