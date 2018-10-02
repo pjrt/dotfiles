@@ -7,6 +7,7 @@ Xft.antialias:              true
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
+Xft.backend:                xrender
 
 !-------------------------------------------------------------------------------
 ! URxvt settings
@@ -23,7 +24,7 @@ URxvt.fading:               0
 ! URxvt.urgentOnBell:         true
 URxvt.visualBell:           false
 URxvt.loginShell:           true
-URxvt.saveLines:            12000
+URxvt.saveLines:            5000
 URxvt.internalBorder:       3
 URxvt.lineSpace:            0
 
