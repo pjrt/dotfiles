@@ -41,6 +41,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tyok/ack.vim'
 Plug 'aehlke/vim-rename3'
 Plug 'Jacoby6000/vimport-sort'
+Plug 'jalvesaq/Nvim-R'
 
 " Syntax {{{
 
