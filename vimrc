@@ -42,6 +42,7 @@ Plug 'tyok/ack.vim'
 Plug 'aehlke/vim-rename3'
 Plug 'Jacoby6000/vimport-sort'
 Plug 'jalvesaq/Nvim-R'
+Plug 'scrooloose/vim-slumlord'
 
 " Syntax {{{
 
@@ -58,6 +59,7 @@ Plug 'gre/play2vim'
 Plug 'othree/html5.vim'
 Plug 'jparise/vim-graphql'
 Plug 'kana/vim-filetype-haskell'
+Plug 'aklt/plantuml-syntax'
 
 " }}}
 
@@ -231,6 +233,8 @@ let g:quickfixsigns_classes = ['qfl', 'loc', 'vcsdiff', 'breakpoints'] " No mark
 let g:netrw_altfile=1
 
 let g:netrw_browsex_viewer=$BROWSER
+
+set complete-=t
 
 " }}}
 
