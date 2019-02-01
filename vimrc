@@ -14,7 +14,6 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'SirVer/ultisnips'
-Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dbakker/vim-projectroot'
@@ -151,11 +150,6 @@ endif
 " Misc {{{
 " ============================================================================
 
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-"au InsertLeave * match ExtraWhitespace /\s\+$/
-
 autocmd BufEnter * call <SID>AutoProjectRootCD() " Replicate vim-project
 
 if executable('ag')
@@ -165,8 +159,8 @@ endif
 nnoremap <silent> <C-s> :w<CR>
 inoremap <silent> <C-s> <ESC>:w<CR>
 
-" Retrigger tag generation
-nnoremap <silent> <SPACE>] :NeomakeSh git ctags<CR>
+" Trigger tag generation
+nnoremap <silent> <SPACE>] :silent call jobstart('git ctags')<CR>
 
 " Disable backup files, point swap files elsewhere
 set nobackup
