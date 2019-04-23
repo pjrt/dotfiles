@@ -13,8 +13,9 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run DateZone "%H:%M" "en_US.UTF-8" "UTC" "utc" 10
                     , Run BatteryP ["BAT0", "BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery", "-i", "Full"] 100
                     , Run PipeReader "/home/pjrt/.vol" "vol"
+                    , Run Com "/usr/bin/task" ["project:work", "(due: or due.before:tomorrow)", "and", "status:pending", "count"] "todo" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %wlp3s0wi% | Volume: %vol% | %battery% | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %wlp3s0wi% | Todo: %todo% | Volume: %vol% | %battery% | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
        }
