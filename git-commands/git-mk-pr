@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Creates a PR using hub's `pull-request` command against whatever release branch the current
+# branch spawned from
+
 set -e
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
