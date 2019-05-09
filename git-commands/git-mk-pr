@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$BRANCH" == "master" ]; then
+  hub pull-request
+else
+  TARGET=$(git branch --merged $BRANCH | grep -E "^  release/[0-9]*\.[0-9]*\$" | xargs)
+  echo "Making PR against $TARGET"
+  sleep 1
+  hub pull-request -b "$TARGET"
+fi

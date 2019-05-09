@@ -2,6 +2,7 @@ ctags:                   $HOME/.ctags
 
 git-commands/git-ctags:  $HOME/.local/bin/git-ctags
 git-commands/git-task:   $HOME/.local/bin/git-task
+git-commands/git-mk-pr:  $HOME/.local/bin/git-mk-pr
 
 gitconfig:               $HOME/.gitconfig
 git_template:            $HOME/.git_template
