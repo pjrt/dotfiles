@@ -9,6 +9,7 @@ git_template:            $HOME/.git_template
 
 qsbt.sh:                 $HOME/.local/bin/qsbt
 qstack.sh:               $HOME/.local/bin/qstack
+qbloop:                  $HOME/.local/bin/qbloop
 
 vimrc:                   $HOME/.vimrc
 vimrc:                   $HOME/.config/nvim/init.vim

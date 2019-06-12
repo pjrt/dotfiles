@@ -14,7 +14,8 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'SirVer/ultisnips'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
@@ -206,6 +207,7 @@ augroup END
 " ============================================================================
 
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#vcs_checks = ['untracked']
 
 """ }}}
 

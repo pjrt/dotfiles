@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+gitroot=$(git rev-parse --show-toplevel)
+
+function runWhile() {
+  while read line; do 
+    noColor=$(echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+    case $noColor in
+      Watching*)
+        cat $raw > $quickfix 2> /dev/null && rm -f $raw
+        ;;
+      \[E*)
+        echo "$noColor" >> $raw
+        ;;
+      *)
+        ;;
+    esac
+  done > /dev/null
+}
+
+if [ $? -eq 0 ]; then
+  quickfix=${gitroot}/.git/sbt.quickfix
+  raw=${quickfix}.raw
+  bloop $@ -w 2>&1 | tee >(runWhile)
+else
+  echo "Not in a git repo. Running plain Bloop..."
+  bloop $@ -w 2>&1
+fi
