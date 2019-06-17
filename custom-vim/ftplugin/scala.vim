@@ -1,4 +1,6 @@
-set errorformat=\[error]\ %f:%l:%c:\ %m,
+set errorformat=%E\[E]\ \[E%n]\ %f:%l:%c,
+set errorformat+=%Z\[E]\ %m,
+set errorformat+=\[error]\ %f:%l:%c:\ %m,
 set errorformat+=%E\ %#[error]\ %#%f:%l:\ %m,%-C\ %#[error]\ %m,%-Z\ %#[error]\ %p^
 set errorformat+=%W\ %#[warn]\ %#%f:%l:\ %m,%-C\ %#[warn]\ %m,%-Z\ %#[warn]\ %p^
 set errorformat+=%-G%.%#
