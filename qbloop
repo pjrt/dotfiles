@@ -2,15 +2,22 @@
 
 gitroot=$(git rev-parse --show-toplevel)
 
+set -e
+
 function runWhile() {
   while read line; do 
     noColor=$(echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
     case $noColor in
       Watching*)
-        cat $raw > $quickfix 2> /dev/null && rm -f $raw
+        cat $raw > $quickfix && truncate -s 0 $raw
+        ;;
+      *^*)
+        cat $chunk $raw > $tmp 2> /dev/null && \
+          mv $tmp $raw && \
+          truncate -s 0 $chunk
         ;;
       \[E*)
-        echo "$noColor" >> $raw
+        echo "$noColor" >> $chunk
         ;;
       *)
         ;;
@@ -19,8 +26,14 @@ function runWhile() {
 }
 
 if [ $? -eq 0 ]; then
-  quickfix=${gitroot}/.git/sbt.quickfix
-  raw=${quickfix}.raw
+  name=sbt.quickfix
+  quickfix=${gitroot}/.git/$name
+  raw=/tmp/${name}.raw
+  chunk=/tmp/${name}.chunk
+  tmp=/tmp/${name}.tmp
+  touch $raw
+  touch $chunk
+  touch $tmp
   bloop $@ -w 2>&1 | tee >(runWhile)
 else
   echo "Not in a git repo. Running plain Bloop..."
