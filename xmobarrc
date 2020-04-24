@@ -10,10 +10,11 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%Y-%m-%d %H:%M" "date" 10
-                    , Run DateZone "%H:%M" "en_US.UTF-8" "UTC" "utc" 10
+                    , Run Com "/usr/bin/date" ["--utc", "+%H:%M"] "utc" 30
+                    --, Run DateZone "%H:%M" "en_US.UTF-8" "UTC" "utc" 10
                     , Run BatteryP ["BAT0", "BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery", "-i", "Full"] 100
                     , Run PipeReader "/home/pjrt/.vol" "vol"
-                    , Run Com "/usr/bin/task" ["project:work", "(due: or due.before:tomorrow)", "and", "status:pending", "count"] "todo" 10
+                    , Run Com "/usr/bin/task" ["(due: or due.before:tomorrow)", "and", "status:pending", "count"] "todo" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"

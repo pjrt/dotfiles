@@ -14,7 +14,7 @@ source $OMF_PATH/init.fish
 alias st="git st"
 alias rt="cd (git rev-parse --show-toplevel)"
 alias open="xdg-open"
-alias qghc="ghcid -o .git/cabal.quickfix -c cabal repl"
+alias qghc="ghcid -o .git/cabal.quickfix -c cabal new-repl"
 alias sghc="ghcid -o .git/cabal.quickfix -c stack repl"
 alias install-deps="cabal install -j --dependencies-only"
 alias sandbox="cabal sandbox"
@@ -22,7 +22,6 @@ alias sandbox-reset="sandbox delete; sandbox init"
 alias reload="source ~/.config/fish/config.fish"
 alias hoo="hoogle --count=10"
 alias vim="nvim"
-alias time="time -p"
 
 set -x EDITOR 'nvim'
 set -x BROWSER 'chromium'

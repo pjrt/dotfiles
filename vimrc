@@ -15,8 +15,8 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+" Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dbakker/vim-projectroot'
 Plug 'elzr/vim-json', { 'for': 'json'}
 Plug 'ervandew/supertab'
@@ -169,7 +169,7 @@ set nowritebackup
 set dir=~/.vim/tmp
 
 " Tags
-set tags=tags;/
+set tags=.git/tags
 
 " Set Autoread
 set autoread
@@ -378,7 +378,7 @@ nnoremap <C-l> :SidewaysRight<CR>
 " Gitgutter {{{
 " =============================================================================
 nmap <SPACE>ga <Plug>GitGutterStageHunk
-nmap <SPACE>gu <Plug>GitGutterUndoHunk
+nmap <SPACE>gu <Plug>(GitGutterUndoHunk)
 
 omap ih <Plug>GitGutterTextObjectInnerPending
 omap ah <Plug>GitGutterTextObjectOuterPending

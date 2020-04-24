@@ -1,3 +1,6 @@
+{-# LANGUAGE BangPatterns, OverloadedStrings #-}
+{-# LANGUAGE DataKinds, FlexibleContexts, QuasiQuotes, TemplateHaskell #-}
+
 :set prompt "λ>"
 :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\" --color --count=10"
 :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""

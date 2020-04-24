@@ -116,7 +116,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
             , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
   in M.union genKeys $ keyMappings conf
 
-keyMappings conf = mkKeymap conf
+keyMappings conf = mkKeymap conf $
   [
     -- launch a terminal
       "M-S-<Return>" → spawn $ XMonad.terminal conf
@@ -200,17 +200,27 @@ keyMappings conf = mkKeymap conf
     , "<XF86MonBrightnessUp>"   → spawn "xbacklight + 10"
 
     -- Take a screen shot (different modes) based on a sequence.
-    , "M-; i s" → spawn "scrot 'select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'mv $f ~/images/shots/'"
-    , "M-; i w" → spawn "scrot 'window_%Y-%m-%d-%H-%M-%S.png' -u -d 1 --exec 'mv $f ~/images/shots/'"
-    , "M-; i a" → spawn "scrot 'screen_%Y-%m-%d-%H-%M-%S.png' -d 1 --exec 'mv $f ~/images/shots/'"
+    , "M-; i s" → spawn "scrot '/tmp/shots_select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
+    , "M-; i w" → spawn "scrot '/tmp/shots_window_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
+    , "M-; i a" → spawn "scrot '/tmp/shots_screen_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
 
     -- Remove all other windows from view
     , "M-; o n" → windows only
 
     -- Search for window and move to it
     , "M-/" → P.windowPromptGoto def
+  ] ++ registers
 
-  ]
+registers :: [(String, X ())]
+registers = concatMap go ['a'..'z']
+  where
+    go k =
+      let file = "/tmp/registers-" ++ [k]
+          write = spawn $ "xsel -ob > " ++ file
+          read = spawn $ "cat " ++ file ++ " | xsel -ib"
+          keyCombo key = "M-; " ++ [key] ++ " " ++ [k]
+      in [keyCombo 'p' → read, keyCombo 'y' → write]
+        
 
 -- | Alias for (,) for easier/prettier key mapping
 infixr 0 →
@@ -302,11 +312,11 @@ threeCol = avoidStruts $ ThreeColMid nmaster delta ratio ||| full
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-hangoutsAppId = "crx_nckgahadagoaajjgafhacjanaoiihapd"
+sharingWindow = "is sharing a whindow."
 myManageHook = composeAll
     [ className =? "MPlayer"         --> doFloat
     , className =? "Gimp"            --> doFloat
-    , resource  =? hangoutsAppId     --> doFloat
+    , title     ~? sharingWindow     --> doIgnore
     , resource  =? "desktop_window"  --> doIgnore
     , resource  =? "kdesktop"        --> doIgnore ]
 
