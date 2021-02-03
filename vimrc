@@ -8,8 +8,10 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/gina.vim'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'Raimondi/delimitMate'
+Plug 'metakirby5/codi.vim'
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
@@ -24,7 +26,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
-Plug 'kassio/neoterm'
+" Plug 'kassio/neoterm'
 Plug 'kchmck/vim-coffee-script'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pgilad/vim-skeletons'
@@ -213,7 +215,11 @@ let g:airline#extensions#branch#vcs_checks = ['untracked']
 
 " FZF {{{
 " ============================================================================
-nnoremap <silent><c-p> :FZF<cr>
+
+" No popup window
+let g:fzf_layout = { 'down': '40%' }
+
+nnoremap <silent><c-p> :Files<cr>
 nnoremap <silent><c-c> :Tag<cr>
 nnoremap <silent><c-b> :Buffers<cr>
 

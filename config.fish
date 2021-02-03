@@ -14,8 +14,9 @@ source $OMF_PATH/init.fish
 alias st="git st"
 alias rt="cd (git rev-parse --show-toplevel)"
 alias open="xdg-open"
-alias qghc="ghcid -o .git/cabal.quickfix -c cabal new-repl"
-alias sghc="ghcid -o .git/cabal.quickfix -c stack repl"
+
+alias qghc="ghcid -o (git rev-parse --show-toplevel)/.git/cabal.quickfix -c cabal new-repl"
+alias sghc="ghcid -o (git rev-parse --show-toplevel)/.git/cabal.quickfix -c stack repl"
 alias install-deps="cabal install -j --dependencies-only"
 alias sandbox="cabal sandbox"
 alias sandbox-reset="sandbox delete; sandbox init"
@@ -38,7 +39,7 @@ set -x FZF_DEFAULT_COMMAND 'ag -l -g ""'
 
 #set RPATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
-set -gx PATH ~/.local/bin /usr/bin /usr/local/bin /usr/bin/core_perl $PATH
+set -gx PATH ~/.local/bin ~/.cache/yay/bloop/src /usr/bin /usr/local/bin /usr/bin/core_perl $PATH
 
 function lacmd
     la (which $argv)

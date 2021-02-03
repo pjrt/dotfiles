@@ -9,7 +9,7 @@ lang=$(git config --local project.language)
 case $lang in
   "haskell")
     # Hasktags for Haskell
-    CT="hasktags -c --ignore-close-implementation -o .git/tags.$$ -R ."
+    CT="hasktags -x -c -o .git/tags.$$ -R ."
     ;;
   "scala")
     # stags for Scala
