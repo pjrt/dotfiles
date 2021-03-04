@@ -20,17 +20,18 @@ import Data.Monoid
 import Data.List (foldl', isInfixOf)
 import Data.Default (def)
 
-import XMonad.Actions.SpawnOn (spawnOn)
+import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Actions.GridSelect (goToSelected)
-import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
+import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook)
+import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, ToggleStruts(..))
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 import System.Environment (getArgs)
+import XMonad.Config.Xfce
 
 import qualified XMonad.Prompt        as P
 import qualified XMonad.Prompt.Window as P
@@ -116,13 +117,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
             , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
   in M.union genKeys $ keyMappings conf
 
+-- Special keys defined here:
+-- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Util-EZConfig.html#v:mkKeymap
 keyMappings conf = mkKeymap conf $
   [
     -- launch a terminal
       "M-S-<Return>" → spawn $ XMonad.terminal conf
 
     -- launch dmenu
-    , "M-p" → spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\""
+    -- , "M-p" → spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\""
+    , "M-p" → spawn "xfce4-appfinder"
 
         -- close focused window
     , "M-S-c" → kill
@@ -178,38 +182,49 @@ keyMappings conf = mkKeymap conf $
     , "M-g" → goToSelected def
 
     -- Quit xmonad
-    , "M-S-q" → io (exitWith ExitSuccess)
+    -- , "M-S-q" → io (exitWith ExitSuccess)
+    , "M-S-q" → spawn "xfce4-session-logout"
 
     -- Restart xmonad
     , "M-q" → spawn "xmonad --recompile; xmonad --restart"
 
     -- Lock screen
-    , "M-C-l" → spawn "xlock -mode blank"
+    -- , "M-C-l" → spawn "xlock -mode blank"
 
     -- Random bash scripts
     -- Move stuff from the primary selection to the X selection
     , "M-b" → spawn "xsel -op | xsel -ib"
 
-      -- Volume Control
-    , "<XF86AudioMute>" → spawn "pulseaudio-ctl-p mute"
-    , "<XF86AudioLowerVolume>" → spawn "pulseaudio-ctl-p down"
-    , "<XF86AudioRaiseVolume>" → spawn "pulseaudio-ctl-p up"
+      -- Media Control
+    , "<XF86AudioMute>" → spawn "amixer set Master toggle"
+    , "<XF86AudioLowerVolume>" → spawn "amixer -q sset Master 5%-"
+    , "<XF86AudioRaiseVolume>" → spawn "amixer -q sset Master 5%+"
+    , "<XF86AudioPlay>" → spawn "playerctl play-pause"
+    , "M-; p" → spawn "playerctl play-pause"
+    , "<XF86AudioStop>" → spawn "playerctl stop"
+    , "<XF86AudioNext>" → spawn "playerctl next"
+    , "M-; n" → spawn "playerctl next"
+    , "<XF86AudioPrev>" → spawn "playerctl previous"
+    , "M-; b" → spawn "playerctl previous"
 
-    -- Brightness control
-    , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
-    , "<XF86MonBrightnessUp>"   → spawn "xbacklight + 10"
+    -- -- Brightness control
+    -- , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
+    -- , "<XF86MonBrightnessUp>"   → spawn "xbacklight + 10"
 
     -- Take a screen shot (different modes) based on a sequence.
-    , "M-; i s" → spawn "scrot '/tmp/shots_select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
-    , "M-; i w" → spawn "scrot '/tmp/shots_window_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
-    , "M-; i a" → spawn "scrot '/tmp/shots_screen_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
+    , "M-; i s" → spawn "flameshot gui"
+    -- , "M-; i s" → spawn "scrot '/tmp/shots_select_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
+    -- , "M-; i w" → spawn "scrot '/tmp/shots_window_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
+    -- , "M-; i a" → spawn "scrot '/tmp/shots_screen_%Y-%m-%d-%H-%M-%S.png' -s -d 1 --exec 'xclip -selection clipboard -t image/png < $f'"
 
-    -- Remove all other windows from view
-    , "M-; o n" → windows only
+    , "M-; e e" → spawn "echo pedro.rodriguez@disneystreaming.com | xsel -ib"
 
     -- Search for window and move to it
     , "M-/" → P.windowPromptGoto def
-  ] ++ registers
+
+    , "M-S-b" → sendMessage ToggleStruts
+    , "M-; x p" → spawn "captureXProp"
+  ]
 
 registers :: [(String, X ())]
 registers = concatMap go ['a'..'z']
@@ -291,7 +306,7 @@ tiled = Tall nmaster delta ratio
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
-threeCol = avoidStruts $ ThreeColMid nmaster delta ratio ||| full
+threeCol = ThreeColMid nmaster delta ratio ||| full
   where
     nmaster = 1
     ratio   = 1/2
@@ -312,13 +327,25 @@ threeCol = avoidStruts $ ThreeColMid nmaster delta ratio ||| full
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-sharingWindow = "is sharing a whindow."
-myManageHook = composeAll
-    [ className =? "MPlayer"         --> doFloat
-    , className =? "Gimp"            --> doFloat
-    , title     ~? sharingWindow     --> doIgnore
-    , resource  =? "desktop_window"  --> doIgnore
-    , resource  =? "kdesktop"        --> doIgnore ]
+zoom =
+    [ isChat --> move >> doFloat
+    , isHost --> move >> doFloat
+    , isZoom --> move
+    ]
+  where
+    isZoom = appName           =? "zoom"
+    isChat = isZoom <&&> title =? "Chat"
+    isHost = isZoom <&&> title =? "" -- This is that weird "Host is now X" window
+    move   = doShift "4"
+myManageHook = composeAll $ zoom ++ misc
+  where
+    role = stringProperty "WM_WINDOW_ROLE"
+    misc =
+      [ className =? "MPlayer"            --> doFloat
+      , className =? "Gimp"               --> doFloat
+      , role      =? "Picture-in-Picture" --> doFloat
+      , resource  =? "desktop_window"     --> doIgnore
+      , resource  =? "kdesktop"           --> doIgnore ]
 
 -- | Checks if the query contains `x`
 (~?) :: Query String -> String -> Query Bool
@@ -366,7 +393,10 @@ myLogHook = dynamicLog
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook = setWMName "LG3D"
+myStartupHook = do
+    setWMName "LG3D"
+    spawnOn "9" "discord"
+    spawnOn "3" "slack"
 
 myBar = "xmobar"
 
@@ -396,8 +426,8 @@ defaults = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
-        manageHook         = myManageHook,
+        layoutHook         = avoidStruts myLayout,
+        manageHook         = manageSpawn <+> myManageHook <+> manageHook def,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
