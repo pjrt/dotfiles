@@ -1,5 +1,15 @@
+! Make capslock Ctrl
 keycode 66 = Control_L
 clear Lock
 add Control = Control_L
-
+!
+! Add multi-key to right alt
 keycode 108 = Multi_key
+
+! Exchange left Alt and left Win
+remove mod1 = Alt_L
+remove mod4 = Super_L
+keycode 133 = Alt_L
+keycode 64 = Super_L
+add mod1 = Alt_L  
+add mod4 = Super_L
