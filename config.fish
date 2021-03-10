@@ -26,7 +26,7 @@ alias vim="nvim"
 
 set -x EDITOR 'nvim'
 set -x BROWSER 'chromium'
-set -x TERM rxvt-unicode
+set -x TERM rxvt-unicode-256color
 set -x MANPAGER "nvim -c 'set ft=man' -"
 
 set -x XMODIFIERS "@im=none"

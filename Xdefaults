@@ -31,9 +31,11 @@ URxvt.lineSpace:            0
 
 ! Fonts
 URxvt.allow_bold:           true
+
 URxvt*font:                 xft:bitstream vera sans mono:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:WenQuanYi Bitmap Song:size=8
 
 URxvt*boldFont:             xft:bitstream vera sans mono:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:WenQuanYi Bitmap Song:size=8
+URxvt*termName:             rxvt-unicode-256color
 
 ! Fix font space
 URxvt*letterSpace: -1
@@ -45,9 +47,9 @@ URxvt.scrollBar:            false
 ! Perl extensions
 URxvt.perl-ext-common:      default,matcher,url-select,keyboard-select,clipboard,font-size
 URxvt.matcher.button:       1
-URxvt.urlLauncher:          chromium
+URxvt.urlLauncher:          firefox
 
-URxvt.url-select.launcher:  chromium
+URxvt.url-select.launcher:  firefox
 
 ! Meta (M) is Alt
 URxvt.clipboard.autocopy:   false

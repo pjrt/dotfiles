@@ -17,6 +17,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
+Plug 'ekalinin/Dockerfile.vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 " Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dbakker/vim-projectroot'
