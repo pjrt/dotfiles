@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+COLOR="gray"
+
+total=$(task "status:pending" count)
+
+overdue=$(task status:pending +OVERDUE count)
+
+if [[ "$overdue" -gt 0 ]]
+then COLOR="red"
+elif [[ "$(task due:today status:pending count)" -gt 0 ]]
+then COLOR="orange"
+elif [[ "$(task due:tomorrow status:pending count)" -gt 0 ]]
+then COLOR="yellow"
+fi
+
+echo "<fc=$COLOR>$total</fc>"

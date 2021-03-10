@@ -327,13 +327,15 @@ threeCol = ThreeColMid nmaster delta ratio ||| full
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-zoom =
-    [ isChat --> move >> doFloat
+zoom = [
+      isChat --> move >> doFloat
     , isHost --> move >> doFloat
-    , isZoom --> move
+    , isMain --> move >> doFloat
+    , isZoom --> move >> doFloat
     ]
   where
     isZoom = appName           =? "zoom"
+    isMain = isZoom <&&> title =? "Zoom Meeting"
     isChat = isZoom <&&> title =? "Chat"
     isHost = isZoom <&&> title =? "" -- This is that weird "Host is now X" window
     move   = doShift "4"

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+status=$(playerctl status)
+
+case "$status" in
+  "Playing")
+    playerctl metadata -f "Playing: <fc=green>{{ title }}</fc>"
+    ;;
+  "Paused")
+    playerctl metadata -f "Paused: <fc=cyan>{{ title }}</fc>"
+    ;;
+  *)
+    echo "Nothing Playing"
+    ;;
+esac

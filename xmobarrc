@@ -2,21 +2,19 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Top
-       , lowerOnStart = True
+       , lowerOnStart = False
        , pickBroadest = True
        , commands = [ Run StdinReader
-                    , Run Wireless "wlp3s0" ["-t", "<essid> <qualityvbar>"] 10
                     , Run MultiCpu ["-L","10","-H","70","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%Y-%m-%d %H:%M" "date" 10
                     , Run Com "/usr/bin/date" ["--utc", "+%H:%M"] "utc" 30
-                    --, Run DateZone "%H:%M" "en_US.UTF-8" "UTC" "utc" 10
-                    , Run BatteryP ["BAT0", "BAT1"] ["-t", "<acstatus> (<left>%)" , "-L", "10", "-H", "80" , "-l", "red", "-h", "green" , "--", "-O", "Charging", "-o", "Battery", "-i", "Full"] 100
-                    , Run PipeReader "/home/pjrt/.vol" "vol"
-                    , Run Com "/usr/bin/task" ["(due: or due.before:tomorrow)", "and", "status:pending", "count"] "todo" 10
+                    , Run Volume "default" "Master" [] 10
+                    , Run Com "xmobarTaskwarriroBar" [] "todo" 10
+                    , Run Com "currentlyPlaying" [] "playerctl" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %wlp3s0wi% | Todo: %todo% | Volume: %vol% | %battery% | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %playerctl% | Todo: <fc=gray>%todo%</fc> | %default:Master% | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
        }
