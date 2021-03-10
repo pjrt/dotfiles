@@ -13,7 +13,7 @@ case $lang in
     ;;
   "scala")
     # stags for Scala
-    CT="stags-graal -d 2 -o .git/tags.$$ ."
+    CT="stags --absolute-files -d 2 -o .git/tags.$$ ."
     ;;
   "")
     echo "No project.language set for project. Set one with git config --local project.language <language>"

@@ -17,6 +17,12 @@ nnoremap <silent><F5> :!scalafmt -i -f %<CR>
 nnoremap <silent>,tq :T qsbt<CR>
 nnoremap <silent>,ts :Tmap testQuick<CR>
 
+" Required to allow stags to tag jars
+set notagrelative
+set tags=.git/tags,/home/pjrt/.cache/nvim/tags
+
+au BufEnter zipfile:/*.scala set nomodifiable
+
 " set foldmethod=syntax
 " setlocal foldlevel=99
 
