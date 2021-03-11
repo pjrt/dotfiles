@@ -172,7 +172,7 @@ set nowritebackup
 set dir=~/.vim/tmp
 
 " Tags
-set tags=.git/tags
+set tags=.git/tags,.git/tags-external
 
 " Set Autoread
 set autoread

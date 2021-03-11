@@ -6,24 +6,41 @@ cd $(git rev-parse --show-toplevel)
 
 lang=$(git config --local project.language)
 
-case $lang in
-  "haskell")
-    # Hasktags for Haskell
-    CT="hasktags -x -c -o .git/tags.$$ -R ."
-    ;;
-  "scala")
-    # stags for Scala
-    CT="stags --absolute-files -d 2 -o .git/tags.$$ ."
+case "$1" in
+  "external")
+    loc=".git/tags-external"
+    scalaFileTypes="sources-jar"
     ;;
   "")
-    echo "No project.language set for project. Set one with git config --local project.language <language>"
+    loc=".git/tags"
+    scalaFileTypes="scala"
     ;;
   *)
-    echo "No tags generator for $lang. Falling back to ctags."
-    CT="ctags --tag-relative=always --sort=foldcase -Rf.git/tags.$$ --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
+    echo "Unrecognized argument $1"
+    exit 1
     ;;
 esac
 
-trap "rm -f .git/tags.$$" EXIT
+temp=$loc.$$
+
+case $lang in
+  "haskell")
+    # Hasktags for Haskell
+    CT="hasktags -x -c -o $temp -R ."
+    ;;
+  "scala")
+    # stags for Scala
+    CT="stags --file-types $scalaFileTypes --absolute-files -d 2 -o $temp ."
+    ;;
+  "")
+    echo "No project.language set for project. Set one with git config --tempal project.language <language>"
+    ;;
+  *)
+    echo "No tags generator for $lang. Falling back to ctags."
+    CT="ctags --tag-relative=always --sort=foldcase -Rf$temp --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
+    ;;
+esac
+
+trap "rm -f $temp" EXIT
 eval "$CT"
-mv .git/tags.$$ .git/tags
+mv $temp $loc
