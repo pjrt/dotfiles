@@ -108,9 +108,6 @@ set pastetoggle=<F2>
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
-" Soft line limit
-set colorcolumn=80
-
 " }}}
 
 " Key remapping {{{
@@ -143,6 +140,8 @@ vnoremap > >gv
 
 " Make Y behave correctly
 nnoremap Y y$
+
+nnoremap tn :tn<CR>
 
 " Neovim things
 if exists(":terminal")
@@ -315,7 +314,7 @@ nnoremap <silent> _ -:execute 'edit' . getcwd() <CR>
 " ============================================================================
 
 nnoremap <silent> gb :Gblame<CR>
-nnoremap <silent> gs :Gstatus<CR>
+nnoremap <silent> gs :Gina status<CR>
 nnoremap <silent> gp :Gpush<CR>
 nnoremap <silent> gPP :Gpush -f<CR>
 nnoremap <silent> gr :Gpull --rebase<CR>
