@@ -1,6 +1,5 @@
-set errorformat=%E%f:%l:%c:,%C%m
-set errorformat+=%E%f:%l:%c:\ %m,%C%m
-set errorformat+=%W%f:%l:%c:\ Warning:,%C%m
+set errorformat=%E%f:%l:%c-%*[0-9]:\ error:,%Z%m
+" set errorformat+=%W%f:%l:%c:\ warning:,%C%m
 
 nnoremap <Leader>m :w<CR>:make<CR>
 nnoremap <silent> <Leader>ff :cf .git/cabal.quickfix<CR>
