@@ -17,9 +17,11 @@
 
 import XMonad
 import Data.Monoid
+import Data.Maybe (fromJust, isNothing)
 import Data.List (foldl', isInfixOf)
 import Data.Default (def)
 
+import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Actions.GridSelect (goToSelected)
 import XMonad.Util.EZConfig (mkKeymap)
@@ -27,11 +29,12 @@ import XMonad.Util.WindowProperties (Property(Resource))
 import XMonad.Hooks.DynamicLog (dynamicLog, xmobarPP, statusBar)
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, ToggleStruts(..))
 import XMonad.Hooks.SetWMName (setWMName)
-import XMonad.Layout.NoBorders (noBorders)
+import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 import System.Environment (getArgs)
 import XMonad.Config.Xfce
+import XMonad.Actions.CopyWindow (kill1, copyToAll, copy, killAllOtherCopies)
 
 import qualified XMonad.Prompt        as P
 import qualified XMonad.Prompt.Window as P
@@ -102,12 +105,12 @@ myFocusedBorderColor = "#ff0000"
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) =
   let genKeys = M.fromList $
-        -- mod-[1..9], Switch to workspace N
-        -- mod-shift-[1..9], Move client to workspace N
-        --
-        [ ((m .|. modm, k), windows $ f i)
-            | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-            , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        -- mod-[1..9] @@ Switch to workspace N
+        -- mod-shift-[1..9] @@ Move client to workspace N
+        -- mod-control-shift-[1..9] @@ Copy client to workspace N
+        [((m .|. modm, k), windows $ f i)
+            | (i, k) <- zip (workspaces conf) [xK_1 ..]
+            , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
         ++
         -- mod-{a,s,d}, Switch to physical/Xinerama screens 1, 2, or 3
         -- mod-shift-{a,s,d}, Move client to screen 1, 2, or 3
@@ -129,7 +132,9 @@ keyMappings conf = mkKeymap conf $
     , "M-p" → spawn "xfce4-appfinder"
 
         -- close focused window
-    , "M-S-c" → kill
+    , "M-S-c" → kill1
+    , "M-v" → windows copyToAll
+    , "M-S-v" → killAllOtherCopies
 
      -- Rotate through the available layout algorithms
     , "M-<Space>" → sendMessage NextLayout
@@ -141,16 +146,16 @@ keyMappings conf = mkKeymap conf $
     , "M-n" → refresh
 
     -- Move focus to the next window
-    , "M-<Tab>" → windows W.focusDown
+    , "M-<Tab>" → windows focusDownSkipFloat
 
     -- Move focus to the previous window
-    , "M-S-<Tab>" → windows W.focusUp
+    , "M-S-<Tab>" → windows focusUpSkipFloat
 
     -- Move focus to the next window
-    , "M-j" → windows W.focusDown
+    , "M-j" → windows focusDownSkipFloat
 
     -- Move focus to the previous window
-    , "M-k" → windows W.focusUp
+    , "M-k" → windows focusUpSkipFloat
 
     -- Move focus to the master window
     , "M-m" → windows W.focusMaster
@@ -184,6 +189,7 @@ keyMappings conf = mkKeymap conf $
     -- Quit xmonad
     -- , "M-S-q" → io (exitWith ExitSuccess)
     , "M-S-q" → spawn "xfce4-session-logout"
+    , "M-C-S-q" → spawn "shutdown 0"
 
     -- Restart xmonad
     , "M-q" → spawn "xmonad --recompile; xmonad --restart"
@@ -200,12 +206,12 @@ keyMappings conf = mkKeymap conf $
     , "<XF86AudioLowerVolume>" → spawn "amixer -q sset Master 5%-"
     , "<XF86AudioRaiseVolume>" → spawn "amixer -q sset Master 5%+"
     , "<XF86AudioPlay>" → spawn "playerctl play-pause"
-    , "M-; p" → spawn "playerctl play-pause"
+    , "M-<F5>" → spawn "playerctl play-pause"
     , "<XF86AudioStop>" → spawn "playerctl stop"
     , "<XF86AudioNext>" → spawn "playerctl next"
-    , "M-; n" → spawn "playerctl next"
+    , "M-<F8>" → spawn "playerctl next"
     , "<XF86AudioPrev>" → spawn "playerctl previous"
-    , "M-; b" → spawn "playerctl previous"
+    , "M-<F7>" → spawn "playerctl previous"
 
     -- -- Brightness control
     -- , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
@@ -226,16 +232,23 @@ keyMappings conf = mkKeymap conf $
     , "M-; x p" → spawn "captureXProp"
   ]
 
-registers :: [(String, X ())]
-registers = concatMap go ['a'..'z']
-  where
-    go k =
-      let file = "/tmp/registers-" ++ [k]
-          write = spawn $ "xsel -ob > " ++ file
-          read = spawn $ "cat " ++ file ++ " | xsel -ib"
-          keyCombo key = "M-; " ++ [key] ++ " " ++ [k]
-      in [keyCombo 'p' → read, keyCombo 'y' → write]
-        
+focusUpSkipFloat s = skipFloating s W.focusUp
+focusDownSkipFloat s = skipFloating s W.focusDown
+
+skipFloating :: (Eq a, Ord a) => W.StackSet i l a s sd -> (W.StackSet i l a s sd -> W.StackSet i l a s sd) -> W.StackSet i l a s sd
+skipFloating stacks f
+    | isNothing curr = stacks -- short circuit if there is no currently focused window
+    | otherwise = skipFloatingR stacks curr f
+  where curr = W.peek stacks
+
+skipFloatingR :: (Eq a, Ord a) => W.StackSet i l a s sd -> (Maybe a) -> (W.StackSet i l a s sd -> W.StackSet i l a s sd) -> W.StackSet i l a s sd
+skipFloatingR stacks startWindow f
+    | isNothing nextWindow = stacks -- next window is nothing return current stack set
+    | nextWindow == startWindow = newStacks -- if next window is the starting window then return the new stack set
+    | M.notMember (fromJust nextWindow) (W.floating stacks) = newStacks -- if next window is not a floating window return the new stack set
+    | otherwise = skipFloatingR newStacks startWindow f -- the next window is a floating window so keep recursing (looking)
+  where newStacks = f stacks
+        nextWindow = W.peek newStacks
 
 -- | Alias for (,) for easier/prettier key mapping
 infixr 0 →
@@ -293,10 +306,9 @@ only = W.modify' $ \c -> case c of
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| full
+myLayout = tiled ||| Mirror tiled ||| Full
 
 -- | Multiple layouts
-full = noBorders Full
 tiled = Tall nmaster delta ratio
   where
     -- The default number of windows in the master pane
@@ -306,7 +318,7 @@ tiled = Tall nmaster delta ratio
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
-threeCol = ThreeColMid nmaster delta ratio ||| full
+threeCol = ThreeColMid nmaster delta ratio ||| Full
   where
     nmaster = 1
     ratio   = 1/2
@@ -328,10 +340,10 @@ threeCol = ThreeColMid nmaster delta ratio ||| full
 -- 'className' and 'resource' are used below.
 --
 zoom = [
-      isChat --> move >> doFloat
-    , isHost --> move >> doFloat
-    , isMain --> move >> doFloat
-    , isZoom --> move >> doFloat
+      isChat --> move <+> doFloat
+    , isHost --> move <+> doFloat
+    , isMain --> move <+> doFloat
+    , isZoom --> move <+> doFloat
     ]
   where
     isZoom = appName           =? "zoom"
@@ -343,11 +355,11 @@ myManageHook = composeAll $ zoom ++ misc
   where
     role = stringProperty "WM_WINDOW_ROLE"
     misc =
-      [ className =? "MPlayer"            --> doFloat
-      , className =? "Gimp"               --> doFloat
-      , role      =? "Picture-in-Picture" --> doFloat
-      , resource  =? "desktop_window"     --> doIgnore
-      , resource  =? "kdesktop"           --> doIgnore ]
+      [ className =? "MPlayer"          --> doFloat
+      , className =? "Gimp"             --> doFloat
+      , role      =? "PictureInPicture" --> doFloat
+      , resource  =? "desktop_window"   --> doIgnore
+      , resource  =? "kdesktop"         --> doIgnore ]
 
 -- | Checks if the query contains `x`
 (~?) :: Query String -> String -> Query Bool
@@ -365,7 +377,7 @@ q ~? x = fmap (x `isInfixOf`) q
 -- It will add EWMH event handling to your custom event hooks by
 -- combining them with ewmhDesktopsEventHook.
 --
-myEventHook = docksEventHook
+myEventHook = docksEventHook <+> fullscreenEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -397,10 +409,13 @@ myLogHook = dynamicLog
 --
 myStartupHook = do
     setWMName "LG3D"
-    spawnOn "9" "discord"
+    spawnOn "9" "discord-canary"
     spawnOn "3" "slack"
+    spawnOn "2" "firefox"
+    spawnOn "8" "telegram-desktop"
 
 myBar = "xmobar"
+-- myBar = "i3status | xmobar -o -t '%StdinReader%' -c '[Run StdinReader]'"
 
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask .|. shiftMask, xK_b)
 
@@ -413,7 +428,7 @@ main = do
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
 -- use the defaults defined in xmonad/XMonad/Config.hs
-defaults = def {
+defaults = ewmh def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -428,9 +443,9 @@ defaults = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = avoidStruts myLayout,
+        layoutHook         = smartBorders $ avoidStruts myLayout,
         manageHook         = manageSpawn <+> myManageHook <+> manageHook def,
-        handleEventHook    = myEventHook,
+        handleEventHook    = handleEventHook def <+> myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }
