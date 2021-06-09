@@ -21,7 +21,14 @@ nnoremap <silent>,ts :Tmap testQuick<CR>
 set notagrelative
 set tags=.git/tags,/home/pjrt/.cache/nvim/tags
 
-au BufEnter zipfile:/*.scala set nomodifiable
+" No idea where this came from
+" unmap <C-i>
+
+augroup zipfiles
+  autocmd!
+  autocmd BufEnter zipfile:/*.scala set nomodifiable
+  autocmd BufLeave zipfile:/*.scala set modifiable
+augroup END
 
 " set foldmethod=syntax
 " setlocal foldlevel=99
