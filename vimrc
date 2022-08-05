@@ -63,6 +63,8 @@ Plug 'othree/html5.vim'
 Plug 'jparise/vim-graphql'
 Plug 'kana/vim-filetype-haskell'
 Plug 'aklt/plantuml-syntax'
+Plug 'hashivim/vim-terraform'
+Plug 'jasdel/vim-smithy'
 
 " }}}
 
@@ -113,11 +115,11 @@ set bs=2     " make backspace behave like normal again
 " Key remapping {{{
 " ============================================================================
 
+" Get rid of useless Ex mode
+noremap Q <Nop>
+
 inoremap <silent>jk <ESC>
 inoremap <silent>kj <ESC>
-
-" Gundo mapping
-nnoremap <silent><Leader>p :GundoToggle<CR>
 
 " Edit my vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -127,7 +129,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Bind nohl
 " Removes highlight of your last search
-nnoremap <silent><C-m> :nohl<CR>
+nnoremap <silent><C-SPACE> :nohl<CR>
 
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
@@ -313,14 +315,14 @@ nnoremap <silent> _ -:execute 'edit' . getcwd() <CR>
 " Fugitive {{{
 " ============================================================================
 
-nnoremap <silent> gb :Gblame<CR>
+nnoremap <silent> gb :Git blame<CR>
 nnoremap <silent> gs :Gina status<CR>
 nnoremap <silent> gp :Gpush<CR>
 nnoremap <silent> gPP :Gpush -f<CR>
 nnoremap <silent> gr :Gpull --rebase<CR>
 
 " Same key combo as Gblame, but only on visual
-vnoremap <silent> gb :Gbrowse!<CR>
+vnoremap <silent> gb :GBrowse!<CR>
 
 
 " }}}

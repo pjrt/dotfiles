@@ -35,11 +35,13 @@ import System.Exit (exitWith, ExitCode(ExitSuccess))
 import System.Environment (getArgs)
 import XMonad.Config.Xfce
 import XMonad.Actions.CopyWindow (kill1, copyToAll, copy, killAllOtherCopies)
+import XMonad.Actions.CycleWS (toggleWS, toggleOrView)
 
 import qualified XMonad.Prompt        as P
 import qualified XMonad.Prompt.Window as P
 import qualified XMonad.StackSet      as W
 import qualified Data.Map             as M
+-- import qualified Network.MQTT.Client  as Q
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -48,7 +50,7 @@ myTerminal      = "urxvtc"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
+myFocusFollowsMouse = False
 
 -- Width of the window border in pixels.
 --
@@ -108,9 +110,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
         -- mod-[1..9] @@ Switch to workspace N
         -- mod-shift-[1..9] @@ Move client to workspace N
         -- mod-control-shift-[1..9] @@ Copy client to workspace N
-        [((m .|. modm, k), windows $ f i)
+        [((m .|. modm, k), f i)
             | (i, k) <- zip (workspaces conf) [xK_1 ..]
-            , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]]
+            , (f, m) <- [(toggleOrView, 0), (windows . W.shift, shiftMask), (windows . copy, shiftMask .|. controlMask)]]
         ++
         -- mod-{a,s,d}, Switch to physical/Xinerama screens 1, 2, or 3
         -- mod-shift-{a,s,d}, Move client to screen 1, 2, or 3
@@ -135,6 +137,8 @@ keyMappings conf = mkKeymap conf $
     , "M-S-c" → kill1
     , "M-v" → windows copyToAll
     , "M-S-v" → killAllOtherCopies
+
+    , "M-C-6" → toggleWS
 
      -- Rotate through the available layout algorithms
     , "M-<Space>" → sendMessage NextLayout
@@ -205,13 +209,13 @@ keyMappings conf = mkKeymap conf $
     , "<XF86AudioMute>" → spawn "amixer set Master toggle"
     , "<XF86AudioLowerVolume>" → spawn "amixer -q sset Master 5%-"
     , "<XF86AudioRaiseVolume>" → spawn "amixer -q sset Master 5%+"
-    , "<XF86AudioPlay>" → spawn "playerctl play-pause"
-    , "M-<F5>" → spawn "playerctl play-pause"
-    , "<XF86AudioStop>" → spawn "playerctl stop"
-    , "<XF86AudioNext>" → spawn "playerctl next"
-    , "M-<F8>" → spawn "playerctl next"
-    , "<XF86AudioPrev>" → spawn "playerctl previous"
-    , "M-<F7>" → spawn "playerctl previous"
+    , "<XF86AudioPlay>" → spawn "playerctl -p firefox play-pause"
+    , "M-<F5>" → spawn "playerctl -p firefox play-pause"
+    , "<XF86AudioStop>" → spawn "playerctl -p firefox stop"
+    , "<XF86AudioNext>" → spawn "playerctl -p firefox next"
+    , "M-<F8>" → spawn "playerctl -p firefox next"
+    , "<XF86AudioPrev>" → spawn "playerctl -p firefox previous"
+    , "M-<F7>" → spawn "playerctl -p firefox previous"
 
     -- -- Brightness control
     -- , "<XF86MonBrightnessDown>" → spawn "xbacklight - 10"
@@ -230,6 +234,7 @@ keyMappings conf = mkKeymap conf $
 
     , "M-S-b" → sendMessage ToggleStruts
     , "M-; x p" → spawn "captureXProp"
+    , "M-i" → spawn "/opt/enpass/Enpass showassistant"
   ]
 
 focusUpSkipFloat s = skipFloating s W.focusUp
@@ -341,15 +346,15 @@ threeCol = ThreeColMid nmaster delta ratio ||| Full
 --
 zoom = [
       isChat --> move <+> doFloat
-    , isHost --> move <+> doFloat
     , isMain --> move <+> doFloat
+    , isLicensedZoom --> move <+> doFloat
     , isZoom --> move <+> doFloat
     ]
   where
-    isZoom = appName           =? "zoom"
-    isMain = isZoom <&&> title =? "Zoom Meeting"
-    isChat = isZoom <&&> title =? "Chat"
-    isHost = isZoom <&&> title =? "" -- This is that weird "Host is now X" window
+    isLicensedZoom = title =? "Zoom - Licensed Account"
+    isZoom = className =? "zoom"
+    isMain = title =? "Zoom Meeting"
+    isChat = title =? "Chat"
     move   = doShift "4"
 myManageHook = composeAll $ zoom ++ misc
   where
@@ -409,8 +414,8 @@ myLogHook = dynamicLog
 --
 myStartupHook = do
     setWMName "LG3D"
-    spawnOn "9" "discord-canary"
-    spawnOn "3" "slack"
+    spawnOn "9" "discord --password-store=basic"
+    spawnOn "3" "slack --password-store=basic"
     spawnOn "2" "firefox"
     spawnOn "8" "telegram-desktop"
 
