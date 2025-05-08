@@ -11,9 +11,6 @@ qsbt.sh:                 $HOME/.local/bin/qsbt
 qstack.sh:               $HOME/.local/bin/qstack
 qbloop:                  $HOME/.local/bin/qbloop
 
-vimrc:                   $HOME/.vimrc
-vimrc:                   $HOME/.config/nvim/init.vim
-
 xmobarrc:                $HOME/.xmobarrc
 
 xmonad/xmonad.hs:        $HOME/.xmonad/xmonad.hs
