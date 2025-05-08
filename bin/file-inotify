@@ -8,7 +8,7 @@ job="$2"
 #basename=$(basename "$1")
 dirname=$(dirname "$1")
 
-inotifywait -m -e close_write --format '%w%f' "$dirname" \
+inotifywait -m -e open,close_write --format '%w%f' "$dirname" \
 	| while read file
 do
 	if [[ $(realpath "$file") == "$path" ]]; then

@@ -32,10 +32,13 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           true
 
-URxvt*font:                 xft:bitstream vera sans mono:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:WenQuanYi Bitmap Song:size=8
+URxvt*font:                 xft:bitstream vera sans mono:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:devicons, xft:hacknerdfont
+!URxvt*font:                  xft:dejavu sans:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:hacknerdfont
+!URxvt*font:                 xft:inconsolata:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:hacknerdfont
 
-URxvt*boldFont:             xft:bitstream vera sans mono:pixelsize=13, xft:unifont:style=Medium:antialias=true, xft:WenQuanYi Bitmap Song:size=8
-URxvt*termName:             rxvt-unicode-256color
+URxvt*boldFont:             xft:bitstream vera sans mono:bold:pixelsize=13, xft:unifont:style=Medium:antialias=true
+!URxvt*boldFont:              xft:dejavu sans:bold:pixelsize=13, xft:unifont:style=Medium:antialias=true
+!URxvt*termName:              rxvt-unicode-256color
 
 ! Fix font space
 URxvt*letterSpace: -1

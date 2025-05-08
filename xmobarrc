@@ -11,13 +11,12 @@ Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Date "%Y-%m-%d %H:%M" "date" 10
                     , Run Com "/usr/bin/date" ["--utc", "+%H:%M"] "utc" 30
                     -- , Run DateZone "<fc=#ee9a00>%H:%M</fc>" "west" "America/Los_Angeles" 30
-                    , Run Volume "default" "Master" [] 10
+                    -- , Run Volume "default" "Master" [] 10
                     , Run Com "xmobarTaskwarriroBar" [] "todo" 10
                     , Run Com "currentlyPlaying" [] "playerctl" 10
-                    , Run ComX "vpnIsRunning" [] "N/A" "openconnect" 10
                     , Run ComX "camera-check" [] "N/A" "webcam" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %playerctl% | VPN: %openconnect% | CAM: %webcam% | Todo: <fc=gray>%todo%</fc> | %default:Master% | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
+       , template = "%multicpu% | %memory% * %swap% | %StdinReader%}{ %playerctl% | CAM: %webcam% | Todo: <fc=gray>%todo%</fc> | <fc=#ee9a00>%date%</fc> | <fc=#647cdb>%utc%</fc>"
        }

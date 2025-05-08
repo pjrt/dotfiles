@@ -26,8 +26,14 @@ alias vim="nvim"
 
 set -x EDITOR 'nvim'
 set -x BROWSER 'chromium'
-set -x TERM rxvt-unicode-256color
-set -x MANPAGER "nvim -c 'set ft=man' -"
+#set -x TERM rxvt-unicode-256color
+#set -x MANPAGER "nvim -c 'set ft=man' -"
+
+set -x NPM_PACKAGES "$HOME/.npm-packages"
+set -x N_PREFIX "$HOME/.n"
+set -x GTK_IM_MODULE fcitx
+set -x QT_IM_MODULE fcitx
+set -x XMODIFIERS @im=fcitx
 
 set -x XMODIFIERS "@im=none"
 
@@ -39,11 +45,14 @@ set -x FZF_DEFAULT_COMMAND 'ag -l -g ""'
 
 #set RPATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
-set -gx PATH ~/.local/bin /home/pjrt/.ghcup/bin /home/pjrt/.cabal/bin ~/.cache/yay/bloop/src /usr/bin /usr/local/bin /usr/bin/core_perl $PATH
+set -gx PATH /home/pjrt/.nodenv/shims ~/.local/bin ~/.linuxbrew/bin /home/pjrt/.ghcup/bin /home/pjrt/.cabal/bin ~/.cache/yay/bloop/src $NPM_PACKAGES/bin /usr/bin /usr/local/bin /usr/bin/core_perl $PATH
 
 function lacmd
     la (which $argv)
 end
+
+direnv hook fish | source
+pyenv init - | source
 
 source ~/.config/fish/config-local.fish
 

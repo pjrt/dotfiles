@@ -63,15 +63,9 @@ endsnippet
 snippet dt "data type" b
 sealed trait $1$2
 
-final case class $3 extends $1$2
-endsnippet
-
-snippet des "Desnote" b
-// DESNOTE(`!v strftime("%Y-%m-%d")`, `git config user.alias`): $1
-endsnippet
-
-snippet todo "TODO" b
-// TODO (`git config --local project.name`-${1:XXX}): $2
+object $1 {
+	final case class $3 extends $1$2
+}
 endsnippet
 
 snippet ws "Wart remover suppression" b

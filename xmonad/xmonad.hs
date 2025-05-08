@@ -19,9 +19,9 @@ import XMonad
 import Data.Monoid
 import Data.Maybe (fromJust, isNothing)
 import Data.List (foldl', isInfixOf)
-import Data.Default (def)
 
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
+import XMonad.Hooks.FloatConfigureReq (fixSteamFlicker)
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Actions.GridSelect (goToSelected)
 import XMonad.Util.EZConfig (mkKeymap)
@@ -46,7 +46,7 @@ import qualified Data.Map             as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "urxvtc"
+myTerminal      = "alacritty"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -230,7 +230,7 @@ keyMappings conf = mkKeymap conf $
     , "M-; e e" → spawn "echo pedro.rodriguez@disneystreaming.com | xsel -ib"
 
     -- Search for window and move to it
-    , "M-/" → P.windowPromptGoto def
+    , "M-/" → P.windowPrompt def P.Goto P.allWindows
 
     , "M-S-b" → sendMessage ToggleStruts
     , "M-; x p" → spawn "captureXProp"
@@ -356,9 +356,12 @@ zoom = [
     isMain = title =? "Zoom Meeting"
     isChat = title =? "Chat"
     move   = doShift "4"
-myManageHook = composeAll $ zoom ++ misc
+myManageHook = composeAll all
   where
+    all = zoom ++ discord ++ misc
     role = stringProperty "WM_WINDOW_ROLE"
+    discord =
+      [ className =? "discord"          --> doShift "9" ]
     misc =
       [ className =? "MPlayer"          --> doFloat
       , className =? "Gimp"             --> doFloat
@@ -382,7 +385,7 @@ q ~? x = fmap (x `isInfixOf`) q
 -- It will add EWMH event handling to your custom event hooks by
 -- combining them with ewmhDesktopsEventHook.
 --
-myEventHook = docksEventHook <+> fullscreenEventHook
+myEventHook = docksEventHook <+> fullscreenEventHook <+> fixSteamFlicker
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -414,10 +417,10 @@ myLogHook = dynamicLog
 --
 myStartupHook = do
     setWMName "LG3D"
-    spawnOn "9" "discord --password-store=basic"
-    spawnOn "3" "slack --password-store=basic"
     spawnOn "2" "firefox"
+    spawnOn "3" "slack --password-store=basic"
     spawnOn "8" "telegram-desktop"
+    spawnOn "9" "discord --password-store=basic"
 
 myBar = "xmobar"
 -- myBar = "i3status | xmobar -o -t '%StdinReader%' -c '[Run StdinReader]'"

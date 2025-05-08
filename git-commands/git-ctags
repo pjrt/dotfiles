@@ -40,7 +40,7 @@ case $lang in
     CT="ctags --tag-relative=always --sort=foldcase -Rf$temp --exclude=.git --languages=-XML,javascript,sql,html,Iniconf,CSS,JSON,SVG,C++,Make,JavaProperties,Diff,Java $(pwd)"
     ;;
 esac
-
+echo "$CT"
 trap "rm -f $temp" EXIT
 eval "$CT"
 mv $temp $loc
