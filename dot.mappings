@@ -12,6 +12,7 @@ qstack.sh:               $HOME/.local/bin/qstack
 qbloop:                  $HOME/.local/bin/qbloop
 
 xmobarrc:                $HOME/.xmobarrc
+wezterm.lua:             $HOME/.wezterm.lua
 
 xmonad/xmonad.hs:        $HOME/.xmonad/xmonad.hs
 
